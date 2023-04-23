@@ -22,3 +22,7 @@ serve: ## Serve Quartz locally
 
 docker: ## Serve locally using Docker
 	docker run -it --volume=$(shell pwd):/quartz -p 1313:1313 ghcr.io/jackyzha0/quartz:hugo
+
+export: ## Convert Obsidian markdown to common markdown using obsidian-export
+	rm -rf content/notes/*
+	obsidian-export --frontmatter=always ~/memo/public content/notes
