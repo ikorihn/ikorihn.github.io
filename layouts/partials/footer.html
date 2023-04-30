@@ -3,12 +3,39 @@
 <hr/>
 
 {{if $.Site.Data.config.enableFooter}}
-<div class="page-end" id="footer">
-    <div class="backlinks-container">
-        {{partial "backlinks.html" .}}
+<div id="footer">
+
+    <div class="prev-next-container">
+      {{ with .PrevInSection }}
+        <p>&lt;&lt; <a class="previous" href="{{ .Permalink }}"> {{ .Title }}</a></p>
+      {{ end }}
+      {{ with .NextInSection }}
+        <p><a class="next" href="{{ .Permalink }}"> {{ .Title }}</a> &gt;&gt;</p>
+      {{ end }}
     </div>
-    <div>
-        {{partial "graph.html" .}}
+
+    <div class="related-pages">
+      <h3>Related pages</h3>
+      {{ with .GetTerms "tags" }}
+        {{ range . }}
+          {{ $tag := .LinkTitle }}
+          <p>Tag: {{ $tag }}</p>
+          <ul>
+            {{ range (first 10 (index $.Site.Taxonomies.tags $tag)) }}
+              <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            {{ end }}
+          </ul>
+        {{ end }}
+      {{ end }}
+    </div>
+
+    <div class="page-end">
+      <div class="backlinks-container">
+          {{partial "backlinks.html" .}}
+      </div>
+      <div>
+          {{partial "graph.html" .}}
+      </div>
     </div>
 </div>
 {{end}}

@@ -308,6 +308,11 @@ hr {
   background-color: var(--outlinegray);
 }
 
+.prev-next-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .page-end {
   display: flex;
   flex-direction: row;
