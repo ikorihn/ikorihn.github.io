@@ -7,3 +7,4 @@ enableToc: false
 Obsidian のノートから一部を公開しています。
 
 - [Tags](/tags)
+- [All Notes](/note)
