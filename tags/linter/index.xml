@@ -6,4 +6,4 @@ Gradle(kts) プラグインなしで設定する場合
 面倒だったのでプラグインを使った
 https://github.com/jlleitschuh/ktlint-gradle
 build.gradle.kts
-1 2 3 plugins { id &amp;#34;org.jlleitschuh.gradle.ktlint&amp;#34; version &amp;#34;&amp;lt;current_version&amp;gt;&amp;#34; } 1 2 3 4 5 $ .</description></item></channel></rss>
+1 2 3 plugins { id &amp;#34;org.</description></item></channel></rss>
