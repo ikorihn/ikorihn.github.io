@@ -1,0 +1,479 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="開発言語・環境  バックエンド  Go 1.18 aws-lambda-go v1.32.0 AWS SAM (API Gateway + Lambda) oapi-codegen v1.11.0   フロントエンド  TypeScript 4."><meta property="og:title" content="OpenAPIでGoとTypeScriptのコード生成"><meta property="og:description" content="開発言語・環境  バックエンド  Go 1.18 aws-lambda-go v1.32.0 AWS SAM (API Gateway + Lambda) oapi-codegen v1.11.0   フロントエンド  TypeScript 4."><meta property="og:type" content="website"><meta property="og:image" content="https://ikorihn.github.io/digitalgarden/icon.png"><meta property="og:url" content="https://ikorihn.github.io/digitalgarden/note/OpenAPI%E3%81%A7Go%E3%81%A8TypeScript%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90/"><meta property="og:width" content="200"><meta property="og:height" content="200"><meta name=twitter:card content="summary"><meta name=twitter:title content="OpenAPIでGoとTypeScriptのコード生成"><meta name=twitter:description content="開発言語・環境  バックエンド  Go 1.18 aws-lambda-go v1.32.0 AWS SAM (API Gateway + Lambda) oapi-codegen v1.11.0   フロントエンド  TypeScript 4."><meta name=twitter:image content="https://ikorihn.github.io/digitalgarden/icon.png"><meta name=twitter:site content="r57ty7"><title>OpenAPIでGoとTypeScriptのコード生成 | ikorihn Digitalgarden</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://ikorihn.github.io/digitalgarden//icon.png><link href=https://ikorihn.github.io/digitalgarden/styles.d2e4b7f83dae8f1042fb202ebb04297c.min.css rel=stylesheet><link href=https://ikorihn.github.io/digitalgarden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://ikorihn.github.io/digitalgarden/js/darkmode.816c8b542b7f85a3e1f19a1c05a2cabd.min.js></script>
+<script src=https://ikorihn.github.io/digitalgarden/js/util.00639692264b21bc3ee219733d38a8be.min.js></script>
+<link rel=preload href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css as=style onload='this.onload=null,this.rel="stylesheet"' integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@floating-ui/core@1.2.1></script>
+<script src=https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.2.1></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/popover.aa9bc99c7c38d3ae9538f218f1416adb.min.js></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const SEARCH_ENABLED=!1,LATEX_ENABLED=!0,PRODUCTION=!0,BASE_URL="https://ikorihn.github.io/digitalgarden/",fetchData=Promise.all([fetch("https://ikorihn.github.io/digitalgarden/indices/linkIndex.837a4ccb816b90369e90034d0a3ea57f.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://ikorihn.github.io/digitalgarden/indices/contentIndex.190d9caf4fdec6fcf34554397e40eaa9.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://ikorihn.github.io/digitalgarden",!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://ikorihn.github.io/digitalgarden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}var i=document.getElementsByClassName("mermaid");i.length>0&&import("https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs").then(e=>{e.default.init()});function a(n){const e=n.target,t=e.className.split(" "),s=t.includes("broken"),o=t.includes("internal-link");plausible("Link Click",{props:{href:e.href,broken:s,internal:o,graph:!1}})}const r=document.querySelectorAll("a");for(link of r)link.className.includes("root-title")&&link.addEventListener("click",a,{once:!0})},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/ikorihn.github.io\/digitalgarden\/js\/router.d6fe6bd821db9ea97f9aeefae814d8e7.min.js"
+    attachSPARouting(init, render)
+  </script><script defer data-domain=ikorihn.github.io/digitalgarden src=https://plausible.io/js/script.js></script>
+<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script></head><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js></script><div class=singlePage><header><h1 id=page-title><a class=root-title href=https://ikorihn.github.io/digitalgarden/>ikorihn Digitalgarden</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><div class=container><main><article><h1>OpenAPIでGoとTypeScriptのコード生成</h1><p class=meta>Last updated
+May 4, 2023</p><ul class=tags><li><a href=https://ikorihn.github.io/digitalgarden/tags/2023/04/30/>2023/04/30</a></li><li><a href=https://ikorihn.github.io/digitalgarden/tags/OpenAPI/>OpenAPI</a></li><li><a href=https://ikorihn.github.io/digitalgarden/tags/Go/>Go</a></li></ul><aside class=mainTOC><details open><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#開発言語環境>開発言語・環境</a></li><li><a href=#導入の背景>導入の背景</a></li><li><a href=#導入した結果>導入した結果</a><ol><li><a href=#やらなかったこと>やらなかったこと</a></li></ol></li><li><a href=#バックエンドのコード生成>バックエンドのコード生成</a><ol><li><a href=#oapi-codegenの使い方>oapi-codegenの使い方</a></li><li><a href=#aws-lambdaのハンドラー内で利用する>AWS Lambdaのハンドラー内で利用する</a></li><li><a href=#struct-tagを追加したい>struct tagを追加したい</a></li></ol></li><li><a href=#フロントエンドのコード生成>フロントエンドのコード生成</a><ol><li><a href=#生成されるクライアントコード>生成されるクライアントコード</a></li><li><a href=#生成されたコードをvueから利用する>生成されたコードをVueから利用する</a></li></ol></li><li><a href=#おわりに>おわりに</a></li></ol></nav></details></aside><a href=#開発言語環境><h2 id=開発言語環境><span class=hanchor arialabel=Anchor># </span>開発言語・環境</h2></a><ul><li>バックエンド<ul><li>Go 1.18</li><li><a href=https://github.com/aws/aws-lambda-go>aws-lambda-go</a> v1.32.0</li><li>AWS SAM (API Gateway + Lambda)</li><li>oapi-codegen v1.11.0</li></ul></li><li>フロントエンド<ul><li>TypeScript 4.6</li><li>Nuxt.js 2.16</li><li>axios v0.21.4</li><li>OpenAPI Generator 5.4.0</li></ul></li></ul><p>※ コードを使った説明が多く出てきますが、各言語やライブラリの説明は省きますので基礎的な文法がわかることが前提となってしまいます。ご了承ください。</p><a href=#導入の背景><h2 id=導入の背景><span class=hanchor arialabel=Anchor># </span>導入の背景</h2></a><p>もともと仕様書の記述はOpenAPIで行っていました。
+しかし、クライアントやサーバーのAPIレスポンスのコードは手動で実装していたため、コードの更新を仕様書に反映し忘れたり、仕様書とコードでプロパティ名が異なったりと、実装と仕様の乖離が発生することがありました。
+OpenAPIファイルとコードを二重でメンテナンスをするコストだけがかかっている状態です。</p><p>そこでそれぞれの言語向けにコードを自動生成する方法を取り入れ、この課題を解決しました。</p><a href=#導入した結果><h2 id=導入した結果><span class=hanchor arialabel=Anchor># </span>導入した結果</h2></a><ol><li>仕様書とコードが一致するようになった</li><li>それぞれの言語向けにAPIレスポンスのコードを実装するコストが減った</li><li>フロントエンドとバックエンドの実装が並行して進められるようになった</li></ol><p>1、2については、APIを変更したときにコードを再生成するとGoやTypeScriptでエラーがでるので、変更が安全に行えるようになりました。</p><p>このときの開発チームでは同じ人がフロントエンドとバックエンド両方を実装していたので、3についてはあまり影響がありませんでしたが、開発者が分かれている場合はバックエンドの開発が済んでいなくてもフロントエンドの開発を進められるのは大きな利点だと思います。</p><p>一方でイマイチだった点として、生成ツールの吐き出すコードのフォーマットがプロジェクトに合わないものであっても妥協する必要がありました。
+出力されるコードのフォーマットはある程度パラメータでコントロールできるものの、その方法を調べるコストやメンテナンスコストを鑑みて、生成されたものにコードフォーマッタをかけるくらいに留めてあとは受け入れることにしました。</p><a href=#やらなかったこと><h3 id=やらなかったこと><span class=hanchor arialabel=Anchor># </span>やらなかったこと</h3></a><p>今回はOpenAPIファイルをもとにしてコードを生成する方針で開発を行いました。</p><p>一方で、コードからOpenAPIファイルを生成するアプローチもあります。
+yamlを編集するよりもコードを書きたい、コードのほうがコンパイルエラーで検知できたりIDEの恩恵を受けやすいという気持ちはあったのですが、
+ライブラリ側がOpenAPI 3.0系に対応するのを待つ必要があったり、使用できるプロパティが制限されたりと不便なところがあったため、このアプローチは取りませんでした。
+例えば、Go でコードからOpenAPI(Swagger)を生成するライブラリの中でスター数の多い <a href=https://github.com/swaggo/swag>swag</a> はSwagger 2.0に対応していますがOpenAPI 3.0系には未対応です。</p><p><em>以降はサンプルとして <a href=https://github.com/OAI/OpenAPI-Specification/blob/3.1.0/examples/v3.0/petstore.yaml>OpenAPIのexamplesにあるpetstore.yaml</a> を使用して説明していきます。</em></p><a href=#バックエンドのコード生成><h2 id=バックエンドのコード生成><span class=hanchor arialabel=Anchor># </span>バックエンドのコード生成</h2></a><p>GoのAWS Lambdaハンドラー向けのコード生成について説明します。</p><p>OpenAPIからGoのコードを生成するツールで有名なものに <a href=https://github.com/go-swagger/go-swagger>go-swagger</a> がありますが、現時点(v0.30.3)ではSwagger 2.0にのみ対応しており、OpenAPI 3系が使えません。
+すでにOpenAPIファイルは3系で書いていたため、これに対応している <a href=https://github.com/deepmap/oapi-codegen>oapi-codegen</a> を使用しました。
+go-swagger と比べるとリリース頻度が低く、プルリクが滞留しがちなのが気になるところではありますが、他の選択肢がなかったためこちらを採用しています。</p><a href=#oapi-codegenの使い方><h3 id=oapi-codegenの使い方><span class=hanchor arialabel=Anchor># </span>oapi-codegenの使い方</h3></a><p>まずは最新版をインストールして実行してみます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>oapi-codegen -package <span class=s2>&#34;openapi&#34;</span> petstore.yaml &gt; petstore.gen.go
+</span></span></code></pre></td></tr></table></div></div><p>すると以下のような内容が書かれた petstore.gen.go が生成されます。</p><ul><li><strong>components</strong> や <strong>parameters</strong> のstruct定義</li><li>全APIのハンドラーを持った <strong>ServerInterface</strong></li><li>Echo用のwrapper</li><li>Base64エンコードされたOpenAPI spec</li></ul><p>生成対象はconfigファイルで設定することができます。
+今回はstruct定義のみ生成したかったので、以下のような設定にしました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># oapi-codegen.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>package</span><span class=p>:</span><span class=w> </span><span class=l>openapi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>generate</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>models</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># echo-server: true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># embedded-spec: true</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>oapi-codegen -config oapi-codegen.yaml petstore.yaml &gt; petstore.gen.go
+</span></span></code></pre></td></tr></table></div></div><p>生成されるコードはこちらです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Package openapi provides primitives to interact with the openapi HTTP API.
+</span></span></span><span class=line><span class=cl><span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1>// Code generated by github.com/deepmap/oapi-codegen version v1.11.0 DO NOT EDIT.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kn>package</span> <span class=nx>openapi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Error defines model for Error.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Error</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Code</span>    <span class=kt>int32</span>  <span class=s>`json:&#34;code&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Message</span> <span class=kt>string</span> <span class=s>`json:&#34;message&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Pet defines model for Pet.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Pet</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Id</span>   <span class=kt>int64</span>   <span class=s>`json:&#34;id&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Name</span> <span class=kt>string</span>  <span class=s>`json:&#34;name&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Tag</span>  <span class=o>*</span><span class=kt>string</span> <span class=s>`json:&#34;tag,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Pets defines model for Pets.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Pets</span> <span class=p>=</span> <span class=p>[]</span><span class=nx>Pet</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ListPetsParams defines parameters for ListPets.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>ListPetsParams</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// How many items to return at one time (max 100)
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>Limit</span> <span class=o>*</span><span class=kt>int32</span> <span class=s>`form:&#34;limit,omitempty&#34; json:&#34;limit,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>※v1.10.0以前では、以下のようにコマンドラインオプションで生成対象を指定できましたがこれは使えなくなっています。
+詳しくは <a href=https://github.com/deepmap/oapi-codegen/releases/tag/v1.11.0>v1.11.0のリリースノート</a> をご覧ください。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>oapi</span><span class=o>-</span><span class=nx>codegen</span> <span class=o>-</span><span class=nx>generate</span> <span class=s>&#34;types&#34;</span> <span class=o>-</span><span class=kn>package</span> <span class=s>&#34;openapi&#34;</span> <span class=nx>petstore</span><span class=p>.</span><span class=nx>yaml</span>
+</span></span><span class=line><span class=cl><span class=nx>oapi</span><span class=o>-</span><span class=nx>codegen</span> <span class=o>-</span><span class=nx>generate</span> <span class=s>&#34;server&#34;</span> <span class=o>-</span><span class=kn>package</span> <span class=s>&#34;openapi&#34;</span> <span class=nx>petstore</span><span class=p>.</span><span class=nx>yaml</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#aws-lambdaのハンドラー内で利用する><h3 id=aws-lambdaのハンドラー内で利用する><span class=hanchor arialabel=Anchor># </span>AWS Lambdaのハンドラー内で利用する</h3></a><p>ハンドラーのコードについて詳細は省きますが、
+こちらのようにしてリクエストパラメータを生成コードにマッピングして、処理を行い、レスポンスを返すよう実装しました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;encoding/json&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;net/http&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/aws/aws-lambda-go/events&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/aws/aws-lambda-go/lambda&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/mitchellh/mapstructure&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;example.com/petstore/openapi&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>handler</span><span class=p>(</span><span class=nx>request</span> <span class=nx>events</span><span class=p>.</span><span class=nx>APIGatewayProxyRequest</span><span class=p>)</span> <span class=p>(</span><span class=nx>events</span><span class=p>.</span><span class=nx>APIGatewayProxyResponse</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// requestをopenapi.ListPetsParamsにマッピングする
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=kd>var</span> <span class=nx>param</span> <span class=nx>openapi</span><span class=p>.</span><span class=nx>ListPetsParams</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>decoderConfig</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>mapstructure</span><span class=p>.</span><span class=nx>DecoderConfig</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>WeaklyTypedInput</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Result</span><span class=p>:</span>           <span class=o>&amp;</span><span class=nx>param</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>decoder</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>mapstructure</span><span class=p>.</span><span class=nf>NewDecoder</span><span class=p>(</span><span class=nx>decoderConfig</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>events</span><span class=p>.</span><span class=nx>APIGatewayProxyResponse</span><span class=p>{},</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=p>=</span> <span class=nx>decoder</span><span class=p>.</span><span class=nf>Decode</span><span class=p>(</span><span class=nx>request</span><span class=p>.</span><span class=nx>QueryStringParameters</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>events</span><span class=p>.</span><span class=nx>APIGatewayProxyResponse</span><span class=p>{},</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>// do something
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>	<span class=c1>// openapi.Petsを作成してJSONにして返却する
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>pets</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=nx>openapi</span><span class=p>.</span><span class=nx>Pets</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>body</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>pets</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>events</span><span class=p>.</span><span class=nx>APIGatewayProxyResponse</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>StatusCode</span><span class=p>:</span> <span class=nx>http</span><span class=p>.</span><span class=nx>StatusOK</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Body</span><span class=p>:</span>       <span class=nb>string</span><span class=p>(</span><span class=nx>body</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>	<span class=p>},</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>lambda</span><span class=p>.</span><span class=nf>Start</span><span class=p>(</span><span class=nx>handler</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>こうすることで、生成されたコードとリクエスト、レスポンスのマッピングが行われ、仕様書とコードが一致するようになりました。</p><a href=#struct-tagを追加したい><h3 id=struct-tagを追加したい><span class=hanchor arialabel=Anchor># </span>struct tagを追加したい</h3></a><p>上記コードでは、 <a href=https://github.com/mitchellh/mapstructure>mapstructure</a> を使ってLambdaのリクエストパラメータ( map[string]string 型の QueryStringParameters) を openapi.ListPetsParams 型の変数にパースしています。
+このライブラリは、 <code>mapstructre:"limit"</code> のようなstruct tagを書くことで、mapのキー名とtagが一致するフィールドに値をパースさせることができます。</p><p>これは、次のようにkebab-caseでリクエストパラメータを定義したいときに役立ちます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>  </span><span class=nt>/pets</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>get</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>limit</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>in</span><span class=p>:</span><span class=w> </span><span class=l>query</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>How many items to return at one time (max 100)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>required</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>schema</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>integer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>format</span><span class=p>:</span><span class=w> </span><span class=l>int32</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>sort-by</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>in</span><span class=p>:</span><span class=w> </span><span class=l>query</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>How to sort items</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>required</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>schema</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>生成されるコード</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>ListPetsParams</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// How many items to return at one time (max 100)
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>Limit</span> <span class=o>*</span><span class=kt>int32</span> <span class=s>`form:&#34;limit,omitempty&#34; json:&#34;limit,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>// How to sort items
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>SortBy</span> <span class=o>*</span><span class=kt>string</span> <span class=s>`form:&#34;sort-by,omitempty&#34; json:&#34;sort-by,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>この状態で /pets?sort-by=name でリクエストすると、SortBy には値が入らず、 /pets?sortBy=name としないといけません。</p><p>これを解消するために oapi-codegen では、<strong>x-oapi-codegen-extra-tags</strong> を書くことで任意のstruct tagをつけることができるようになっています。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>sort-by</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>in</span><span class=p>:</span><span class=w> </span><span class=l>query</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>How to sort items</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>required</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>schema</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>x-oapi-codegen-extra-tags</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>mapstructure</span><span class=p>:</span><span class=w> </span><span class=l>sort-by,omitempty</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>生成されるコード</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>ListPetsParams</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// How many items to return at one time (max 100)
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>Limit</span> <span class=o>*</span><span class=kt>int32</span> <span class=s>`form:&#34;limit,omitempty&#34; json:&#34;limit,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>// How to sort items
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>SortBy</span> <span class=o>*</span><span class=kt>string</span> <span class=s>`form:&#34;sort-by,omitempty&#34; json:&#34;sort-by,omitempty&#34; mapstructure:&#34;sort-by,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>これで /pets?sort-by=name が期待通り働くようになりました。</p><p>他にも <a href=https://github.com/go-playground/validator>go-playground/validator</a> 用のタグを追加するのにも使えそうです。</p><a href=#フロントエンドのコード生成><h2 id=フロントエンドのコード生成><span class=hanchor arialabel=Anchor># </span>フロントエンドのコード生成</h2></a><p>つづいてフロントエンド側のコード生成について説明します。
+TypeScriptのクライアントコードは、 <a href=https://openapi-generator.tech/>OpenAPI Generator</a> を使って生成しました。</p><p>httpクライアントは axios を使っていますので、axios 向けのコードを出力するようにします。
+次のようにして <strong>npm run openapi-generate</strong> で実行できるようにしました。</p><p><strong>package.json</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;scripts&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;openapi-generate&#34;</span><span class=p>:</span> <span class=s2>&#34;rm -f api_client/*.ts || true &amp;&amp; TS_POST_PROCESS_FILE=&#39;npx prettier --write&#39; openapi-generator-cli generate -i petstore.yaml -g typescript-axios -o api_client --additional-properties=supportsES6=true,useSingleRequestParameter=true --enable-post-process-file&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;devDependencies&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;@openapitools/openapi-generator-cli&#34;</span><span class=p>:</span> <span class=s2>&#34;^2.4.0&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>rm -f api_client/*.ts || true</strong></p><p>変更時に不要になったファイルが残ってしまうので、削除します</p><p><strong>TS_POST_PROCESS_FILE=&lsquo;npx prettier &ndash;write&rsquo;</strong></p><p>TS_POST_PROCESS_FILE でコード生成後に実行する処理を設定できます。ここではprettierでコードフォーマットを行っています。</p><p><strong>openapi-generator-cli generate -i petstore.yaml -g typescript-axios -o api_client</strong></p><ul><li>-i OpenAPIファイルを指定する</li><li>-g generatorの種類</li><li>-o 生成先のディレクトリ</li></ul><p>指定できるgeneratorの種類はこちらで調べることができます。
+<a href=https://openapi-generator.tech/docs/generators/>https://openapi-generator.tech/docs/generators/</a></p><p>axiosを使用しているので typescript-axios を指定しました。fetch を使いたい場合、 typescript-fetch を指定することもできます。</p><p><strong>&ndash;additional-properties=supportsES6=true,useSingleRequestParameter=true</strong></p><p>指定できるオプションは公式ドキュメントに記載されています。
+<a href=https://openapi-generator.tech/docs/generators/typescript-axios>https://openapi-generator.tech/docs/generators/typescript-axios</a></p><ul><li>supportsES6 ES6向けのコードを出力する</li><li>useSingleRequestParameter APIリクエストパラメータを構造体にまとめる</li></ul><p><strong>&ndash;enable-post-process-file</strong></p><p>TS_POST_PROCESS_FILE の処理を実行するためのオプションです</p><a href=#生成されるクライアントコード><h3 id=生成されるクライアントコード><span class=hanchor arialabel=Anchor># </span>生成されるクライアントコード</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>export</span> <span class=kr>class</span> <span class=nx>BaseAPI</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>protected</span> <span class=nx>configuration</span>: <span class=kt>Configuration</span> <span class=o>|</span> <span class=kc>undefined</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>constructor</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=nx>configuration?</span>: <span class=kt>Configuration</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=kr>protected</span> <span class=nx>basePath</span>: <span class=kt>string</span> <span class=o>=</span> <span class=nx>BASE_PATH</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=kr>protected</span> <span class=nx>axios</span>: <span class=kt>AxiosInstance</span> <span class=o>=</span> <span class=nx>globalAxios</span>
+</span></span><span class=line><span class=cl>  <span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>configuration</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=p>.</span><span class=nx>configuration</span> <span class=o>=</span> <span class=nx>configuration</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=p>.</span><span class=nx>basePath</span> <span class=o>=</span> <span class=nx>configuration</span><span class=p>.</span><span class=nx>basePath</span> <span class=o>||</span> <span class=k>this</span><span class=p>.</span><span class=nx>basePath</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=kr>class</span> <span class=nx>PetsApi</span> <span class=kr>extends</span> <span class=nx>BaseAPI</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#生成されたコードをvueから利用する><h3 id=生成されたコードをvueから利用する><span class=hanchor arialabel=Anchor># </span>生成されたコードをVueから利用する</h3></a><p>テストがしやすいよう、RepositoryFactoryパターンで実装しています。
+主題ではないので、軽い紹介にとどめます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=c1>// repositories/api/petstore.ts
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=kr>type</span> <span class=p>{</span> <span class=nx>AxiosInstance</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;axios&#39;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>PetsApi</span><span class=p>,</span> <span class=nx>PetsApiListPetsRequest</span><span class=p>,</span> <span class=nx>Pet</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;~/generated&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=kr>class</span> <span class=nx>PetsRepository</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>private</span> <span class=kr>readonly</span> <span class=nx>axios</span>: <span class=kt>AxiosInstance</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>// axiosインスタンスを差し替え可能にする
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>constructor</span><span class=p>(</span><span class=nx>$axios</span>: <span class=kt>AxiosInstance</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>axios</span> <span class=o>=</span> <span class=nx>$axios</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>async</span> <span class=nx>list</span><span class=p>(</span><span class=nx>req</span>: <span class=kt>PetsApiListPetsRequest</span><span class=p>)</span><span class=o>:</span> <span class=nx>Promise</span><span class=p>&lt;</span><span class=nt>Pet</span><span class=err>[]</span><span class=p>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>petsApi</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>PetsApi</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>      <span class=kc>undefined</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=p>.</span><span class=nx>axios</span><span class=p>.</span><span class=nx>defaults</span><span class=p>.</span><span class=nx>baseURL</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=p>.</span><span class=nx>axios</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>petsApi</span><span class=p>.</span><span class=nx>listPets</span><span class=p>(</span><span class=nx>req</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>response</span><span class=p>.</span><span class=nx>data</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=c1>// plugins/repositories.ts
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>PetsRepository</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;~/repositories/api/petstore&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=kr>interface</span> <span class=nx>RepositoryApis</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>pets</span>: <span class=kt>PetsRepository</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=k>default</span> <span class=nx>defineNuxtPlugin</span><span class=p>((</span><span class=nx>nuxtApp</span><span class=p>)</span> <span class=o>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// axiosインスタンスをinjectする
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>pets</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>PetsRepository</span><span class=p>(</span><span class=nx>nuxtApp</span><span class=p>.</span><span class=nx>$axios</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>repositories</span>: <span class=kt>RepositoryApis</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>pets</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>nuxtApp</span><span class=p>.</span><span class=nx>provide</span><span class=p>(</span><span class=s1>&#39;repositories&#39;</span><span class=p>,</span> <span class=nx>repositories</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=line><span class=cl><span class=c1>// pages/petlist.vue
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>script</span> <span class=na>setup</span> <span class=na>lang</span><span class=o>=</span><span class=s>&#34;ts&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>Pet</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;~/generated&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>pets</span> <span class=o>=</span> <span class=nx>ref</span><span class=p>&lt;</span><span class=nt>Pet</span><span class=err>[]</span><span class=p>&gt;([])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>$nuxt</span> <span class=o>=</span> <span class=nx>useNuxtApp</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>searchPets</span> <span class=o>=</span> <span class=nx>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// pets.list APIを呼び出し
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>resp</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>$nuxt</span><span class=p>.</span><span class=nx>$repositories</span><span class=p>.</span><span class=nx>pets</span><span class=p>.</span><span class=nx>list</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=nx>limit</span><span class=o>:</span> <span class=mi>10</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=p>})</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>resp</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>onMounted</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=nx>searchPets</span><span class=p>())</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span><span class=nx>Pets</span><span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span> <span class=nt>v-for</span><span class=s>=&#34;pet in pets&#34; :key=&#34;pet.id&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>{{</span> <span class=na>pet.name</span> <span class=p>}}</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>template</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#おわりに><h2 id=おわりに><span class=hanchor arialabel=Anchor># </span>おわりに</h2></a><p>OpenAPIファイルからGoとTypeScriptのコード生成するためのツール・ライブラリの紹介と、それらを使った実装について説明しました。
+この導入によって開発効率が良くなり、また今後のAPI開発時に安全に変更が行えるようになりました。</p><p>スキーマ駆動開発の一例として、少しでも参考になる点があれば幸いです。</p></article></main></div><hr><div id=footer><div class=prev-next-container><p>&lt;&lt; <a class=previous href=https://ikorihn.github.io/digitalgarden/note/Kustomize/>Kustomize</a></p><p><a class=next href=https://ikorihn.github.io/digitalgarden/note/Hugo-relative-link/>Hugo relative link</a> >></p></div><div class=related-pages><h3>Related pages</h3><p>Tag: 2023/04/30</p><ul><li><a href=/digitalgarden/note/OpenAPI%E3%81%A7Go%E3%81%A8TypeScript%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90/>OpenAPIでGoとTypeScriptのコード生成</a></li><li><a href=/digitalgarden/note/ECS%E3%81%AEtomcat%E3%82%92%E6%89%8B%E3%81%A7%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%82%8B/>ECSのtomcatを手で差し替える</a></li><li><a href=/digitalgarden/note/jenkins/>Jenkins</a></li></ul><p>Tag: OpenAPI</p><ul><li><a href=/digitalgarden/note/OpenAPI%E3%81%A7Go%E3%81%A8TypeScript%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90/>OpenAPIでGoとTypeScriptのコード生成</a></li><li><a href=/digitalgarden/note/OpenAPI-yaml%E3%82%92%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%ABSwagger-Editor%E3%81%AA%E3%81%A9%E3%82%92%E4%BD%BF%E3%81%86/>OpenAPI yamlを編集するときにSwagger Editorなどを使う</a></li><li><a href=/digitalgarden/note/OpenAPI%E3%81%A8Go%E3%81%A7%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%81%AE%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E3%81%99%E3%82%8B/>OpenAPIとGoでリクエストのバリデーションをする</a></li><li><a href=/digitalgarden/note/OpenAPI-Generator/>OpenAPI Generator</a></li><li><a href=/digitalgarden/note/typescript-openapi/>typescript openapi</a></li></ul><p>Tag: Go</p><ul><li><a href=/digitalgarden/note/Hugo/>Hugo</a></li><li><a href=/digitalgarden/note/Hugo-relative-link/>Hugo relative link</a></li><li><a href=/digitalgarden/note/OpenAPI%E3%81%A7Go%E3%81%A8TypeScript%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90/>OpenAPIでGoとTypeScriptのコード生成</a></li><li><a href=/digitalgarden/note/Go/>Go</a></li><li><a href=/digitalgarden/note/Go-%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%AE%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E3%81%A7password%E3%82%92%E5%85%A5%E5%8A%9B%E3%81%99%E3%82%8B/>Go ターミナルのプロンプトでpasswordを入力する</a></li><li><a href=/digitalgarden/note/Go-OS%E3%81%AEcredential%E7%AE%A1%E7%90%86%E3%82%92%E5%88%A9%E7%94%A8%E3%81%99%E3%82%8B/>Go OSのcredential管理を利用する</a></li><li><a href=/digitalgarden/note/%E7%B7%AF%E5%BA%A6%E7%B5%8C%E5%BA%A6%E3%81%A72%E5%9C%B0%E7%82%B9%E9%96%93%E3%81%AE%E8%B7%9D%E9%9B%A2%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B/>緯度経度で2地点間の距離を計算する</a></li><li><a href=/digitalgarden/note/Go-Echo%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC/>Go Echoサーバー</a></li><li><a href=/digitalgarden/note/Locust%E3%81%A8Boomer%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6Go%E3%81%A7%E8%B2%A0%E8%8D%B7%E8%A9%A6%E9%A8%93%E3%81%AE%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E6%9B%B8%E3%81%8F/>LocustとBoomerを使ってGoで負荷試験のスクリプトを書く</a></li><li><a href=/digitalgarden/note/OpenAPI%E3%81%A8Go%E3%81%A7%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%81%AE%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E3%81%99%E3%82%8B/>OpenAPIとGoでリクエストのバリデーションをする</a></li></ul></div><div class=page-end><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://ikorihn.github.io/digitalgarden/js/graph.3ce311f267292367f2af20987826bfd2.js></script></div></div></div><div id=contact_buttons><footer><p>Made by ikorihn using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://ikorihn.github.io/digitalgarden/>Home</a></li><li><a href=https://twitter.com/r57ty7>Twitter</a></li><li><a href=https://github.com/ikorihn>GitHub</a></li></ul></footer></div></div></body></html>

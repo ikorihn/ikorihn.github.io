@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linter on</title><link>https://ikorihn.github.io/digitalgarden/tags/linter/</link><description>Recent content in linter on</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 27 Dec 2020 21:56:00 +0900</lastBuildDate><atom:link href="https://ikorihn.github.io/digitalgarden/tags/linter/index.xml" rel="self" type="application/rss+xml"/><item><title>ktlint</title><link>https://ikorihn.github.io/digitalgarden/note/ktlint/</link><pubDate>Sun, 27 Dec 2020 21:56:00 +0900</pubDate><guid>https://ikorihn.github.io/digitalgarden/note/ktlint/</guid><description>ktlint Kotlin でlintを設定する
+https://github.com/pinterest/ktlint
+.editorconfig を置くとそちらの設定が優先される
+デフォルト設定に従うことにした
+Gradle(kts) プラグインなしで設定する場合
+面倒だったのでプラグインを使った
+https://github.com/jlleitschuh/ktlint-gradle
+build.gradle.kts
+1 2 3 plugins { id &amp;#34;org.jlleitschuh.gradle.ktlint&amp;#34; version &amp;#34;&amp;lt;current_version&amp;gt;&amp;#34; } 1 2 3 4 5 $ .</description></item></channel></rss>
