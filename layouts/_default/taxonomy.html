@@ -13,7 +13,7 @@
             <p>{{.}}</p>
         {{end}}
         <div class="tags">
-            {{ range .Site.Taxonomies.tags.ByCount }}
+            {{ range .Site.Taxonomies.tags }}
             <div class="meta">
                 <h1><a href="{{ .Page.Permalink }}">{{ .Page.Title | humanize }}</a></h1>
                 <p><b>{{ .Count }}</b> {{ i18n "notes_count" }} {{if gt .Count 10}}({{ i18n "first_10"}}){{end}}</p>
