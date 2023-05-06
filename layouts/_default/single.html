@@ -13,7 +13,8 @@
         <article>
           {{if .Title}}<h1>{{ .Title }}</h1>{{end}}
           <p class="meta">
-            {{ i18n "last_updated" }} {{ partial "date-fmt.html" .}} 
+              {{if .Date}} &#x1f4c5; {{.Date.Format "2006-01-02"}} {{end}}
+              {{if .Lastmod}} (Last updated: {{.Lastmod.Format "2006-01-02"}}) {{end}}
               {{ partial "github.html" . }}
           </p>
           <ul class="tags">
