@@ -5,7 +5,7 @@ tags:
 - 2023/04/23
 - obsidian
 - blog
-lastmod: 2023-04-23T10:48:21+09:00
+lastmod: 2023-05-07T20:42:23+09:00
 ---
 
 https://ikorihn.github.io/digitalgarden として公開できるようにしたのでそのメモ
@@ -90,7 +90,8 @@ $ obsidian-export --frontmatter=always ${OBSIDIAN_VAULT_DIR} ${PUBLISH_DIR}
 #### 直した
 
 絶対パスでないとだめと公式に書いてありました…
-https://quartz.jzhao.xyz/notes/obsidian/
+
+`{{< card-link "https://quartz.jzhao.xyz/notes/obsidian/" >}}`
 
 1. Set the **New link format** to **Absolute Path in vault**. If you have a completely flat vault (no folders), this step isn’t necessary.
 1. Turn **on** the **Automatically update internal links** setting.
@@ -99,3 +100,5 @@ https://quartz.jzhao.xyz/notes/obsidian/
 このためにObsidianのWikilinkをMarkdown Linkに変更した。
 
 [Obsidian WikilinkをMarkdown linkに変更した](note/Obsidian%20WikilinkをMarkdown%20linkに変更した.md)
+
+### 外部リンク
