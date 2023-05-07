@@ -31,3 +31,7 @@ enableGitInfo = false
         lastmod = ["lastmod", "date", "publishDate"]
     [markup.goldmark.renderer]
         unsafe = true
+
+[params]
+  imageQuality = 80
+  dafaultNoimage = "images/no-image.png"
