@@ -7,8 +7,18 @@ tags:
 - Go
 ---
 
-## 外部リンクのhtmlを取得する
+[resources.GetRemote](https://gohugo.io/hugo-pipes/introduction/#get-resource-with-resourcesget-and-resourcesgetremote) を利用することで、ビルドのタイミングで指定したURLへアクセスしてリソースを取得できる。
 
-`resource.GetRemote` を使う
+[v0.91.0](https://github.com/gohugoio/hugo/releases/tag/v0.91.0) で入った機能
+
+## 使い方
+
+### 外部リソースを取得
+
+````go-html-template
+{{ $remote := resources.GetRemote "https://www.example.com/styles.scss" }}
+````
+
+## カード型のリンクを作る
 
 [Hugoでついに外部URLのブログカードを作れるようになった【自作ショートコード】 | Hugoブログテーマ「Salt」](https://hugo-theme-salt.okdyy75.com/article/salt/blog-card/)

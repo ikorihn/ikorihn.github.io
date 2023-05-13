@@ -91,7 +91,7 @@ $ obsidian-export --frontmatter=always ${OBSIDIAN_VAULT_DIR} ${PUBLISH_DIR}
 
 絶対パスでないとだめと公式に書いてありました…
 
-`{{< card-link "https://quartz.jzhao.xyz/notes/obsidian/" >}}`
+{{< card-link "https://quartz.jzhao.xyz/notes/obsidian/" >}}
 
 1. Set the **New link format** to **Absolute Path in vault**. If you have a completely flat vault (no folders), this step isn’t necessary.
 1. Turn **on** the **Automatically update internal links** setting.
@@ -101,4 +101,6 @@ $ obsidian-export --frontmatter=always ${OBSIDIAN_VAULT_DIR} ${PUBLISH_DIR}
 
 [Obsidian WikilinkをMarkdown linkに変更した](note/Obsidian%20WikilinkをMarkdown%20linkに変更した.md)
 
-### 外部リンク
+### 外部リンクをカードで表示する
+
+[Hugo 外部リンクをカードで表示する](note/Hugo%20外部リンクをカードで表示する.md)

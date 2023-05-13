@@ -1,5 +1,5 @@
 ---
-title: ikorihn Digital Garden
+title: ikorihn Digitalgarden
 enableToc: false
 ---
 

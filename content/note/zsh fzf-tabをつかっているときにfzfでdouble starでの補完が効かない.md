@@ -7,7 +7,7 @@ tags:
 - terminal
 ---
 
-[fzf-tab](https://github.com/Aloxaf/fzf-tab) を入れていると、 [fzf](note/fzf.md) の `**<TAB>` によってディレクトリ配下のファイルを再帰的に表示するキーバインドが実行されなくてこまった 
+[fzf-tab](https://github.com/Aloxaf/fzf-tab) を入れていると、 [fzf](note/fzf.md) の `**<TAB>` によってディレクトリ配下のファイルを再帰的に表示するキーバインドが実行されなくてこまった。
 
 ## 対応方法
 

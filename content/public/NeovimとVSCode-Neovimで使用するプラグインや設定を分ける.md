@@ -10,14 +10,18 @@ tags:
 
 ## はじめに
 
-私は普段 [Neovim](note/Neovim.md) をメインにしていますが、[VS Code](note/Visual%20Studio%20Code.md) もときどき使っています。
+私は普段 [Neovim](note/Neovim.md) をメインにしていますが、
+他の人と環境を合わせたいときなど [VS Code](note/Visual%20Studio%20Code.md) もときどき使っています。
 
-Vimのキーバインドを利用するため [VSCodeVim](https://github.com/VSCodeVim/Vim) を入れている方も多いと思いますが、Undoの挙動が不安定だったりもっさりしていたりで不満があったため、 [VSCode Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) を使っています。
+Vimの機能を利用するため [VSCodeVim](https://github.com/VSCodeVim/Vim) を入れている方も多いと思いますが、Undoの挙動が不安定だったりもっさりしていたりで不満があったため、 [VSCode Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) を使っています。
 
-これはバックグラウンドでNeovimが動作するため、共通の設定ファイル(`init.lua`)が利用できて、Neovimのプラグインも動くところが嬉しいです。
-ただVS Codeにはデフォルトで備わっている機能や、うまく動作しないプラグインは除外したいです。
+これはバックグラウンドでNeovimが動作するため、共通の設定ファイル(`init.lua`)が利用できて、Neovimのプラグインも動くところが嬉しいのですが、
+VS Codeにはデフォルトで備わっている機能や、うまく動作しないプラグイン、一部のoptionや衝突するkey mappingは除外したいです。
 
-この記事では私が設定してうまくいっている方法について、 [packer.nvim](https://github.com/wbthomason/packer.nvim) の場合、[lazy.nvim](https://github.com/folke/lazy.nvim) の場合それぞれ紹介しようと思います。
+この記事では、そうしたNeovimとVSCode Neovimを併用していて、プラグインや設定を使い分けたい！という方向けに、
+私が設定してうまくいっている方法について紹介しようと思います。
+
+プラグインマネージャとして [packer.nvim](https://github.com/wbthomason/packer.nvim) と[lazy.nvim](https://github.com/folke/lazy.nvim) のそれぞれについて紹介します。
 
 ちなみに私の設定はこちらのようになっています。
 https://github.com/ikorihn/dotfiles/blob/master/.config/nvim
@@ -74,6 +78,7 @@ end)
 ### cond でロードする条件を設定する
 
 `cond` でプラグインをロードする条件を設定することができます。
+VS Codeと併用するときによく紹介されるやり方はこちらだと思います。
 
 たとえば次のように書くと、VS Codeのときにはdisableにするといったことができます。
 
@@ -99,7 +104,7 @@ end)
 
 * vscodeのときにロードしたくないプラグイン一つずつに書く必要があり面倒な上、数が多いとどれがロードされる/されないのかが視認しづらかった
 * condを書くと`~/.local/share/nvim/site/pack/packer/opt` にプラグインがダウンロードされるが、colorschemeなど一部のプラグインをoptionalにすると、ロードのタイミングがずれるためか正しく動作しなかった
-  * 参考 [Question: what to use to make plugin inactive if condition · Issue #288 · wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim/issues/288)
+  * 例 [Question: what to use to make plugin inactive if condition · Issue #288 · wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim/issues/288)
 
 そこで、次のようにして解決しました。
 
@@ -147,6 +152,7 @@ if not vim.loop.fs_stat(plugpath) then
 end
 vim.opt.rtp:prepend(plugpath)
 
+-- packerでダウンロード済みのプラグインを利用する
 vim.cmd [[ call plug#begin(stdpath('data') . '/site/pack/packer/start') ]]
 
 vim.cmd [[ Plug 'phaazon/hop.nvim' ]]
@@ -189,7 +195,7 @@ packerはデフォルトで `vim.fn.stdpath('data')..'/site/pack/packer/start'` 
 
 最近lazy.nvimに移行したので、その場合の設定も載せておきます。こちらのほうが簡単でした。
 
-`plugins.lua`
+`~/.config/lua/plugins.lua`
 
 ````lua
 -- Automatically install lazy
