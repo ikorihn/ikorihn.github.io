@@ -4,7 +4,10 @@ date: 2023-05-05T20:26:00+09:00
 tags:
 - Neovim
 - vscode
+lastmod: 2023-05-14T18:57:56+09:00
 ---
+
+https://zenn.dev/r57ty7/articles/accd3014e22366 に投稿した内容と同じです。
 
 これは [Vim駅伝](https://vim-jp.org/ekiden/) 5/15 の記事です。
 
