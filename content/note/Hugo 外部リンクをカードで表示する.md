@@ -7,6 +7,8 @@ tags:
 - Go
 ---
 
+[Hugo](note/Hugo.md) で、ブログでよく見るリンクをカードで表示するやつをやりたいです。
+
 [resources.GetRemote](https://gohugo.io/hugo-pipes/introduction/#get-resource-with-resourcesget-and-resourcesgetremote) を利用することで、ビルドのタイミングで指定したURLへアクセスしてリソースを取得できる。
 
 [v0.91.0](https://github.com/gohugoio/hugo/releases/tag/v0.91.0) で入った機能
