@@ -18,4 +18,4 @@ tags:
 
 ## Quartzを使う方法
 
-[Quartzを使ってObsidianを公開してみた](note/Quartzを使ってObsidianを公開してみた.md)
+[Quartzを使ってObsidianを無料で公開してみた](blog/Quartzを使ってObsidianを無料で公開してみた.md)

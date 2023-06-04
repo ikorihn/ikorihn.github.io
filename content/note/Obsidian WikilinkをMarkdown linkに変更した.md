@@ -6,7 +6,7 @@ tags:
 - obsidian
 ---
 
-[Obsidianを公開する](note/Quartzを使ってObsidianを公開してみた.md) にあたって、Wikilinkのままだとうまくリンクが貼られなかったりして不都合だったので、通常のmarkdown linkに変更した。
+[Obsidianを公開する](blog/Quartzを使ってObsidianを無料で公開してみた.md) にあたって、Wikilinkのままだとうまくリンクが貼られなかったりして不都合だったので、通常のmarkdown linkに変更した。
 公開するためだけじゃなく、 [Obsidian](note/Obsidianとは.md) からもし移行するとなってもいいように変更したかった。
 
 ## 設定
