@@ -16,7 +16,7 @@ WQHD(2560x1440)ディスプレイを使っていると、画面共有時に文�
 
 ## Raycastから実行するAppleScriptを作成
 
-[Raycastでマイクのミュートを切り替える](public/Raycastでマイクのミュートを切り替える.md)
+[Raycastでマイクのミュートを切り替える](blog/Raycastでマイクのミュートを切り替える.md)
 
 引数つきで実行もできる
 

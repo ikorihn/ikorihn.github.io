@@ -16,4 +16,4 @@ tags:
 
 ### マイク
 
-[Raycastでマイクのミュートを切り替える](public/Raycastでマイクのミュートを切り替える.md)
+[Raycastでマイクのミュートを切り替える](blog/Raycastでマイクのミュートを切り替える.md)

@@ -58,7 +58,7 @@ CTRL-R CTRL-L				*c_CTRL-R_CTRL-L* *c_<C-R>_<C-L>*
 
 ````
 
-[愛用しているvimプラグイン](public/愛用しているvimプラグイン.md)
+[愛用しているvimプラグイン](blog/愛用しているvimプラグイン.md)
 [vim 使っているplugin](note/vim%20使っているplugin.md)
 [ファイル同士の比較をvimdiffで取る](note/ファイル同士の比較をvimdiffで取る.md)
 [Vimでバッファ同士の差分をとる](note/Vimでバッファ同士の差分をとる.md)
