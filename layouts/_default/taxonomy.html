@@ -14,12 +14,16 @@
         {{end}}
         <div class="tags">
             {{ range .Site.Taxonomies.tags }}
+            {{ if not (findRE `\d{4}/\d{2}/\d{2}` .Page.Title) }}
             <div class="meta">
-                <h1><a href="{{ .Page.Permalink }}">{{ .Page.Title | humanize }}</a></h1>
+                <h1 class="text-2xl"><a href="{{ .Page.Permalink }}">#{{ .Page.Title | humanize }}</a></h1>
                 <p><b>{{ .Count }}</b> {{ i18n "notes_count" }} {{if gt .Count 10}}({{ i18n "first_10"}}){{end}}</p>
             </div>
+            <ul>
             {{ with ($.Site.GetPage (printf "/tags/%s" .Page.Title)) }}
             {{partial "page-list.html" (first 10 .Pages.ByLastmod.Reverse)}}
+            {{ end }}
+            </ul>
             {{ end }}
             {{ end }}
         </div>
