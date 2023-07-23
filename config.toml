@@ -6,9 +6,10 @@ ignoreFiles = [
     "/content/templates/*",
     "/content/private/*",
 ]
-summaryLength = 20
+summaryLength = 70
 paginate = 20
 enableGitInfo = false
+hasCJKLanguage = true
 
 [markup]
     [markup.tableOfContents]
