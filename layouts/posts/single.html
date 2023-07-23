@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+{{ partial "head.html" . }}
+
+<body>
+{{partial "search.html" .}}
+<div class="singlePage">
+    <!-- Begin actual content -->
+    {{partial "header.html" .}}
+    <article>
+      {{ $pages := where .Site.RegularPages "Date.Year" (.Title | int) }}
+
+      {{ range $pages.GroupByDate "Jan" }}
+      <h2>{{ .Key }}</h2>
+      <ul>
+        {{partial "page-list.html" .Pages}}
+      </ul>
+      {{ end }}
+    </article>
+    {{partial "footerIndex.html" .}}
+</div>
+</body>
+</html>
