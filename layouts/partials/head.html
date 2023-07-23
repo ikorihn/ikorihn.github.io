@@ -43,6 +43,13 @@
   {{ end }}
 
   <!-- CSS Stylesheets and Fonts -->
+  {{ $options := dict "inlineImports" true }}
+  {{ $style := resources.Get "postcss/main.scss" | resources.ToCSS | resources.PostCSS $options }}
+  {{ if  hugo.IsProduction  }}
+    {{ $style = $style | minify | fingerprint | resources.PostProcess }}
+  {{ end }}
+  <link href="{{ $style.RelPermalink }}" rel="stylesheet" />
+
   {{$sass := resources.Match "styles/[!_]*.scss" }}
   {{$css := slice }}
   {{range $sass}}
@@ -97,6 +104,11 @@
   "md5" | resources.Minify | }} {{$contentIndex := resources.Get
   "indices/contentIndex.json" | resources.Fingerprint "md5" | resources.Minify
   }}
+
+  {{ with resources.Get "js/index.ts" }}
+  {{ $js := resources.Get . | js.Build }}
+  <script src="{{ $js.Permalink }}" ></script>
+  {{ end }}
   <script>
     const SEARCH_ENABLED = {{.Site.Data.config.search.enableSemanticSearch}}
     const LATEX_ENABLED = {{.Site.Data.config.enableLatex}}
