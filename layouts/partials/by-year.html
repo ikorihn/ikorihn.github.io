@@ -1,0 +1,9 @@
+<h3>By year</h3>
+<ul>
+    {{ range $.Site.RegularPages.GroupByDate "2006" }}
+    {{ if ne .Key "0001" }}
+    <li><a href="{{ ($.Site.GetPage (printf "/posts/%s" .Key)).Permalink }}">{{.Key}}({{ len .Pages }})</a></li>
+    {{ end }}
+    {{ end }}
+</ul>
+
