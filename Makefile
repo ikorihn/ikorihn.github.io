@@ -24,7 +24,7 @@ docker: ## Serve locally using Docker
 	docker run -it --volume=$(shell pwd):/quartz -p 1313:1313 ghcr.io/jackyzha0/quartz:hugo
 
 export: ## Convert Obsidian markdown to common markdown using obsidian-export
-	ls content | grep -v -E "(_index.md|private|templates)" | xargs -i rm -rf content/{}
+	ls content | grep -v -E "(_index.md|private|templates|posts)" | xargs -i rm -rf content/{}
 	obsidian-export --frontmatter=always ~/memo content
 
 publish: ## Publish content
