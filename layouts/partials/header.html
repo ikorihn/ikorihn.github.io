@@ -9,8 +9,12 @@
     {{partial "darkmode.html" .}}
 </header>
 
-<div style="display: flex;">
-    <a href="{{.Site.BaseURL }}note">Notes</a>
-    <a href="{{.Site.BaseURL }}blog">Blog</a>
+<div style="display: flex; gap: 30px 20px;">
+    <div>
+        <a href="{{ ($.Site.GetPage "/note").Permalink }}" style="text-decoration: underline; text-decoration-color: green; color: green;">Notes</a>
+    </div>
+    <div>
+        <a href="{{ ($.Site.GetPage "/blog").Permalink }}" style="text-decoration: underline; text-decoration-color: green; color: green;">Blog</a>
+    </div>
 </div>
 
