@@ -1,0 +1,1423 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="OpenObserve | Open Source Observability Platform for Logs, Metrics, Traces, and More – Your Ultimate Dashboard for Alerts and Insights Logs, Metrics, Traces and more in one platform.Streamline your operations with worry-free observability and simplify your observability setup in just 2 minutes. 140x lower storage cost than your existing observability tools Kibana のように、ログデータの可視化を行うツ"><meta property="og:title" content="OpenObserveを使ってみる"><meta property="og:description" content="OpenObserve | Open Source Observability Platform for Logs, Metrics, Traces, and More – Your Ultimate Dashboard for Alerts and Insights Logs, Metrics, Traces and more in one platform.Streamline your operations with worry-free observability and simplify your observability setup in just 2 minutes. 140x lower storage cost than your existing observability tools Kibana のように、ログデータの可視化を行うツ"><meta property="og:type" content="website"><meta property="og:image" content="https://ikorihn.github.io/digitalgarden/icon.png"><meta property="og:url" content="https://ikorihn.github.io/digitalgarden/note/OpenObserve%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/"><meta property="og:width" content="200"><meta property="og:height" content="200"><meta name=twitter:card content="summary"><meta name=twitter:title content="OpenObserveを使ってみる"><meta name=twitter:description content="OpenObserve | Open Source Observability Platform for Logs, Metrics, Traces, and More – Your Ultimate Dashboard for Alerts and Insights Logs, Metrics, Traces and more in one platform.Streamline your operations with worry-free observability and simplify your observability setup in just 2 minutes. 140x lower storage cost than your existing observability tools Kibana のように、ログデータの可視化を行うツ"><meta name=twitter:image content="https://ikorihn.github.io/digitalgarden/icon.png"><meta name=twitter:site content="r57ty7"><title>OpenObserveを使ってみる | ikorihn Digitalgarden</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://ikorihn.github.io/digitalgarden//icon.png><link href=https://ikorihn.github.io/digitalgarden/styles.d2e4b7f83dae8f1042fb202ebb04297c.min.css rel=stylesheet><link href=https://ikorihn.github.io/digitalgarden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://ikorihn.github.io/digitalgarden/js/darkmode.816c8b542b7f85a3e1f19a1c05a2cabd.min.js></script>
+<script src=https://ikorihn.github.io/digitalgarden/js/util.00639692264b21bc3ee219733d38a8be.min.js></script>
+<link rel=preload href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css as=style onload='this.onload=null,this.rel="stylesheet"' integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@floating-ui/core@1.2.1></script>
+<script src=https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.2.1></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/popover.aa9bc99c7c38d3ae9538f218f1416adb.min.js></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const SEARCH_ENABLED=!1,LATEX_ENABLED=!0,PRODUCTION=!0,BASE_URL="https://ikorihn.github.io/digitalgarden/",fetchData=Promise.all([fetch("https://ikorihn.github.io/digitalgarden/indices/linkIndex.255365f898e1d17666eab0b2179fe990.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://ikorihn.github.io/digitalgarden/indices/contentIndex.51ebea5735f7ef785df57aa77a7d6a13.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://ikorihn.github.io/digitalgarden",!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://ikorihn.github.io/digitalgarden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}var i=document.getElementsByClassName("mermaid");i.length>0&&import("https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs").then(e=>{e.default.init()});function a(n){const e=n.target,t=e.className.split(" "),s=t.includes("broken"),o=t.includes("internal-link");plausible("Link Click",{props:{href:e.href,broken:s,internal:o,graph:!1}})}const r=document.querySelectorAll("a");for(link of r)link.className.includes("root-title")&&link.addEventListener("click",a,{once:!0})},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/ikorihn.github.io\/digitalgarden\/js\/router.d6fe6bd821db9ea97f9aeefae814d8e7.min.js"
+    attachSPARouting(init, render)
+  </script><script defer data-domain=ikorihn.github.io/digitalgarden src=https://plausible.io/js/script.js></script>
+<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script></head><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://ikorihn.github.io/digitalgarden/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js></script><div class=singlePage><header><h1 id=page-title><a class=root-title href=https://ikorihn.github.io/digitalgarden/>ikorihn Digitalgarden</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><div style="display:flex;gap:30px 20px"><div><a href=https://ikorihn.github.io/digitalgarden/note/ style=text-decoration:underline;text-decoration-color:green;color:green>Notes</a></div><div><a href=https://ikorihn.github.io/digitalgarden/blog/ style=text-decoration:underline;text-decoration-color:green;color:green>Blog</a></div></div><div class=container><main><article><h1>OpenObserveを使ってみる</h1><p class=meta>&#x1f4c5; 2023-06-29
+(Last updated: 2023-06-29)</p><ul class=tags><li><a href=https://ikorihn.github.io/digitalgarden/tags/2023/06/29/>2023/06/29</a></li><li><a href=https://ikorihn.github.io/digitalgarden/tags/Observability/>Observability</a></li></ul><aside class=mainTOC><details open><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#ストレージ>ストレージ</a></li><li><a href=#アーキテクチャ>アーキテクチャ</a><ol><li><a href=#単一ノード>単一ノード</a></li><li><a href=#ha構成>HA構成</a></li></ol></li><li><a href=#データ摂取ingestion>データ摂取(ingestion)</a></li><li><a href=#セットアップセルフホスト>セットアップ(セルフホスト)</a></li><li><a href=#サンプルデータを作成する>サンプルデータを作成する</a></li><li><a href=#ha構成をkubernetesで動かす>HA構成をKubernetesで動かす</a></li><li><a href=#ha構成をdocker-composeで動かす>HA構成をDocker composeで動かす</a></li><li><a href=#シングルノードs3で動かす>シングルノード+S3で動かす</a><ol><li><a href=#注意点>注意点</a></li></ol></li><li><a href=#elasticsearchのapiでデータ投入する>ElasticsearchのAPIでデータ投入する</a></li></ol></nav></details></aside></p><div><a href=https://openobserve.ai style="padding:12px;border:solid 1px #eee;display:flex;text-decoration:none;color:#000" onmouseover='this.style.opacity="0.9"'><div style=flex-shrink:0><img src=https://ikorihn.github.io/digitalgarden/og_18316436997116324659_hu90729c6d81bb92493ddfc1dc9432a055_0_200x200_fit_q80_h2_box_3.webp alt width=100 height=100 style=object-fit:contain></div><div style=margin-left:10px><h2 style=margin:0;padding-bottom:13px;border:none;font-size:16px>OpenObserve | Open Source Observability Platform for Logs, Metrics, Traces, and More – Your Ultimate Dashboard for Alerts and Insights</h2><p style=margin:0;font-size:13px;word-break:break-word;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden>Logs, Metrics, Traces and more in one platform.Streamline your operations with worry-free observability and simplify your observability setup in just 2 minutes. 140x lower storage cost than your existing observability tools</p></div></a></div><p><p><a href=/digitalgarden/note/Kibana/ rel=noopener class=internal-link data-src=/digitalgarden/note/Kibana/>Kibana</a> のように、ログデータの可視化を行うツールで、ログ、メトリクス、トレースをペタバイトレベルで扱うことができる。
+ElasticsearchやDatadogと比べ、10倍簡単、140倍のストレージコスト安、ハイパフォーマンスなどを謳っている。
+バックエンドは
+<a href=/digitalgarden/note/Rust/ rel=noopener class=internal-link data-src=/digitalgarden/note/Rust/>Rust</a>、フロントエンドは
+<a rel=noopener class="internal-link broken" data-src=note/Vue.js>Vue.js</a>で書かれている。</p><p>絶賛開発中のようなので、破壊的な変更が入る可能性が全然ありそう。</p><a href=#ストレージ><h2 id=ストレージ><span class=hanchor arialabel=Anchor># </span>ストレージ</h2></a><p>OpenObserveはデータをインデックせず、圧縮してローカルだけではなくS3などオブジェクトストレージに保存することができる。
+S3に保存することで、大容量のEBSを用意する場合と比べてコストが下げられるということのようで、HA構成にした場合でもあがらないと言いたいらしい。</p><a href=#アーキテクチャ><h2 id=アーキテクチャ><span class=hanchor arialabel=Anchor># </span>アーキテクチャ</h2></a><p><a href=https://openobserve.ai/docs/architecture/ rel=noopener>https://openobserve.ai/docs/architecture/</a></p><a href=#単一ノード><h3 id=単一ノード><span class=hanchor arialabel=Anchor># </span>単一ノード</h3></a><p>1台のノードで、2TB/day までのデータ量であれば扱うことができる。
+全データをローカルディスクストレージに保存することもできるし、メタデータをetcd、データをS3に保存するということもできる。
+拡張性を考えると単一ノードでもオブジェクトストレージを使ったほうがよさそう。</p><a href=#ha構成><h3 id=ha構成><span class=hanchor arialabel=Anchor># </span>HA構成</h3></a><p>HAモードではローカルディスクは使用できないので、必ずS3などが保存先になる。
+以下複数の役割のノードで構成される。</p><ul><li>Ingester: 投入されたデータをparquetフォーマットに変換して、オブジェクトストレージに保存する。受け取ったデータを即オブジェクトストレージに転送するのではなく、ある程度ローカルに貯めてから転送するようだ。</li><li>Querier: クエリを実行する。</li><li>Compactor: 複数の小さいファイルを一つの大きいファイルにマージして、検索の効率を上げる</li><li>Router: リクエストをingesterやquerierに分配する、proxyの役割。</li><li>AlertManager: 定期実行やアラート通知</li></ul><p>デプロイは
+<a href=https://openobserve.ai/docs/ha_deployment/ rel=noopener>https://openobserve.ai/docs/ha_deployment/</a> を参照。
+今のところ
+<a href=/digitalgarden/note/Kubernetes/ rel=noopener class=internal-link data-src=/digitalgarden/note/Kubernetes/>Kubernetes</a> にhelmでデプロイする手順のみが用意されている。
+<a href=https://discuss.openobserve.ai/kb/t/ha-deployment-on-aws-ecs-or-ec2/2K1d28 rel=noopener>EC2やECSでもやれなくはない</a> が公式手順はないので、自分でkubernetesのマニフェスト見ながら頑張るしかなさそう。</p><a href=#データ摂取ingestion><h2 id=データ摂取ingestion><span class=hanchor arialabel=Anchor># </span>データ摂取(ingestion)</h2></a><p><a href=https://openobserve.ai/docs/ingestion/logs/python/#python rel=noopener>https://openobserve.ai/docs/ingestion/logs/python/#python</a></p><p>ログやメトリクスはFluent-bitやKinesis Firehose、curlなどさまざまなソースからHTTP APIで投入できる。
+すでに構築済みのデータ投入機構があれば、投入先をOpenObserveにすればよさそう</p><a href=#セットアップセルフホスト><h2 id=セットアップセルフホスト><span class=hanchor arialabel=Anchor># </span>セットアップ(セルフホスト)</h2></a><p><a href=https://openobserve.ai/docs/quickstart/ rel=noopener>https://openobserve.ai/docs/quickstart/</a></p><p>Dockerで簡単に起動できる</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>mkdir data
+</span></span><span class=line><span class=cl>docker run -v <span class=nv>$PWD</span>/data:/data -e <span class=nv>ZO_DATA_DIR</span><span class=o>=</span><span class=s2>&#34;/data&#34;</span> -p 5080:5080 -e <span class=nv>ZO_ROOT_USER_EMAIL</span><span class=o>=</span><span class=s2>&#34;root@example.com&#34;</span> -e <span class=nv>ZO_ROOT_USER_PASSWORD</span><span class=o>=</span><span class=s2>&#34;Complexpass#123&#34;</span> public.ecr.aws/zinclabs/openobserve:latest
+</span></span></code></pre></td></tr></table></div></div><p>=> localhost:5080 で開く</p><p>サンプルデータも用意してくれているのでそれを投入すれば閲覧できる</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>curl -L https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip -o k8slog_json.json.zip
+</span></span><span class=line><span class=cl>unzip k8slog_json.json.zip
+</span></span><span class=line><span class=cl>curl http://localhost:5080/api/default/default/_json -i -u <span class=s2>&#34;root@example.com:Complexpass#123&#34;</span>  -d <span class=s2>&#34;@k8slog_json.json&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#サンプルデータを作成する><h2 id=サンプルデータを作成する><span class=hanchor arialabel=Anchor># </span>サンプルデータを作成する</h2></a><p>本題ではないが、今後役立ちそうなのでfakeデータをつくってみる。
+fakeの作成には
+<a href=https://github.com/brianvoe/gofakeit rel=noopener>https://github.com/brianvoe/gofakeit</a> を使った。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;encoding/json&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;log&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;math/rand&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/brianvoe/gofakeit/v6&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>accessLog</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Timestamp</span>    <span class=nx>time</span><span class=p>.</span><span class=nx>Time</span> <span class=s>`fake:&#34;{daterange:2023-06-30T16:00:00,2023-06-30T16:59:59,yyyy-MM-ddTHH:mm:ss}&#34; format:&#34;2006-01-02T15:04:05&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Path</span>         <span class=kt>string</span>    <span class=s>`fake:&#34;{urlpath}&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Method</span>       <span class=kt>string</span>    <span class=s>`fake:&#34;{httpmethod}&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>InstanceId</span>   <span class=kt>string</span>    <span class=s>`fake:&#34;{regex:i-[a-f]{1}}&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>ResponseTime</span> <span class=kt>int</span>       <span class=s>`fake:&#34;{number:1500,3000}&#34;`</span>
+</span></span><span class=line><span class=cl>	<span class=nx>Status</span>       <span class=kt>int</span>       <span class=s>`fake:&#34;{httpstatuscodesimple}&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>faker</span> <span class=o>:=</span> <span class=nx>gofakeit</span><span class=p>.</span><span class=nf>NewUnlocked</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>gofakeit</span><span class=p>.</span><span class=nf>AddFuncLookup</span><span class=p>(</span><span class=s>&#34;urlpath&#34;</span><span class=p>,</span> <span class=nx>gofakeit</span><span class=p>.</span><span class=nx>Info</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Category</span><span class=p>:</span>    <span class=s>&#34;custom&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Description</span><span class=p>:</span> <span class=s>&#34;Path only&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Example</span><span class=p>:</span>     <span class=s>&#34;/image&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Output</span><span class=p>:</span>      <span class=s>&#34;string&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Generate</span><span class=p>:</span> <span class=kd>func</span><span class=p>(</span><span class=nx>r</span> <span class=o>*</span><span class=nx>rand</span><span class=p>.</span><span class=nx>Rand</span><span class=p>,</span> <span class=nx>m</span> <span class=o>*</span><span class=nx>gofakeit</span><span class=p>.</span><span class=nx>MapParams</span><span class=p>,</span> <span class=nx>info</span> <span class=o>*</span><span class=nx>gofakeit</span><span class=p>.</span><span class=nx>Info</span><span class=p>)</span> <span class=p>(</span><span class=kd>interface</span><span class=p>{},</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>gofakeit</span><span class=p>.</span><span class=nf>RandomString</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;/example&#34;</span><span class=p>,</span> <span class=s>&#34;/image&#34;</span><span class=p>,</span> <span class=s>&#34;/hello&#34;</span><span class=p>,</span> <span class=s>&#34;/health&#34;</span><span class=p>,</span> <span class=s>&#34;/ping&#34;</span><span class=p>,</span> <span class=s>&#34;/login&#34;</span><span class=p>,</span> <span class=s>&#34;/account&#34;</span><span class=p>,</span> <span class=s>&#34;/route&#34;</span><span class=p>,</span> <span class=s>&#34;/spot&#34;</span><span class=p>}),</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>logs</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=nx>accessLog</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>5000</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>l</span> <span class=nx>accessLog</span>
+</span></span><span class=line><span class=cl>		<span class=nx>err</span> <span class=o>:=</span> <span class=nx>faker</span><span class=p>.</span><span class=nf>Struct</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>l</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalln</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=nx>logs</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>logs</span><span class=p>,</span> <span class=nx>l</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>b</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>logs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalln</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nb>string</span><span class=p>(</span><span class=nx>b</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>大量に作ってぶっこんでパフォーマンス検証</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>while true; do JSON=fake_$(date +%s).json; ./faker -count 10000 &gt; $JSON; curl http://localhost:5080/api/default/fake/_json -i -u &#34;root@example.com:Complexpass#123&#34;  -d &#34;@${JSON}&#34;; rm &#34;${JSON}&#34;; sleep 1; done
+</span></span></code></pre></td></tr></table></div></div><a href=#ha構成をkubernetesで動かす><h2 id=ha構成をkubernetesで動かす><span class=hanchor arialabel=Anchor># </span>HA構成をKubernetesで動かす</h2></a><p><a href=/digitalgarden/note/Rancher-Desktop/ rel=noopener class=internal-link data-src=/digitalgarden/note/Rancher-Desktop/>Rancher Desktop</a> の
+<a href=/digitalgarden/note/Kubernetes/ rel=noopener class=internal-link data-src=/digitalgarden/note/Kubernetes/>Kubernetes</a> にデプロイして、HA構成を試してみる。</p><p>HA構成の場合はオブジェクトストレージが必須なので、事前に
+<a href=/digitalgarden/note/MinIO%E3%82%92%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AEkubernetes%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/ rel=noopener class=internal-link data-src=/digitalgarden/note/MinIO%E3%82%92%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AEkubernetes%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/>MinIOをローカルのkubernetesで動かす</a>
+==> OpenObserveのhelm内にminioが内包されていたので不要だった。。気づくの遅かった</p><p>そうしたらhelm chartが用意されているのでデプロイする</p></p><div><a href=https://github.com/openobserve/openobserve-helm-chart/ style="padding:12px;border:solid 1px #eee;display:flex;text-decoration:none;color:#000" onmouseover='this.style.opacity="0.9"'><div style=flex-shrink:0><img src=https://ikorihn.github.io/digitalgarden/openobserve-helm-chart_3624984176721739505_huf8deb3fdb34f76ab2c6135d08310bb5b_0_200x200_fit_q80_h2_box_3.webp alt width=100 height=100 style=object-fit:contain></div><div style=margin-left:10px><h2 style=margin:0;padding-bottom:13px;border:none;font-size:16px>GitHub - openobserve/openobserve-helm-chart: Helm chart for ZincObserve</h2><p style=margin:0;font-size:13px;word-break:break-word;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden>Helm chart for ZincObserve. Contribute to openobserve/openobserve-helm-chart development by creating an account on GitHub.</p></div></a></div><p><p>values.yaml</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>serviceAccount</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># Annotations to add to the service account</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>annotations</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>eks.amazonaws.com/role-arn</span><span class=p>:</span><span class=w> </span><span class=l>arn:aws:iam::12345353456:role/zo-s3-eks</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>replicaCount</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ingester</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>querier</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>router</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>alertmanager</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>compactor</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>minio</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w> </span><span class=c># if true then minio will be deployed as part of openobserve</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>デプロイ</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>helm --namespace openobserve -f values.yaml install --create-namespace o1 openobserve/openobserve
+</span></span></code></pre></td></tr></table></div></div><p>localhost:5080 で開く</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kubectl --namespace openobserve port-forward svc/o1-openobserve-router 5080:5080
+</span></span></code></pre></td></tr></table></div></div><p>minioの中身確認</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kubectl run awscli -it --rm --image amazon/aws-cli --env<span class=o>=</span><span class=nv>AWS_ACCESS_KEY_ID</span><span class=o>=</span>rootuser --env<span class=o>=</span><span class=nv>AWS_SECRET_ACCESS_KEY</span><span class=o>=</span>rootpass123 --command -- sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sh-4.2$ aws --endpoint-url http://o1-minio-svc.openobserve.svc.cluster.local:9000 --no-verify-ssl s3 ls
+</span></span><span class=line><span class=cl>1-01-01 00:00:00    mysuperduperbucket
+</span></span></code></pre></td></tr></table></div></div><a href=#ha構成をdocker-composeで動かす><h2 id=ha構成をdocker-composeで動かす><span class=hanchor arialabel=Anchor># </span>HA構成をDocker composeで動かす</h2></a><p>helmでデプロイされたリソースから、ある程度動くようにDocker composeに落とし込む。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span><span class=lnt>274
+</span><span class=lnt>275
+</span><span class=lnt>276
+</span><span class=lnt>277
+</span><span class=lnt>278
+</span><span class=lnt>279
+</span><span class=lnt>280
+</span><span class=lnt>281
+</span><span class=lnt>282
+</span><span class=lnt>283
+</span><span class=lnt>284
+</span><span class=lnt>285
+</span><span class=lnt>286
+</span><span class=lnt>287
+</span><span class=lnt>288
+</span><span class=lnt>289
+</span><span class=lnt>290
+</span><span class=lnt>291
+</span><span class=lnt>292
+</span><span class=lnt>293
+</span><span class=lnt>294
+</span><span class=lnt>295
+</span><span class=lnt>296
+</span><span class=lnt>297
+</span><span class=lnt>298
+</span><span class=lnt>299
+</span><span class=lnt>300
+</span><span class=lnt>301
+</span><span class=lnt>302
+</span><span class=lnt>303
+</span><span class=lnt>304
+</span><span class=lnt>305
+</span><span class=lnt>306
+</span><span class=lnt>307
+</span><span class=lnt>308
+</span><span class=lnt>309
+</span><span class=lnt>310
+</span><span class=lnt>311
+</span><span class=lnt>312
+</span><span class=lnt>313
+</span><span class=lnt>314
+</span><span class=lnt>315
+</span><span class=lnt>316
+</span><span class=lnt>317
+</span><span class=lnt>318
+</span><span class=lnt>319
+</span><span class=lnt>320
+</span><span class=lnt>321
+</span><span class=lnt>322
+</span><span class=lnt>323
+</span><span class=lnt>324
+</span><span class=lnt>325
+</span><span class=lnt>326
+</span><span class=lnt>327
+</span><span class=lnt>328
+</span><span class=lnt>329
+</span><span class=lnt>330
+</span><span class=lnt>331
+</span><span class=lnt>332
+</span><span class=lnt>333
+</span><span class=lnt>334
+</span><span class=lnt>335
+</span><span class=lnt>336
+</span><span class=lnt>337
+</span><span class=lnt>338
+</span><span class=lnt>339
+</span><span class=lnt>340
+</span><span class=lnt>341
+</span><span class=lnt>342
+</span><span class=lnt>343
+</span><span class=lnt>344
+</span><span class=lnt>345
+</span><span class=lnt>346
+</span><span class=lnt>347
+</span><span class=lnt>348
+</span><span class=lnt>349
+</span><span class=lnt>350
+</span><span class=lnt>351
+</span><span class=lnt>352
+</span><span class=lnt>353
+</span><span class=lnt>354
+</span><span class=lnt>355
+</span><span class=lnt>356
+</span><span class=lnt>357
+</span><span class=lnt>358
+</span><span class=lnt>359
+</span><span class=lnt>360
+</span><span class=lnt>361
+</span><span class=lnt>362
+</span><span class=lnt>363
+</span><span class=lnt>364
+</span><span class=lnt>365
+</span><span class=lnt>366
+</span><span class=lnt>367
+</span><span class=lnt>368
+</span><span class=lnt>369
+</span><span class=lnt>370
+</span><span class=lnt>371
+</span><span class=lnt>372
+</span><span class=lnt>373
+</span><span class=lnt>374
+</span><span class=lnt>375
+</span><span class=lnt>376
+</span><span class=lnt>377
+</span><span class=lnt>378
+</span><span class=lnt>379
+</span><span class=lnt>380
+</span><span class=lnt>381
+</span><span class=lnt>382
+</span><span class=lnt>383
+</span><span class=lnt>384
+</span><span class=lnt>385
+</span><span class=lnt>386
+</span><span class=lnt>387
+</span><span class=lnt>388
+</span><span class=lnt>389
+</span><span class=lnt>390
+</span><span class=lnt>391
+</span><span class=lnt>392
+</span><span class=lnt>393
+</span><span class=lnt>394
+</span><span class=lnt>395
+</span><span class=lnt>396
+</span><span class=lnt>397
+</span><span class=lnt>398
+</span><span class=lnt>399
+</span><span class=lnt>400
+</span><span class=lnt>401
+</span><span class=lnt>402
+</span><span class=lnt>403
+</span><span class=lnt>404
+</span><span class=lnt>405
+</span><span class=lnt>406
+</span><span class=lnt>407
+</span><span class=lnt>408
+</span><span class=lnt>409
+</span><span class=lnt>410
+</span><span class=lnt>411
+</span><span class=lnt>412
+</span><span class=lnt>413
+</span><span class=lnt>414
+</span><span class=lnt>415
+</span><span class=lnt>416
+</span><span class=lnt>417
+</span><span class=lnt>418
+</span><span class=lnt>419
+</span><span class=lnt>420
+</span><span class=lnt>421
+</span><span class=lnt>422
+</span><span class=lnt>423
+</span><span class=lnt>424
+</span><span class=lnt>425
+</span><span class=lnt>426
+</span><span class=lnt>427
+</span><span class=lnt>428
+</span><span class=lnt>429
+</span><span class=lnt>430
+</span><span class=lnt>431
+</span><span class=lnt>432
+</span><span class=lnt>433
+</span><span class=lnt>434
+</span><span class=lnt>435
+</span><span class=lnt>436
+</span><span class=lnt>437
+</span><span class=lnt>438
+</span><span class=lnt>439
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>querier</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>public.ecr.aws/zinclabs/openobserve:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=kc>on</span>-<span class=l>failure</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_NODE_ROLE=querier</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>OTEL_OTLP_HTTP_ENDPOINT=http://127.0.0.1:5080/api/nexus/traces</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_BACKTRACE=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_LOG=info</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_BASE_URI=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COLS_PER_RECORD_LIMIT=200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_BLOCKED_ORGS=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_DATA_RETENTION_DAYS=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_FAKE_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_INTERVAL=60</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_MAX_FILE_SIZE=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_DIR=./data/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_STREAM_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_WAL_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_ADDR=etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CERT_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CLIENT_CERT_AUTH=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_COMMAND_TIMEOUT=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CONNECT_TIMEOUT=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_DOMAIN_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_KEY_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOAD_PAGE_SIZE=10000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOCK_WAIT_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PASSWORD=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_TRUSTED_CA_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_USER=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_PER_THREAD_LOCK=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_JSON=.json</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_PARQUET=.parquet</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_MOVE_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_PUSH_INTERVAL=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_ORG_HEADER_KEY=zinc-org-id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_PORT=5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HEARTBEAT_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_IPV6_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_PORT=5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_INSTANCE_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_JSON_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE_STORAGE=disk</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LUA_FN_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_RETENTION_TIME=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_SIZE_ON_DISK=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_CACHE_LATEST_FILES=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_MAX_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_RELEASE_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_DEDUP_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_ELECTION_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_PUSH_INTERVAL=15</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PARQUET_COMPRESSION=zstd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PAYLOAD_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_CLUSTER=cluster</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_REPLICA=__replica__</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_QUERY_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROUTE_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_NAME=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_PREFIX=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_PROVIDER=minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_REGION_NAME=us-east-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SERVER_URL=http://minio:9000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SKIP_SCHEMA_VALIDATION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_DATA_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY_URL=https://e1.zinclabs.dev</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TIME_STAMP_COL=_timestamp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_KEY=Authorization</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_VALUE=Basic YWRtaW46Q29tcGxleHBhc3MjMTIz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TS_ALLOWED_UPTO=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_UI_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_LINE_MODE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_MEMORY_MODE_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WIDENING_SCHEMA_EVOLUTION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_EMAIL=root@example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_PASSWORD=Complexpass#123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_ACCESS_KEY=rootuser</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SECRET_KEY=rootpass123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ingester</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>public.ecr.aws/zinclabs/openobserve:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=kc>on</span>-<span class=l>failure</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./data:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_NODE_ROLE=ingester</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>OTEL_OTLP_HTTP_ENDPOINT=http://127.0.0.1:5080/api/nexus/traces</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_BACKTRACE=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_LOG=info</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_BASE_URI=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COLS_PER_RECORD_LIMIT=200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_BLOCKED_ORGS=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_DATA_RETENTION_DAYS=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_FAKE_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_INTERVAL=60</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_MAX_FILE_SIZE=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_DIR=./data/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_STREAM_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_WAL_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_ADDR=etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CERT_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CLIENT_CERT_AUTH=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_COMMAND_TIMEOUT=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CONNECT_TIMEOUT=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_DOMAIN_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_KEY_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOAD_PAGE_SIZE=10000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOCK_WAIT_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PASSWORD=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_TRUSTED_CA_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_USER=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_PER_THREAD_LOCK=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_JSON=.json</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_PARQUET=.parquet</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_MOVE_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_PUSH_INTERVAL=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_ORG_HEADER_KEY=zinc-org-id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_PORT=5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HEARTBEAT_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_IPV6_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_PORT=5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_INSTANCE_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_JSON_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE_STORAGE=disk</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LUA_FN_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_RETENTION_TIME=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_SIZE_ON_DISK=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_CACHE_LATEST_FILES=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_MAX_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_RELEASE_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_DEDUP_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_ELECTION_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_PUSH_INTERVAL=15</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PARQUET_COMPRESSION=zstd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PAYLOAD_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_CLUSTER=cluster</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_REPLICA=__replica__</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_QUERY_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROUTE_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_NAME=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_PREFIX=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_PROVIDER=minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_REGION_NAME=us-east-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SERVER_URL=http://minio:9000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SKIP_SCHEMA_VALIDATION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_DATA_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY_URL=https://e1.zinclabs.dev</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TIME_STAMP_COL=_timestamp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_KEY=Authorization</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_VALUE=Basic YWRtaW46Q29tcGxleHBhc3MjMTIz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TS_ALLOWED_UPTO=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_UI_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_LINE_MODE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_MEMORY_MODE_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WIDENING_SCHEMA_EVOLUTION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_EMAIL=root@example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_PASSWORD=Complexpass#123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_ACCESS_KEY=rootuser</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SECRET_KEY=rootpass123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>router</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>public.ecr.aws/zinclabs/openobserve:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5080</span><span class=p>:</span><span class=m>5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=kc>on</span>-<span class=l>failure</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_NODE_ROLE=router</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>OTEL_OTLP_HTTP_ENDPOINT=http://127.0.0.1:5080/api/nexus/traces</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_BACKTRACE=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_LOG=info</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_BASE_URI=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COLS_PER_RECORD_LIMIT=200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_BLOCKED_ORGS=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_DATA_RETENTION_DAYS=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_FAKE_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_INTERVAL=60</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_MAX_FILE_SIZE=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_DIR=./data/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_STREAM_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_WAL_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_ADDR=etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CERT_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CLIENT_CERT_AUTH=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_COMMAND_TIMEOUT=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CONNECT_TIMEOUT=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_DOMAIN_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_KEY_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOAD_PAGE_SIZE=10000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOCK_WAIT_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PASSWORD=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_TRUSTED_CA_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_USER=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_PER_THREAD_LOCK=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_JSON=.json</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_PARQUET=.parquet</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_MOVE_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_PUSH_INTERVAL=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_ORG_HEADER_KEY=zinc-org-id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_PORT=5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HEARTBEAT_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_IPV6_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_PORT=5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_INSTANCE_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_JSON_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE_STORAGE=disk</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LUA_FN_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_RETENTION_TIME=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_SIZE_ON_DISK=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_CACHE_LATEST_FILES=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_MAX_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_RELEASE_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_DEDUP_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_ELECTION_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_PUSH_INTERVAL=15</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PARQUET_COMPRESSION=zstd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PAYLOAD_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_CLUSTER=cluster</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_REPLICA=__replica__</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_QUERY_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROUTE_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_NAME=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_PREFIX=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_PROVIDER=minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_REGION_NAME=us-east-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SERVER_URL=http://minio:9000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SKIP_SCHEMA_VALIDATION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_DATA_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY_URL=https://e1.zinclabs.dev</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TIME_STAMP_COL=_timestamp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_KEY=Authorization</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_VALUE=Basic YWRtaW46Q29tcGxleHBhc3MjMTIz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TS_ALLOWED_UPTO=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_UI_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_LINE_MODE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_MEMORY_MODE_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WIDENING_SCHEMA_EVOLUTION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_EMAIL=root@example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_PASSWORD=Complexpass#123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_ACCESS_KEY=rootuser</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SECRET_KEY=rootpass123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>compactor</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>public.ecr.aws/zinclabs/openobserve:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=kc>on</span>-<span class=l>failure</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd-2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_NODE_ROLE=compactor</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>OTEL_OTLP_HTTP_ENDPOINT=http://127.0.0.1:5080/api/nexus/traces</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_BACKTRACE=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>RUST_LOG=info</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_BASE_URI=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COLS_PER_RECORD_LIMIT=200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_BLOCKED_ORGS=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_DATA_RETENTION_DAYS=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_FAKE_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_INTERVAL=60</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_COMPACT_MAX_FILE_SIZE=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_DIR=./data/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_STREAM_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_WAL_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_ADDR=etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CERT_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CLIENT_CERT_AUTH=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_COMMAND_TIMEOUT=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_CONNECT_TIMEOUT=2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_DOMAIN_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_KEY_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOAD_PAGE_SIZE=10000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_LOCK_WAIT_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PASSWORD=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_TRUSTED_CA_FILE=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_USER=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_FULLTEXT_ON_ALL_FIELDS=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FEATURE_PER_THREAD_LOCK=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_JSON=.json</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_EXT_PARQUET=.parquet</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_MOVE_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_FILE_PUSH_INTERVAL=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_ORG_HEADER_KEY=zinc-org-id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_PORT=5081</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_GRPC_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HEARTBEAT_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_IPV6_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_PORT=5080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_INSTANCE_NAME=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_JSON_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE_STORAGE=disk</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LUA_FN_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_RETENTION_TIME=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_SIZE_ON_DISK=1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_CACHE_LATEST_FILES=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_MAX_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MEMORY_CACHE_RELEASE_SIZE=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_DEDUP_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_ELECTION_INTERVAL=30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_METRICS_LEADER_PUSH_INTERVAL=15</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PARQUET_COMPRESSION=zstd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PAYLOAD_LIMIT=209715200</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_CLUSTER=cluster</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_HA_REPLICA=__replica__</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_QUERY_THREAD_NUM=0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROUTE_TIMEOUT=600</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_NAME=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_PREFIX=mysuperduperbucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_PROVIDER=minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_REGION_NAME=us-east-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SERVER_URL=http://minio:9000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SKIP_SCHEMA_VALIDATION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_DATA_DIR=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_SLED_PREFIX=/zinc/observe/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TELEMETRY_URL=https://e1.zinclabs.dev</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TIME_STAMP_COL=_timestamp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_KEY=Authorization</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TRACING_HEADER_VALUE=Basic YWRtaW46Q29tcGxleHBhc3MjMTIz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_TS_ALLOWED_UPTO=5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_UI_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_LINE_MODE_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WAL_MEMORY_MODE_ENABLED=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_WIDENING_SCHEMA_EVOLUTION=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_EMAIL=root@example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_PASSWORD=Complexpass#123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_ACCESS_KEY=rootuser</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_SECRET_KEY=rootpass123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>minio</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>quay.io/minio/minio:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>example-minio</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>MINIO_ROOT_USER</span><span class=p>:</span><span class=w> </span><span class=l>rootuser</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>MINIO_ROOT_PASSWORD</span><span class=p>:</span><span class=w> </span><span class=l>rootpass123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>minio:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=l>server --address :9000 --console-address &#34;:9001&#34; /data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>9000</span><span class=p>:</span><span class=m>9000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>9001</span><span class=p>:</span><span class=m>9001</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd-1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.io/bitnami/etcd:3.5.8-debian-11-r4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd1:/bitnami/etcd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_NAME=etcd-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_DATA_DIR=/bitnami/etcd/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_ADVERTISE_CLIENT_URLS=http://etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-1:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-k8s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_STATE=new</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ALLOW_NONE_AUTHENTICATION=yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd-2</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.io/bitnami/etcd:3.5.8-debian-11-r4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd2:/bitnami/etcd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_NAME=etcd-2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_DATA_DIR=/bitnami/etcd/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_ADVERTISE_CLIENT_URLS=http://etcd-2:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-2:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-k8s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_STATE=new</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ALLOW_NONE_AUTHENTICATION=yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>minio</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd2</span><span class=p>:</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>=> <code>docker compose up -d</code> で動いた</p><a href=#シングルノードs3で動かす><h2 id=シングルノードs3で動かす><span class=hanchor arialabel=Anchor># </span>シングルノード+S3で動かす</h2></a><p>シングルノード(一つのコンテナで全機能を動かす)モードで、ストレージはS3を使った場合の実行例</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>app</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>public.ecr.aws/zinclabs/openobserve:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5601</span><span class=p>:</span><span class=m>5601</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>etcd-1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>etcd-2</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./data:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./awsconfig:/root/.aws/config</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_DATA_DIR=/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_HTTP_PORT=5601</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_EMAIL=root@example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ROOT_USER_PASSWORD=Complexpass#123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_REGION_NAME=ap-northeast-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_S3_BUCKET_NAME=mybucket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_SIZE_ON_DISK=50</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_MAX_FILE_RETENTION_TIME=10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_LOCAL_MODE=false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_ETCD_ADDR=etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ZO_PROMETHEUS_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd-1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.io/bitnami/etcd:3.5.8-debian-11-r4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2379</span><span class=p>:</span><span class=m>2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2380</span><span class=p>:</span><span class=m>2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd1:/bitnami/etcd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>test</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;etcdctl endpoint health&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>timeout</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>retries</span><span class=p>:</span><span class=w> </span><span class=m>3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>start_period</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_NAME=etcd-1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_DEBUG=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_DATA_DIR=/bitnami/etcd/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_ADVERTISE_CLIENT_URLS=http://etcd-1:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-1:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-k8s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_STATE=new</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ALLOW_NONE_AUTHENTICATION=yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd-2</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.io/bitnami/etcd:3.5.8-debian-11-r4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>expose</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>etcd2:/bitnami/etcd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>test</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;etcdctl endpoint health&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>timeout</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>retries</span><span class=p>:</span><span class=w> </span><span class=m>3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>start_period</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_NAME=etcd-2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_DEBUG=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_DATA_DIR=/bitnami/etcd/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_ADVERTISE_CLIENT_URLS=http://etcd-2:2379</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-2:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-k8s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER_STATE=new</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ETCD_INITIAL_CLUSTER=etcd-1=http://etcd-1:2380,etcd-2=http://etcd-2:2380</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>ALLOW_NONE_AUTHENTICATION=yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>etcd2</span><span class=p>:</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><a href=#注意点><h3 id=注意点><span class=hanchor arialabel=Anchor># </span>注意点</h3></a><ul><li>シングルノードだとデフォルトでローカルのディスクストレージを使用するため、 <code>ZO_LOCAL_MODE=false</code> を設定した。<ul><li>このとき、コンテナに <code>~/.aws/config</code> が存在しないとエラーになってしまったため、 <code>./awsconfig:/root/.aws/config</code> をマウントした (
+<a href=https://github.com/openobserve/openobserve/issues/1099 rel=noopener>https://github.com/openobserve/openobserve/issues/1099</a>)</li><li>awsconfigの中身は以下のようにして、EC2のinstance profileが使われるようにした。ACCESS_KEYやSECRETでもいい。</li></ul></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[default]
+</span></span><span class=line><span class=cl>region = ap-northeast-1
+</span></span><span class=line><span class=cl>credential_source=Ec2InstanceMetadata
+</span></span></code></pre></td></tr></table></div></div><a href=#elasticsearchのapiでデータ投入する><h2 id=elasticsearchのapiでデータ投入する><span class=hanchor arialabel=Anchor># </span>ElasticsearchのAPIでデータ投入する</h2></a><p>Elasticsearchとコンパチのインターフェースを備えており、 <code>/api/{organization}/_bulk</code> のAPIで投入することができる。</p><p><a href=https://openobserve.ai/docs/api/ingestion/logs/bulk/ rel=noopener>https://openobserve.ai/docs/api/ingestion/logs/bulk/</a></p><p>ES8のクライアント(
+<a href=https://github.com/elastic/go-elasticsearch rel=noopener>https://github.com/elastic/go-elasticsearch</a>)を使って作成する</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;bufio&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;bytes&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;encoding/json&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;log&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;os&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/elastic/go-elasticsearch/v8&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/elastic/go-elasticsearch/v8/esutil&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>newElasticsearchBulkIndexer</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>)</span> <span class=p>(</span><span class=nx>esutil</span><span class=p>.</span><span class=nx>BulkIndexer</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>es</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>elasticsearch</span><span class=p>.</span><span class=nf>NewClient</span><span class=p>(</span><span class=nx>elasticsearch</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Username</span><span class=p>:</span> <span class=s>&#34;root@example.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Password</span><span class=p>:</span> <span class=s>&#34;Complexpass#123&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Addresses</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=s>&#34;http://localhost:5080/api/default&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>		<span class=nx>EnableDebugLogger</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=p>})</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>indexer</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>esutil</span><span class=p>.</span><span class=nf>NewBulkIndexer</span><span class=p>(</span><span class=nx>esutil</span><span class=p>.</span><span class=nx>BulkIndexerConfig</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>Client</span><span class=p>:</span> <span class=nx>es</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=p>})</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>indexer</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>insert</span><span class=p>(</span><span class=nx>filename</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>error</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>ctx</span> <span class=o>:=</span> <span class=nx>context</span><span class=p>.</span><span class=nf>Background</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>indexer</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>newElasticsearchBulkIndexer</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>body</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>ReadFile</span><span class=p>(</span><span class=nx>filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>scanner</span> <span class=o>:=</span> <span class=nx>bufio</span><span class=p>.</span><span class=nf>NewScanner</span><span class=p>(</span><span class=nx>bytes</span><span class=p>.</span><span class=nf>NewReader</span><span class=p>(</span><span class=nx>body</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>	<span class=nx>logs</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=nx>accessLog</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>scanner</span><span class=p>.</span><span class=nf>Scan</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>logs</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>logs</span><span class=p>,</span> <span class=nf>ParseLog</span><span class=p>(</span><span class=nx>scanner</span><span class=p>.</span><span class=nf>Text</span><span class=p>()))</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>v</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>logs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>js</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>v</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=nx>err</span> <span class=p>=</span> <span class=nx>indexer</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>			<span class=nx>ctx</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>			<span class=nx>esutil</span><span class=p>.</span><span class=nx>BulkIndexerItem</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nx>Action</span><span class=p>:</span> <span class=s>&#34;index&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>				<span class=nx>Index</span><span class=p>:</span>  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;log-%s-%s&#34;</span><span class=p>,</span> <span class=s>&#34;mygroup1&#34;</span><span class=p>,</span> <span class=nx>v</span><span class=p>.</span><span class=nx>Datetime</span><span class=p>.</span><span class=nf>Format</span><span class=p>(</span><span class=s>&#34;20060102&#34;</span><span class=p>)),</span>
+</span></span><span class=line><span class=cl>				<span class=nx>Body</span><span class=p>:</span>   <span class=nx>bytes</span><span class=p>.</span><span class=nf>NewReader</span><span class=p>(</span><span class=nx>js</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			<span class=p>},</span>
+</span></span><span class=line><span class=cl>		<span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Stats: %+v\n&#34;</span><span class=p>,</span> <span class=nx>indexer</span><span class=p>.</span><span class=nf>Stats</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>indexer</span><span class=p>.</span><span class=nf>Close</span><span class=p>(</span><span class=nx>ctx</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>insert</span><span class=p>(</span><span class=s>&#34;testdata.txt&#34;</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalf</span><span class=p>(</span><span class=s>&#34;%v&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></article></main></div><hr><div id=footer><div class=prev-next-container><p>&lt;&lt; <a class=previous href=https://ikorihn.github.io/digitalgarden/note/OpenObserve%E3%82%92%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E8%B2%A0%E8%8D%B7%E5%88%86%E6%95%A3%E3%81%99%E3%82%8B/>OpenObserveを複数サーバーで負荷分散する</a></p><p><a class=next href=https://ikorihn.github.io/digitalgarden/note/Kibana/>Kibana</a> >></p></div><div class=page-end><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/digitalgarden/note/OpenObserve%E3%82%92%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E8%B2%A0%E8%8D%B7%E5%88%86%E6%95%A3%E3%81%99%E3%82%8B/ data-ctx=OpenObserveを使ってみる data-src=/note/OpenObserve%E3%82%92%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E8%B2%A0%E8%8D%B7%E5%88%86%E6%95%A3%E3%81%99%E3%82%8B class=internal-link>OpenObserveを複数サーバーで負荷分散する</a></li></ul><h3>Related pages</h3><h4>Tag: <a href=https://ikorihn.github.io/digitalgarden/tags/2023/06/29/>2023 06 29</a></h4><ul><li><a href=/digitalgarden/note/OpenObserve%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/>OpenObserveを使ってみる</a></li><li><a href=/digitalgarden/note/OpenObserve%E3%82%92%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E8%B2%A0%E8%8D%B7%E5%88%86%E6%95%A3%E3%81%99%E3%82%8B/>OpenObserveを複数サーバーで負荷分散する</a></li></ul><h4>Tag: <a href=https://ikorihn.github.io/digitalgarden/tags/Observability/>Observability</a></h4><ul><li><a href=/digitalgarden/note/Kibana/>Kibana</a></li><li><a href=/digitalgarden/note/OpenObserve%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/>OpenObserveを使ってみる</a></li><li><a href=/digitalgarden/note/OpenObserve%E3%82%92%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E8%B2%A0%E8%8D%B7%E5%88%86%E6%95%A3%E3%81%99%E3%82%8B/>OpenObserveを複数サーバーで負荷分散する</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://ikorihn.github.io/digitalgarden/js/graph.6579af7b10c818dbd2ca038702db0224.js></script><h3>By year</h3><ul><li><a href=https://ikorihn.github.io/digitalgarden/posts/2023/>2023(168)</a></li><li><a href=https://ikorihn.github.io/digitalgarden/posts/2022/>2022(95)</a></li><li><a href=https://ikorihn.github.io/digitalgarden/posts/2021/>2021(188)</a></li><li><a href=https://ikorihn.github.io/digitalgarden/posts/2020/>2020(19)</a></li></ul></div></div></div><div id=contact_buttons><footer><p>Made by ikorihn using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://ikorihn.github.io/digitalgarden/>Home</a></li><li><a href=https://twitter.com/r57ty7>Twitter</a></li><li><a href=https://github.com/ikorihn>GitHub</a></li></ul></footer></div></div></body></html>
