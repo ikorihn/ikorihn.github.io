@@ -7,4 +7,6 @@ enableToc: false
 
 [Obsidian で作成しているノートから一部を公開しています。](blog/Quartzを使ってObsidianを無料で公開してみた.md)
 
-- [All Tags](/tags)
+- [All Tags](/tags) … タグ一覧
+- [Notes](/note) … Obsidianで取っているメモ
+- [Blog](/blog) … ブログに相当するコンテンツ
