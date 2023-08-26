@@ -10,6 +10,7 @@ summaryLength = 70
 paginate = 20
 enableGitInfo = false
 hasCJKLanguage = true
+googleAnalytics = "G-X9HNLGNVZR"
 
 [markup]
     [markup.tableOfContents]
