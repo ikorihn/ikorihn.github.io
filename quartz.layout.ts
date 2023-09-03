@@ -20,7 +20,8 @@ const left = [
   Component.Search(),
   Component.Darkmode(),
   Component.RecentNotes({
-    limit: 10,
+    limit: 20,
+    linkToMore: "note/",
   }),
 ]
 

@@ -64,6 +64,8 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options> | undefined> 
                 .map((tag: string | number) => tag.toString())
             }
 
+            data.tags = data.tags?.filter((tag: string) => !/^\d{4}\/\d{2}\/\d{2}/.test(tag))
+
             // slug them all!!
             data.tags = [...new Set(data.tags?.map((tag: string) => slugTag(tag)))]
 
