@@ -64,7 +64,14 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options> | undefined> 
             }
 
             const tags = coerceToArray(coalesceAliases(data, ["tags", "tag"]))
-            if (tags) data.tags = [...new Set(tags.map((tag: string) => slugTag(tag)))]
+            // remove all non-string tags
+            if (tags) {
+              data.tags = tags
+                .filter((tag: unknown) => typeof tag === "string" || typeof tag === "number")
+                .filter((tag: string) => !/^\d{4}\/\d{2}\/\d{2}/.test(tag)) // remove daily tag
+                .map((tag: string | number) => tag.toString())
+              data.tags = [...new Set(tags.map((tag: string) => slugTag(tag)))]
+            }
 
             const aliases = coerceToArray(coalesceAliases(data, ["aliases", "alias"]))
             if (aliases) data.aliases = aliases
