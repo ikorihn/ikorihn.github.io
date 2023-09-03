@@ -6,7 +6,7 @@ const config: QuartzConfig = {
     pageTitle: "ikorihn Digitalgarden",
     enableSPA: false,
     enablePopovers: true,
-    analytics: null,
+    analytics: { provider: "google", tagId: "G-X9HNLGNVZR" },
     baseUrl: "ikorihn.github.io/digitalgarden",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
