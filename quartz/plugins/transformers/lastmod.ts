@@ -76,10 +76,16 @@ export const CreatedModifiedDate: QuartzTransformerPlugin<Partial<Options> | und
               }
             }
 
+            const createdDate = created
+              ? new Date(created)
+              : modified
+              ? new Date(modified)
+              : new Date(0)
+
             file.data.dates = {
-              created: created ? new Date(created) : new Date(0),
-              modified: modified ? new Date(modified) : new Date(0),
-              published: published ? new Date(published) : new Date(0),
+              created: createdDate,
+              modified: modified ? new Date(modified) : undefined,
+              published: published ? new Date(published) : undefined,
             }
           }
         },
@@ -92,8 +98,8 @@ declare module "vfile" {
   interface DataMap {
     dates: {
       created: Date
-      modified: Date
-      published: Date
+      modified: Date | undefined
+      published: Date | undefined
     }
   }
 }

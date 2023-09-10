@@ -5,6 +5,7 @@ import { QuartzPluginData } from "../plugins/vfile"
 interface Props {
   date: Date
   locale?: ValidLocale
+  updated?: Date
 }
 
 export type ValidDateType = keyof Required<QuartzPluginData>["dates"]
@@ -26,6 +27,12 @@ export function formatDate(d: Date, locale: ValidLocale = "en-US"): string {
   return `${y}-${m}-${day}`
 }
 
-export function Date({ date, locale }: Props) {
-  return <>{formatDate(date, locale)}</>
+export function Date({ date, locale, updated }: Props) {
+  const dateStr = formatDate(date, locale)
+  const updatedStr = updated ? formatDate(updated) : undefined
+  return (
+    <>
+      {dateStr} {updatedStr != null && dateStr !== updatedStr && `(upd: ${updatedStr})`}
+    </>
+  )
 }
