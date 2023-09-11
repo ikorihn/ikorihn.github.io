@@ -1,6 +1,8 @@
 @use "./variables.scss" as *;
 @use "./syntax.scss";
 @use "./callouts.scss";
+@use "./linkcard.scss";
+@use "./variables.scss" as *;
 
 html {
   scroll-behavior: smooth;

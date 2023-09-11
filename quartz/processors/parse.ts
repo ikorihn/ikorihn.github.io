@@ -2,6 +2,7 @@ import esbuild from "esbuild"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { Processor, unified } from "unified"
+import { inspect } from "unist-util-inspect"
 import { Root as MDRoot } from "remark-parse/lib"
 import { Root as HTMLRoot } from "hast"
 import { ProcessedContent } from "../plugins/vfile"
@@ -96,7 +97,9 @@ export function createFileParser(ctx: BuildCtx, fps: FilePath[]) {
         file.data.slug = slugifyFilePath(file.data.relativePath)
 
         const ast = processor.parse(file)
+        // console.log(inspect(ast))
         const newAst = await processor.run(ast, file)
+        // console.log(inspect(newAst))
         res.push([newAst, file])
 
         if (argv.verbose) {
