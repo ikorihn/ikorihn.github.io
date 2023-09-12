@@ -1,7 +1,5 @@
-import { Root as HTMLRoot } from "hast"
 import { Node, Parent } from "unist"
 import { Paragraph, Text, Link } from "mdast"
-import { toString } from "hast-util-to-string"
 import { QuartzTransformerPlugin } from "../types"
 import { visit } from "unist-util-visit"
 import ogs from "open-graph-scraper"
@@ -11,14 +9,15 @@ import fetch from "node-fetch"
 import sanitize from "sanitize-filename"
 import he from "he"
 import { VFile } from "vfile"
-import { inspect } from "util"
 
 export interface Options {
   cache: boolean
+  shortenUrl: boolean
 }
 
 const defaultOptions: Options = {
   cache: false,
+  shortenUrl: false,
 }
 
 export const LinkCard: QuartzTransformerPlugin<Partial<Options> | undefined> = (userOpts) => {
@@ -26,22 +25,15 @@ export const LinkCard: QuartzTransformerPlugin<Partial<Options> | undefined> = (
   return {
     name: "LinkCard",
     markdownPlugins() {
-      return [rlc]
+      return [linkcard]
     },
-    // htmlPlugins() {
-    //   return [rlc]
-    // },
   }
 }
 
 const defaultSaveDirectory = "public"
 const defaultOutputDirectory = "/remark-link-card/"
 
-const escapeHTML = (unsafe: string) => {
-  return unsafe.replaceAll("”", "'''")
-}
-
-function rlc(options: Options) {
+function linkcard(options: Options) {
   return async (tree: Node, file: VFile) => {
     const transformers: (() => void)[] = []
     visit(tree, "paragraph", (paragraph: Paragraph, index: number, parent: Parent) => {
@@ -68,7 +60,6 @@ function rlc(options: Options) {
 
           // Replace paragraph node with linkCardNode
           tree.children.splice(index, 1, linkCardNode)
-          console.log(inspect(tree))
         })
       }
     })
@@ -83,52 +74,12 @@ function rlc(options: Options) {
   }
 }
 
-function htmlParser(options: Options) {
-  return async (tree: HTMLRoot, file: VFile) => {
-    const transformers = []
-    const urls = []
+function isText(node: Node): node is Text {
+  return node.type === "text"
+}
 
-    const htmlStr = escapeHTML(toString(tree))
-    const regexForEntire = /{{< card-link '''(https?:\/\/[^']+)''' >}}/g
-    const linkcardUrls = htmlStr.match(regexForEntire)
-    const regexForCapture = /{{< card-link '''(https?:\/\/[^']+)''' >}}/
-    if (linkcardUrls && linkcardUrls.length > 0) {
-      for (const linkcardUrl of linkcardUrls) {
-        const group = regexForCapture.exec(linkcardUrl)
-        if (group == null) {
-          console.error(`[remark-link-card] Url not found: ${linkcardUrl}`)
-          continue
-        }
-
-        urls.push(group[1])
-      }
-    }
-
-    if (urls.length > 0) {
-      transformers.push(async () => {
-        // fetch data
-        const data = await fetchData(urls[1], options)
-
-        // create linkCardNode
-        const linkCardHtml = createLinkCard(data)
-        const linkCardNode = {
-          type: "html",
-          value: linkCardHtml,
-        }
-
-        // Replace paragraph node with linkCardNode
-        tree.children.splice(index, 1, linkCardNode)
-      })
-    }
-
-    try {
-      await Promise.all(transformers.map((t) => t()))
-    } catch (error) {
-      console.error(`[remark-link-card] Error: ${error}`)
-    }
-
-    return tree
-  }
+function isLink(node: Node): node is Link {
+  return node.type === "link"
 }
 
 const getOpenGraph = async (targetUrl) => {
@@ -166,15 +117,16 @@ const fetchData = async (targetUrl: string, options: Options) => {
   }
   // set open graph image src
   let ogImageSrc = ""
-  if (ogResult && ogResult.ogImage && ogResult.ogImage.url) {
+  if (ogResult && ogResult.ogImage && ogResult.ogImage.length > 0) {
+    const ogImageUrl = ogResult.ogImage[0].url
     if (options && options.cache) {
       const imageFilename = await downloadImage(
-        ogResult.ogImage.url,
+        ogImageUrl,
         path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
       )
       ogImageSrc = imageFilename && path.join(defaultOutputDirectory, imageFilename)
     } else {
-      ogImageSrc = ogResult.ogImage.url
+      ogImageSrc = ogImageUrl
     }
   }
   // set open graph image alt
@@ -239,12 +191,13 @@ const createLinkCard = (data) => {
   return outputHTML
 }
 
-const downloadImage = async (url, saveDirectory) => {
+const downloadImage = async (url: string, saveDirectory: string) => {
   let targetUrl
   try {
     targetUrl = new URL(url)
   } catch (error) {
     console.error(`[remark-link-card] Error: Failed to parse url "${url}"\n ${error}`)
+    return
   }
   const filename = sanitize(decodeURI(targetUrl.href))
   const saveFilePath = path.join(saveDirectory, filename)
@@ -280,12 +233,4 @@ const downloadImage = async (url, saveDirectory) => {
   }
 
   return filename
-}
-
-function isText(node: Node): node is Text {
-  return node.type === "text"
-}
-
-function isLink(node: Node): node is Link {
-  return node.type === "link"
 }
