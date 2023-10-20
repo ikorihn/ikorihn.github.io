@@ -17,12 +17,16 @@ export const sharedPageComponents: SharedLayout = {
 const left = [
   Component.PageTitle(),
   Component.MobileOnly(Component.Spacer()),
+  Component.Links(),
+  Component.MobileOnly(Component.Spacer()),
   Component.Search(),
   Component.Darkmode(),
-  Component.RecentNotes({
-    limit: 20,
-    linkToMore: "note/",
-  }),
+  Component.DesktopOnly(
+    Component.RecentNotes({
+      limit: 20,
+      linkToMore: "note/",
+    }),
+  ),
 ]
 
 // components for pages that display a single page (e.g. a single note)
