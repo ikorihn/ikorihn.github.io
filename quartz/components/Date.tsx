@@ -32,7 +32,7 @@ export function Date({ date, locale, updated }: Props) {
   const updatedStr = updated ? formatDate(updated) : undefined
   return (
     <>
-      {dateStr} {updatedStr != null && dateStr !== updatedStr && `(upd: ${updatedStr})`}
+      {dateStr} {updatedStr != null && dateStr !== updatedStr && `(edited ${updatedStr})`}
     </>
   )
 }
