@@ -17,10 +17,14 @@ export const sharedPageComponents: SharedLayout = {
 const left = [
   Component.PageTitle(),
   Component.MobileOnly(Component.Spacer()),
-  Component.Links(),
-  Component.MobileOnly(Component.Spacer()),
   Component.Search(),
   Component.Darkmode(),
+  Component.DesktopOnly(
+    Component.Explorer({
+      folderClickBehavior: "link",
+      filterFn: (node) => node.file?.slug !== "index",
+    }),
+  ),
   Component.DesktopOnly(
     Component.RecentNotes({
       limit: 20,
