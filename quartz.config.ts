@@ -8,12 +8,10 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    enableSPA: true,
     pageTitle: "ikorihn Digitalgarden",
+    enableSPA: false,
     enablePopovers: true,
-    analytics: {
-      provider: "plausible",
-    },
+    analytics: null,
     locale: "en-US",
     baseUrl: "ikorihn.github.io/digitalgarden",
     ignorePatterns: ["private", "templates", ".obsidian"],
@@ -23,7 +21,7 @@ const config: QuartzConfig = {
       cdnCaching: true,
       typography: {
         header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        body: "Noto Sans JP",
         code: "IBM Plex Mono",
       },
       colors: {
