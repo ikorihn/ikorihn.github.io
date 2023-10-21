@@ -4,12 +4,12 @@
   "private": true,
   "version": "4.1.4",
   "type": "module",
-  "author": "jackyzha0 <j.zhao2k19@gmail.com>",
+  "author": "ikorihn",
   "license": "MIT",
-  "homepage": "https://quartz.jzhao.xyz",
+  "homepage": "https://ikorihn.github.io/digitalgarden/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jackyzha0/quartz.git"
+    "url": "https://github.com/ikorihn/digitalgarden.git"
   },
   "scripts": {
     "docs": "npx quartz build --serve -d docs",
