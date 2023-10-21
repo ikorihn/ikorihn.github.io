@@ -1,5 +1,5 @@
 ---
-title: ikorihn Digitalgarden
+title: Home
 date: 2023-04-01T10:00:00+09:00
 enableToc: false
 ---
