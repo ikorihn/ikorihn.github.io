@@ -5,7 +5,7 @@ import BodyConstructor from "../../components/Body"
 import { pageResources, renderPage } from "../../components/renderPage"
 import { ProcessedContent, defaultProcessedContent } from "../vfile"
 import { FullPageLayout } from "../../cfg"
-import { FilePath, FullSlug, _stripSlashes, joinSegments } from "../../util/path"
+import { FilePath, FullSlug, _stripSlashes, joinSegments, pathToRoot } from "../../util/path"
 import { defaultListPageLayout, sharedPageComponents } from "../../../quartz.layout"
 import ArchiveContent from "../../components/pages/ArchiveContent"
 
@@ -56,7 +56,7 @@ export const ArchivePage: QuartzEmitterPlugin<FullPageLayout> = (userOpts) => {
 
       for (const year of years) {
         const slug = joinSegments("archive", year.toString()) as FullSlug
-        const externalResources = pageResources(slug, resources)
+        const externalResources = pageResources(pathToRoot(slug), resources)
         const [tree, file] = yearPages[year]
         const componentData: QuartzComponentProps = {
           fileData: file.data,
