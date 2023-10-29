@@ -8,9 +8,9 @@ tags:
 
 ## 概要
 
-DynamoDBを使うアプリケーション開発で、テストを簡単にするためにDynamoDBをローカルに立てたいと思います。
+[DynamoDB](note/DynamoDB.md) を使うアプリケーション開発で、テストを簡単にするためにDynamoDBをローカルに立てる。
 
-AWS公式が紹介しているDynamoDB Localを使います。
+AWS公式が紹介しているDynamoDB Localを使うことにする。
 
 {{< card-link "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html" >}}
 
@@ -53,7 +53,8 @@ $ aws dynamodb --region ap-northeast-1 --endpoint-url http://dynamodb-local:8000
 
 ## Docker Compose で起動とデータ投入を行う
 
-DynamoDB Localのコンテナと、データを投入するコンテナを起動するcompose.yamlを作成する。
+上記のDynamoDB Localのコンテナを起動して、初回起動時にデータを投入するコンテナをDocker composeで定義する。
+これで `docker compose up` 一発で起動できる。
 
 ````yaml:compose.yaml
 version: "3.8"
