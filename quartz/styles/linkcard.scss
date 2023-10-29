@@ -1,14 +1,14 @@
 .rlc-container {
   width: 100%;
   max-width: 800px;
-  max-height: 120px;
   margin: 0 auto 2rem;
+  padding: 0.8rem;
 
   text-decoration: none;
 
   border: 1px solid;
   border-radius: 0.25rem;
-  display: flex;
+  display: block;
   align-items: stretch;
 
   transition:
@@ -19,6 +19,11 @@
 .rlc-container:hover {
   background-color: rgba(80, 80, 80, 0.1);
   box-shadow: 0 4px 5px 2px rgba(80, 80, 80, 0.2);
+}
+
+.rlc-header {
+  padding: 0.5rem;
+  color: var(--tertiary);
 }
 
 .rlc-info {
