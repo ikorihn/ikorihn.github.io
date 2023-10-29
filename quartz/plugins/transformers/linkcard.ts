@@ -97,6 +97,9 @@ const getOpenGraph = async (targetUrl) => {
 const fetchData = async (targetUrl: string, options: Options) => {
   // get open graph
   const ogResult = await getOpenGraph(targetUrl)
+
+  // set site name
+  const siteName = ogResult?.ogSiteName ?? new URL(targetUrl).host
   // set title
   const parsedUrl = new URL(targetUrl)
   const title = (ogResult && ogResult.ogTitle && he.encode(ogResult.ogTitle)) || parsedUrl.hostname
@@ -145,6 +148,7 @@ const fetchData = async (targetUrl: string, options: Options) => {
   }
 
   return {
+    siteName,
     title,
     description,
     faviconSrc,
@@ -175,18 +179,17 @@ const createLinkCard = (data) => {
 
   // create output HTML
   const outputHTML = `
-<a class="rlc-container" href="${data.url}">
-  <div class="rlc-info">
-    <div class="rlc-title">${data.title}</div>
-    ${descriptionElement}
-    <div class="rlc-url-container">
-      ${faviconElement}
-      <span class="rlc-url">${data.displayUrl}</span>
-    </div>
-  </div>
-  ${imageElement}
-</a>
-`.trim()
+    <a class="rlc-container" href="${data.url}">
+      <div class="rlc-header">
+        ${faviconElement}
+        <span class="rlc-site-name">${data.siteName}</span>
+      </div>
+      <div class="rlc-info">
+        <div class="rlc-title">${data.title}</div>
+        ${descriptionElement}
+      </div>
+      ${imageElement}
+    </a>`.trim()
 
   return outputHTML
 }
