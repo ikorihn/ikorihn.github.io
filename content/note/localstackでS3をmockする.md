@@ -7,7 +7,7 @@ tags:
 lastmod: 2021-08-22T11:57:54+09:00
 ---
 
-[localstack](note/localstack.md) を使って [S3](note/S3.md) をモックできる
+[LocalStack](note/LocalStack.md) を使って [S3](note/S3.md) をモックできる
 
 ## 構築
 
