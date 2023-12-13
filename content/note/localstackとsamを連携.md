@@ -11,7 +11,7 @@ tags:
 
 ## 事象
 
-[SAM](note/SAM.md) コマンドで実行したLambdaから、 [localstack](note/localstack.md) で立てたS3にアクセスできない
+[SAM](note/SAM.md) コマンドで実行したLambdaから、 [LocalStack](note/LocalStack.md) で立てたS3にアクセスできない
 
 ## TL;DR
 
