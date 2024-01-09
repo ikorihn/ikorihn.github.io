@@ -61,10 +61,9 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options> | undefined> 
               // remove all non-string tags
               data.tags = data.tags
                 .filter((tag: unknown) => typeof tag === "string" || typeof tag === "number")
+                .filter((tag: string) => !/^\d{4}\/\d{2}\/\d{2}/.test(tag)) // remove daily tag
                 .map((tag: string | number) => tag.toString())
             }
-
-            data.tags = data.tags?.filter((tag: string) => !/^\d{4}\/\d{2}\/\d{2}/.test(tag))
 
             // slug them all!!
             data.tags = [...new Set(data.tags?.map((tag: string) => slugTag(tag)))]

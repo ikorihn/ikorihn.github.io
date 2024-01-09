@@ -18,11 +18,13 @@ export function getDate(cfg: GlobalConfiguration, data: QuartzPluginData): Date 
 }
 
 export function formatDate(d: Date): string {
-  const y = d.getFullYear()
-  const m = ("00" + (d.getMonth() + 1)).slice(-2)
-  const day = ("00" + d.getDate()).slice(-2)
-
-  return `${y}-${m}-${day}`
+  return d
+    .toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replaceAll("/", "-")
 }
 
 export function Date({ date, updated }: Props) {
