@@ -4,7 +4,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "ikorihn Digitalgarden",
-    enableSPA: false,
+    enableSPA: true,
     enablePopovers: true,
     analytics: { provider: "google", tagId: "G-X9HNLGNVZR" },
     baseUrl: "ikorihn.github.io/digitalgarden",
