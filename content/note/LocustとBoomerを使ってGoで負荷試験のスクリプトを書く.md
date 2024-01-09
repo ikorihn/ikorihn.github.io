@@ -10,10 +10,10 @@ tags:
 [DMMプラットフォームを支える負荷試験基盤 - Speaker Deck](https://speakerdeck.com/yuyu_hf/cndt-2022-dmm-load-testing-platform-for-dmm-platform)
 [gRPC + Locust + boomerで負荷試験をしてみた - Qiita](https://qiita.com/shka0909/items/ea0ec3ddaecb3dfa8239)
 
-[Locust](note/Locust.md) はPythonでスクリプトを書く。
-Goで負荷試験の処理を書きたくなったので、
-[Boomer](https://github.com/myzhan/boomer) を調べてみた
-[k6](note/負荷試験%20k6について.md)もいいけど
+[Locust](note/Locust.md) は通常 [Python](note/Python.md) で負荷試験のスクリプトを書くことになる。
+チームの技術スタックに合わせて [Go](note/Go.md) で負荷試験の処理を書きたくなったので、
+[Boomer](https://github.com/myzhan/boomer) を調べてみた。
+Go製のツールということでは[k6](note/負荷試験%20k6について.md) もあるけど、こちらはシナリオを [JavaScript](note/JavaScript.md) で書くのと、実行環境は変えたくなかったため一旦見送ったk。
 
 ## シナリオを作成
 
@@ -127,3 +127,5 @@ $ go run main.go
 するとWORKERSに登録される
 
 ![Pasted-image-20230110180714](note/Pasted-image-20230110180714.png)
+
+これでNumber of usersやSpawn rateを設定してStartを押せば負荷リクエストが開始される。
