@@ -6,6 +6,8 @@ tags:
 - zsh
 ---
 
+[XDG_BASE_DIRECTORY](note/XDG_BASE_DIRECTORY.md)
+
 参考
 [ホームディレクトリのドットファイルを整理する。](https://chiyosuke.blogspot.com/2019/04/blog-post_27.html)
 

@@ -5,6 +5,8 @@ tags:
 - Go
 ---
 
+[Go http.ClientのConnection設定値について調査](note/Go%20http.ClientのConnection設定値について調査.md) も参照
+
 ## 調査
 
 調査用コード
