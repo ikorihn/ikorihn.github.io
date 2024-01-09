@@ -7,7 +7,7 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
+      GitHub: "https://github.com/ikorihn",
       X: "https://twitter.com/r57ty7",
       Bluesky: "https://bsky.app/profile/ikorihn.bsky.social",
     },
@@ -21,14 +21,12 @@ const left = [
   Component.Darkmode(),
   Component.DesktopOnly(
     Component.Explorer({
-      folderClickBehavior: "link",
       filterFn: (node) => node.file?.slug !== "index",
     }),
   ),
   Component.DesktopOnly(
     Component.RecentNotes({
       limit: 20,
-      linkToMore: "note/",
     }),
   ),
 ]
