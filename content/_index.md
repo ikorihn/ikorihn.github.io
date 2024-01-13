@@ -13,17 +13,17 @@ lastmod: 2024-01-08T10:00:00+09:00
 
 ## Contents
 
-### [📔 Blog](/blog)
+### [📔 Blog](/blog/)
 
 ブログ記事に相当するもの。自分以外へ向けた情報発信用の記事をまとめています。
 
-### [🗒️ Notes](/note) 
+### [🗒️ Notes](/note/) 
 Obsidianで取っているメモ。最低限自分がわかればOKくらいのレベルで書かれています。
 
-### [🏷️ Tags](/tags) 
+### [🏷️ Tags](/tags/) 
 タグ一覧
 
-### [🪨 Archives](/archive) 
+### [🪨 Archives](/archive/) 
 年ごとのノート一覧
 
 ## About me
