@@ -5,7 +5,7 @@ tags:
 - terminal
 ---
 
-{{< card-link "https://github.com/charmbracelet/vhs/tree" >}}
+{{< card-link "https://github.com/charmbracelet/vhs" >}}
 
 *ターミナル* の操作を録画して、Gifを作成してくれる [Go](note/Go.md) 製のツール。
 一連の操作を `.tape` ファイルに記述してvhsコマンドに読み込ませることで、いつでも再現することができるのが特徴。
