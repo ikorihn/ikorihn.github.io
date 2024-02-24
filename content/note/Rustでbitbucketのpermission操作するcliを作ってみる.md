@@ -1,23 +1,24 @@
 ---
 title: Rustでbitbucketのpermission操作するcliを作ってみる
-date: 2023-05-05T20:20:00+09:00
+date: "2023-05-05T20:20:00+09:00"
 tags:
-- Rust
-- CLI
+  - Rust
+  - CLI
 ---
+ 
 
-[RustでCLIを作る](note/RustでCLIを作る.md) の続き
+[[RustでCLIを作る]] の続き
 
 Rust勉強がてらCLIで操作できるようにしてみる
 
-* https://github.com/clap-rs/clap を使う
-* [List explicit group permissions for a repository](https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-permissions-config-groups-get) のようにリポジトリのuser, groupsへのpermissionを操作するAPIが用意されている。ただし、usernameでは操作ができず、UUIDを指定する。UUIDはadminじゃないと簡単にはとれなさそう。
+- https://github.com/clap-rs/clap を使う
+- [List explicit group permissions for a repository](https://developer.atlassian.com/cloud/bitbucket/rest/api-group-repositories/#api-repositories-workspace-repo-slug-permissions-config-groups-get) のようにリポジトリのuser, groupsへのpermissionを操作するAPIが用意されている。ただし、usernameでは操作ができず、UUIDを指定する。UUIDはadminじゃないと簡単にはとれなさそう。
 
 ## APIの使い方
 
 ユーザー・グループの取得
 
-````shell
+```shell
 $ curl -u $BITBUCKET_USER:$BITBUCKET_PASS "https://api.bitbucket.org/2.0/repositories/${workspace}/${slug}/permissions-config/users"
 
 {
@@ -78,32 +79,31 @@ $ curl -u $BITBUCKET_USER:$BITBUCKET_PASS "https://api.bitbucket.org/2.0/reposit
   "page": 1
 }
 
-````
+```
 
 追加・更新
 ユーザーのUUIDやグループのslugは、permission設定ずみのリポジトリから取得するのが楽かな？そのため一つのリポジトリはGUIから設定して、2つ目以降はCLIでできる感じ
 
-````shell
+```shell
 # 更新だけじゃなく追加もできる
 $ curl -u $BITBUCKET_USER:$BITBUCKET_PASS -X PUT -H "Content-Type: application/json" "https://api.bitbucket.org/2.0/repositories/${workspace}/${slug}/permissions-config/users/%7Baaaaaaaa-7777-4567-8888-dddddddddddd%7D" -d '{ "permission": "write" }'
 $ curl -u $BITBUCKET_USER:$BITBUCKET_PASS -X PUT -H "Content-Type: application/json" "https://api.bitbucket.org/2.0/repositories/${workspace}/${slug}/permissions-config/groups/2022-ca9b0ca" -d '{ "permission": "write" }'
-````
+```
 
 削除
 
-````shell
+```shell
 $ curl -u $BITBUCKET_USER:$BITBUCKET_PASS -X DELETE -H "Content-Type: application/json" "https://api.bitbucket.org/2.0/repositories/${workspace}/${slug}/permissions-config/users/%7Baaaaaaaa-7777-4567-8888-dddddddddddd%7D"
 $lang curl -u $BITBUCKET_USER:$BITBUCKET_PASS -X PUT -H "Content-Type: application/json" "https://api.bitbucket.org/2.0/repositories/${workspace}/${slug}/permissions-config/groups/2021-ca9b0ca"
-````
+```
 
 ## 設計
 
-````
+```
 user, user-a, {aaaaaaaa-7898-45d3-869f-dd6ddf7efc10}, write
 user, user-b, {aaaaaaaa-7898-45d3-869f-dd6ddf7efc11}, read
 group, group-1, 2022_abcdef12, write
-````
-
+```
 みたいなCSVを食わせてこれのとおりに上書きする
 PJごとに、持っているリポジトリにはすべて同じ設定ができれば満足だと思うので
 
@@ -141,7 +141,7 @@ idをオプションで指定してもいいけど、listしたあと選択式�
 https://github.com/craftamap/bb を参考に、loginコマンドで `~/.bb.toml` を作ってusername, passwordを保存する的な
 Macでの動作しか確認できんけどkeychainに入れるとか
 
-````toml
+```toml
 [package]
 name = "bitbucket-cli"
 version = "0.1.0"
@@ -157,9 +157,9 @@ reqwest = { version = "0.11", features = ["blocking", "json"] }
 tokio = { version = "1", features = ["full"] }
 clap = { version = "3.2.22", features = ["derive"] }
 chrono = "0.4.20"
-````
+```
 
-````rust
+```rust
 use ansi_term::Colour;
 use chrono::{DateTime, Local};
 use clap::{ArgEnum, Parser, Subcommand};
@@ -416,4 +416,4 @@ async fn list(bitbucket: Bitbucket) -> Result<Vec<Permission>, Box<dyn std::erro
     Ok(permissions)
 }
 
-````
+```

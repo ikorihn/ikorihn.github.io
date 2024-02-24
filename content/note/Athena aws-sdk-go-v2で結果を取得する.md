@@ -2,15 +2,17 @@
 title: Athena aws-sdk-go-v2で結果を取得する
 date: 2023-11-08T13:50:00+09:00
 tags:
-- Athena
-- Go
+  - Athena
+  - Go
 ---
 
 タイトルまんまなのでさっそくサンプルコード
 
+追記: [[aws-sdk-go-v2 Athenaにクエリを投げて結果をページングで受け取る]] にほぼ同じことを書いていた。backoffがあるかどうかくらい
+
 ## サンプルコード
 
-````go
+```go
 import (
 	"context"
 	"fmt"
@@ -171,12 +173,12 @@ func backoff(attempt int, baseDelay, maxDelay time.Duration) time.Duration {
 
 	return time.Duration(durf)
 }
-````
+```
 
 ## ポイント
 
-* クエリを開始する
-* クエリの結果を待つ
-  * このとき、[Exponential Backoff and Jitter](Exponential%20Backoff%20and%20Jitter.md) でリトライすることでリクエスト回数を減らしている
-* 結果を取得する
-  * `athena.GetQueryResultsPaginator` を使いページネーションを簡単に実装できる
+- クエリを開始する
+- クエリの結果を待つ
+    - このとき、[[Exponential Backoff and Jitter]] でリトライすることでリクエスト回数を減らしている
+- 結果を取得する
+    - `athena.GetQueryResultsPaginator` を使いページネーションを簡単に実装できる

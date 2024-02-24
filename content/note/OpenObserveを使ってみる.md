@@ -1,17 +1,17 @@
 ---
 title: OpenObserveを使ってみる
-date: 2023-06-29T18:34:00+09:00
+date: "2023-06-29T18:34:00+09:00"
 tags:
-- 2023/06/29
-- Observability
-lastmod: 2023-06-29T18:38:48+09:00
+  - '2023/06/29'
+  - Observability
+lastmod: '2023-06-29T18:38:48+09:00'
 ---
 
 {{< card-link "https://openobserve.ai" >}} 
 
-[Kibana](note/Kibana.md) のように、ログデータの可視化を行うツールで、ログ、メトリクス、トレースをペタバイトレベルで扱うことができる。
+[[Kibana]] のように、ログデータの可視化を行うツールで、ログ、メトリクス、トレースをペタバイトレベルで扱うことができる。
 ElasticsearchやDatadogと比べ、10倍簡単、140倍のストレージコスト安、ハイパフォーマンスなどを謳っている。
-バックエンドは[Rust](note/Rust.md)、フロントエンドは[Vue.js](note/Vue.js.md)で書かれている。
+バックエンドは[[Rust]]、フロントエンドは[[Vue.js]]で書かれている。
 
 絶賛開発中のようなので、破壊的な変更が入る可能性が全然ありそう。
 
@@ -35,14 +35,14 @@ https://openobserve.ai/docs/architecture/
 HAモードではローカルディスクは使用できないので、必ずS3などが保存先になる。
 以下複数の役割のノードで構成される。
 
-* Ingester: 投入されたデータをparquetフォーマットに変換して、オブジェクトストレージに保存する。受け取ったデータを即オブジェクトストレージに転送するのではなく、ある程度ローカルに貯めてから転送するようだ。
-* Querier: クエリを実行する。
-* Compactor: 複数の小さいファイルを一つの大きいファイルにマージして、検索の効率を上げる
-* Router: リクエストをingesterやquerierに分配する、proxyの役割。
-* AlertManager: 定期実行やアラート通知
+- Ingester: 投入されたデータをparquetフォーマットに変換して、オブジェクトストレージに保存する。受け取ったデータを即オブジェクトストレージに転送するのではなく、ある程度ローカルに貯めてから転送するようだ。
+- Querier: クエリを実行する。
+- Compactor: 複数の小さいファイルを一つの大きいファイルにマージして、検索の効率を上げる
+- Router: リクエストをingesterやquerierに分配する、proxyの役割。
+- AlertManager: 定期実行やアラート通知
 
 デプロイは https://openobserve.ai/docs/ha_deployment/ を参照。
-今のところ [Kubernetes](note/Kubernetes.md) にhelmでデプロイする手順のみが用意されている。
+今のところ [[Kubernetes]] にhelmでデプロイする手順のみが用意されている。
 [EC2やECSでもやれなくはない](https://discuss.openobserve.ai/kb/t/ha-deployment-on-aws-ecs-or-ec2/2K1d28) が公式手順はないので、自分でkubernetesのマニフェスト見ながら頑張るしかなさそう。
 
 ## データ摂取(ingestion)
@@ -52,33 +52,34 @@ https://openobserve.ai/docs/ingestion/logs/python/#python
 ログやメトリクスはFluent-bitやKinesis Firehose、curlなどさまざまなソースからHTTP APIで投入できる。
 すでに構築済みのデータ投入機構があれば、投入先をOpenObserveにすればよさそう
 
+
 ## セットアップ(セルフホスト)
 
 https://openobserve.ai/docs/quickstart/
 
 Dockerで簡単に起動できる
 
-````shell
+```shell
 mkdir data
 docker run -v $PWD/data:/data -e ZO_DATA_DIR="/data" -p 5080:5080 -e ZO_ROOT_USER_EMAIL="root@example.com" -e ZO_ROOT_USER_PASSWORD="Complexpass#123" public.ecr.aws/zinclabs/openobserve:latest
-````
+```
 
 => localhost:5080 で開く
 
 サンプルデータも用意してくれているのでそれを投入すれば閲覧できる
 
-````shell
+```shell
 curl -L https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip -o k8slog_json.json.zip
 unzip k8slog_json.json.zip
 curl http://localhost:5080/api/default/default/_json -i -u "root@example.com:Complexpass#123"  -d "@k8slog_json.json"
-````
+```
 
 ## サンプルデータを作成する
 
 本題ではないが、今後役立ちそうなのでfakeデータをつくってみる。
 fakeの作成には https://github.com/brianvoe/gofakeit を使った。
 
-````go
+```go
 package main
 
 import (
@@ -131,19 +132,19 @@ func main() {
 	fmt.Println(string(b))
 }
 
-````
+```
 
 大量に作ってぶっこんでパフォーマンス検証
 
-````
+```
 while true; do JSON=fake_$(date +%s).json; ./faker -count 10000 > $JSON; curl http://localhost:5080/api/default/fake/_json -i -u "root@example.com:Complexpass#123"  -d "@${JSON}"; rm "${JSON}"; sleep 1; done
-````
+```
 
 ## HA構成をKubernetesで動かす
 
-[Rancher Desktop](note/Rancher%20Desktop.md) の [Kubernetes](note/Kubernetes.md) にデプロイして、HA構成を試してみる。
+[[Rancher Desktop]] の [[Kubernetes]] にデプロイして、HA構成を試してみる。
 
-HA構成の場合はオブジェクトストレージが必須なので、事前に [MinIOをローカルのkubernetesで動かす](note/MinIOをローカルのkubernetesで動かす.md)
+HA構成の場合はオブジェクトストレージが必須なので、事前に [[MinIOをローカルのkubernetesで動かす]]
 ==> OpenObserveのhelm内にminioが内包されていたので不要だった。。気づくの遅かった
 
 そうしたらhelm chartが用意されているのでデプロイする
@@ -152,7 +153,7 @@ HA構成の場合はオブジェクトストレージが必須なので、事前
 
 values.yaml
 
-````yaml
+```yaml
 serviceAccount:
   # Annotations to add to the service account
   annotations:
@@ -167,35 +168,35 @@ replicaCount:
 
 minio:
   enabled: true # if true then minio will be deployed as part of openobserve
-````
+```
 
 デプロイ
 
-````shell
+```shell
 helm --namespace openobserve -f values.yaml install --create-namespace o1 openobserve/openobserve
 
-````
+```
 
 localhost:5080 で開く
 
-````shell
+```shell
 kubectl --namespace openobserve port-forward svc/o1-openobserve-router 5080:5080
-````
+```
 
 minioの中身確認
 
-````shell
+```shell
 kubectl run awscli -it --rm --image amazon/aws-cli --env=AWS_ACCESS_KEY_ID=rootuser --env=AWS_SECRET_ACCESS_KEY=rootpass123 --command -- sh
 
 sh-4.2$ aws --endpoint-url http://o1-minio-svc.openobserve.svc.cluster.local:9000 --no-verify-ssl s3 ls
 1-01-01 00:00:00    mysuperduperbucket
-````
+```
 
 ## HA構成をDocker composeで動かす
 
 helmでデプロイされたリソースから、ある程度動くようにDocker composeに落とし込む。
 
-````yaml
+```yaml
 services:
   querier:
     image: public.ecr.aws/zinclabs/openobserve:latest
@@ -635,7 +636,7 @@ volumes:
   minio:
   etcd1:
   etcd2:
-````
+```
 
 => `docker compose up -d` で動いた
 
@@ -643,7 +644,7 @@ volumes:
 
 シングルノード(一つのコンテナで全機能を動かす)モードで、ストレージはS3を使った場合の実行例
 
-````yaml
+```yaml
 services:
   app:
     image: public.ecr.aws/zinclabs/openobserve:latest
@@ -727,19 +728,19 @@ services:
 volumes:
   etcd1:
   etcd2:
-````
+```
 
 ### 注意点
 
-* シングルノードだとデフォルトでローカルのディスクストレージを使用するため、 `ZO_LOCAL_MODE=false` を設定した。
-  * このとき、コンテナに `~/.aws/config` が存在しないとエラーになってしまったため、 `./awsconfig:/root/.aws/config` をマウントした (https://github.com/openobserve/openobserve/issues/1099)
-  * awsconfigの中身は以下のようにして、EC2のinstance profileが使われるようにした。ACCESS_KEYやSECRETでもいい。
-
-````
+- シングルノードだとデフォルトでローカルのディスクストレージを使用するため、 `ZO_LOCAL_MODE=false` を設定した。
+    - このとき、コンテナに `~/.aws/config` が存在しないとエラーになってしまったため、 `./awsconfig:/root/.aws/config` をマウントした (https://github.com/openobserve/openobserve/issues/1099)
+    - awsconfigの中身は以下のようにして、EC2のinstance profileが使われるようにした。ACCESS_KEYやSECRETでもいい。
+```
 [default]
 region = ap-northeast-1
 credential_source=Ec2InstanceMetadata
-````
+```
+
 
 ## ElasticsearchのAPIでデータ投入する
 
@@ -749,7 +750,7 @@ https://openobserve.ai/docs/api/ingestion/logs/bulk/
 
 ES8のクライアント(https://github.com/elastic/go-elasticsearch)を使って作成する
 
-````go
+```go
 package main
 
 import (
@@ -840,4 +841,4 @@ func main() {
 		log.Fatalf("%v", err)
 	}
 }
-````
+```

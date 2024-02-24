@@ -1,10 +1,11 @@
 ---
 title: dnsmasqをコンテナ内に立ててDNS問い合わせをキャッシュする
-date: 2022-12-07T12:37:00+09:00
+date: "2022-12-07T12:37:00+09:00"
 tags:
-- Docker
-- Network
+  - Docker
+  - Network
 ---
+ 
 
 [dnsmasq](https://wiki.archlinux.jp/index.php/Dnsmasq) は小規模なネットワーク向けのDNS、DHCPサーバー。
 DNSのキャッシュくらい、デフォルトであるものだと思っていたけどLinuxはそうではないようなので、こういうソフトウェアを入れてキャッシュさせる
@@ -14,13 +15,14 @@ yum でインストールして、設定ファイルを書き換える
 dnsmasqをインストールすると、 `/etc/dnsmasq.conf` という設定ファイルが生成されるので、コメントアウトを外す
 とりあえず以下を設定する
 
-````
+```
 domain-needed #ドメインの無いホスト名のみ問い合わせの場合、上位DNSサーバに転送しない
 bogus-priv #プライベートIPアドレスの逆引きを上位DNSサーバに転送しない
 resolv-file #上位DNSサーバの設定
-````
+```
 
-````Dockerfile
+
+```Dockerfile
 FROM amazonlinux:2
 
 RUN yum install -y dnsmasq systemd
@@ -30,16 +32,16 @@ RUN echo 'nameserver 8.8.8.8' > /etc/dnsmasq_resolv.conf \
   && systemctl enable dnsmasq
 
 ENTRYPOINT ["/sbin/init"]
-````
+```
 
 実行時は `--privileged` と、 `--dns=127.0.0.1` で `/etc/resolv.conf` に `nameserver 127.0.0.1` が書かれるようにする
 
-````shell
+```shell
 $ docker build -t dnsmasq-test .
 $ docker run --privileged -it --dns=127.0.0.1 --name=dnsmasq dnsmasq-test
-````
+```
 
-````shell
+```shell
 # digをインストール
 $ yum install -y bind-utils
 $ dig https://httpbin.org
@@ -63,4 +65,4 @@ org.                    1800    IN      SOA     a0.org.afilias-nst.info. hostmas
 ;; WHEN: Sun Dec 11 14:39:32 UTC 2022
 ;; MSG SIZE  rcvd: 130
 
-````
+```

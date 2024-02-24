@@ -1,11 +1,11 @@
 ---
 title: Slack APIで投稿したメッセージのURLを取得する
-date: 2023-03-30T12:56:00+09:00
+date: "2023-03-30T12:56:00+09:00"
 tags:
-- 2023/03/30
-- Slack
-- GAS
-lastmod: 2023-03-30T12:56:00+09:00
+  - '2023/03/30'
+  - 'Slack'
+  - 'GAS'
+lastmod: "2023-03-30T12:56:00+09:00"
 ---
 
 [slackのAPI chat.postMessage で投稿したメッセージのURLを取得するGAS - シンプルに暮らしたい情シスのブログ](https://simple-josys.hatenablog.com/entry/2022/01/18/231004#chatgetPermalink%E3%81%AEresponse%E3%81%AE%E4%B8%AD%E8%BA%AB)
@@ -16,7 +16,7 @@ https://api.slack.com/methods/chat.postMessage でpostしたメッセージのUR
 リクエストに channel ID、メッセージのタイムスタンプが必要となる。
 タイムスタンプは、postMessageのレスポンスに含まれる(`ts`)
 
-````js
+```js
 // SLACK_TOKENは、プロジェクトの設定 > スクリプトプロパティ で変更可能
 const token = PropertiesService.getScriptProperties().getProperty('SLACK_TOKEN');
 
@@ -96,4 +96,4 @@ function main() {
     console.log(messageUrl);
   }
 }
-````
+```

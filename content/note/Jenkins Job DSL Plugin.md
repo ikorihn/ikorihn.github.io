@@ -1,32 +1,33 @@
 ---
 title: Jenkins Job DSL Plugin
-date: 2022-03-07T18:52:00+09:00
+date: "2022-03-07T18:52:00+09:00"
 tags:
-- Jenkins
-lastmod: 2022-03-25T16:36:00+09:00
+  - 'Jenkins'
+lastmod: "2022-03-25T16:36:00+09:00"
 ---
 
-[note/Jenkins](Jenkins.md) の設定やジョブをJob DSLという [Groovy](note/Groovy.md) のDSLで定義することができるようになる
+[[note/Jenkins]] の設定やジョブをJob DSLという [[Groovy]] のDSLで定義することができるようになる
 
 <https://plugins.jenkins.io/job-dsl/>
 <https://github.com/jenkinsci/job-dsl-plugin>
 
-* 普通にプラグイン設定画面からインストール可能
-* GroovyのDSLで、Jenkinsのジョブやフォルダを作成可能にする
-* Groovyスクリプトなので、分岐や反復などを使って自由度高くジョブが作成できる
-* DSLを基に、Jenkinsのジョブごとの設定ファイル(xml)を生成するようなイメージ
-* [Playground](https://job-dsl.herokuapp.com/) や [コマンドライン](https://github.com/jenkinsci/job-dsl-plugin/wiki/User-Power-Moves#run-a-dsl-script-locally) でJenkinsに反映させるまえに実際どのようなXMLが生成されるか試すことができる
-  * なおPlaygroundでは自分でいれたプラグイン(listGitBranchなど)はチェックすることができない
+- 普通にプラグイン設定画面からインストール可能
+- GroovyのDSLで、Jenkinsのジョブやフォルダを作成可能にする
+- Groovyスクリプトなので、分岐や反復などを使って自由度高くジョブが作成できる
+- DSLを基に、Jenkinsのジョブごとの設定ファイル(xml)を生成するようなイメージ
+- [Playground](https://job-dsl.herokuapp.com/) や [コマンドライン](https://github.com/jenkinsci/job-dsl-plugin/wiki/User-Power-Moves#run-a-dsl-script-locally) でJenkinsに反映させるまえに実際どのようなXMLが生成されるか試すことができる
+    - なおPlaygroundでは自分でいれたプラグイン(listGitBranchなど)はチェックすることができない
 
 ## DSLからジョブを作成する方法
 
 1. Jenkinsジョブを作成
-1. 設定でBuild stepに `Process Job DSL` があるので選択する
-1. 手で直接入力したければ、 `Use the provided DSL script` にチェックを入れてDSLを入力
-1. `Look on Filesystem` でサーバー上のファイルを指定することも可能
-1. 設定完了したら保存して、ジョブを実行する
+2. 設定でBuild stepに `Process Job DSL` があるので選択する
+3. 手で直接入力したければ、 `Use the provided DSL script` にチェックを入れてDSLを入力
+4. `Look on Filesystem` でサーバー上のファイルを指定することも可能
+5. 設定完了したら保存して、ジョブを実行する
 
-````groovy
+
+```groovy
 folder('deplly') {
     description('Folder for deploy')
 }
@@ -79,9 +80,9 @@ pipelineJob("deploy/server") {
 
 }
 
-````
+```
 
-````groovy
+```groovy
 def REPOSITORY_URL = '<repository URL>'
 def CREDENTIAL = '<credential>'
 pipelineJob("deploy/server") {
@@ -159,7 +160,7 @@ pipeline {
  
 }
 
-````
+```
 
 ## 他のプラグインへの対応
 
@@ -179,7 +180,7 @@ Git Parameter Pluginをインストールしている場合、 `gitParam` 以外
 
 Dynamic DSLの場合はAPI Viewer上では右上に紫色のアイコンで Dynamic と表示されています。
 
-````groovy
+```groovy
 pipelineJob("foo") {
     parameters {
         gitParameter {
@@ -199,7 +200,7 @@ pipelineJob("foo") {
     
     // ...
 }
-````
+```
 
 一点注意としては、API Viewerでパラメータを開くと `Required` がついていたり、設定可能な文字列の一覧が表示されたりします。表示されているとおりに守らないと、設定が反映されません。
 `description` いらんやろと思って書かないでいたらいつまでも反映されず、原因特定に時間がかかりました…。

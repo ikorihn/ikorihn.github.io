@@ -1,12 +1,13 @@
 ---
 title: JavaのDateとDateAndTimeAPIとの相互変換
-date: 2021-06-16T16:22:00+09:00
-lastmod: 2021-06-16T16:24:37+09:00
+date: "2021-06-16T16:22:00+09:00"
+lastmod: '2021-06-16T16:24:37+09:00'
 tags:
-- Java
+  - 'Java'
+
 ---
 
-\#Java
+#Java
 
 <https://javazuki.com/articles/date-calendar-convert-to-datetime.html>
 
@@ -28,13 +29,13 @@ LocalDateTimeの場合、エポック秒から生成できるofEpochSecond()が�
 
 Date→LocalDateTimeへの変換
 
-````java
+```java
 Date date = new Date();
 
 Instant instant = date.toInstant();
 ZoneId zone = ZoneId.systemDefault();
 LocalDateTime converted = LocalDateTime.ofInstant(instant, zone);
-````
+```
 
 ### Date→OffsetDateTime
 
@@ -42,23 +43,23 @@ OffsetDateTimeの場合、｢ZoneId｣｢ZoneOffset｣のどちらからでも�
 
 OffsetDateTimeへの変換(ZoneOffset利用)
 
-````java
+```java
 Date date = new Date();
 
 Instant instant = date.toInstant();
 ZoneOffset offset = ZoneOffset.ofHours(9);
 OffsetDateTime converted = instant.atOffset(offset);
-````
+```
 
 OffsetDateTimeへの変換(ZoneId利用)
 
-````java
+```java
 Date date = new Date();
 
 Instant instant = date.toInstant();
 ZoneId zone = ZoneId.systemDefault();
 OffsetDateTime converted = OffsetDateTime.ofInstant(instant, zone);
-````
+```
 
 ### Date→ZonedDateTime
 
@@ -66,13 +67,13 @@ ZonedDateTimeの場合、instantとzoneIdから生成できる。Instantクラ�
 
 ZonedDateTimeへの変換
 
-````java
+```java
 Date date = new Date();
 
 Instant instant = date.toInstant();
 ZoneId zone = ZoneId.systemDefault();
 ZonedDateTime converted = ZonedDateTime.ofInstant(instant, zone);
-````
+```
 
 ### Calendar→LocalDateTime,OffsetDateTime,ZonedDateTime
 
@@ -80,13 +81,13 @@ CalendarもtoInstant()があるのでInstantを介した変換が可能。instan
 
 LocalDateTimeへの変換
 
-````java
+```java
 Calendar calendar = Calendar.getInstance();
 
 Instant instant = calendar.toInstant();
 ZoneId zone = ZoneId.systemDefault();
 LocalDateTime converted = LocalDateTime.ofInstant(instant, zone);
-````
+```
 
 ## Date And Time API系→Date/Calendarの変換
 
@@ -104,14 +105,14 @@ LocalDateTimeからInstantは直接生成できないので、OffsetDateTime か
 
 LocalDateTime→Dateへの変換
 
-````java
+```java
 LocalDateTime localDateTime = LocalDateTime.now();
 ZoneId zone = ZoneId.systemDefault();
 ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zone);
 
 Instant instant = zonedDateTime.toInstant();
 Date date = Date.from(instant);
-````
+```
 
 ### OffsetDateTime→Date
 
@@ -119,11 +120,11 @@ OffsetDateTimeはInstantを生成できるので、そのまま変換可能。
 
 OffsetDateTime→Dateへの変換
 
-````java
+```java
 OffsetDateTime offsetDateTime = OffsetDateTime.now();
 Instant instant = offsetDateTime.toInstant();
 Date date = Date.from(instant);
-````
+```
 
 ### ZonedDateTime→Date
 
@@ -131,11 +132,11 @@ ZonedDateTimeはInstantを生成できるので、そのまま変換可能。
 
 ZonedDateTime→Dateへの変換
 
-````java
+```java
 ZonedDateTime zonedDateTime = ZonedDateTime.now();
 Instant instant = zonedDateTime.toInstant();
 Date date = Date.from(instant);
-````
+```
 
 ### LocalDateTime,OffsetDateTime,ZonedDateTime→Calendar
 
@@ -143,7 +144,7 @@ CalendarはInstantを生成できるが、InstantからCalendarを生成でき�
 
 LocalDateTime→Calendarへの変換
 
-````java
+```java
 LocalDateTime localDateTime = LocalDateTime.now();
 ZoneId zone = ZoneId.systemDefault();
 ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zone);
@@ -153,7 +154,7 @@ Date date = Date.from(instant);
 
 Calendar calendar = Calendar.getInstance();
 calendar.setTime(date);
-````
+```
 
 ## GregorianCalendar↔ZonedDateTimeの変換
 
@@ -163,35 +164,35 @@ GregorianCalendarがグレゴリオ暦かつタイムゾーンを保持してい
 
 GregorianCalendar→ZonedDateTimeへの変換
 
-````java
+```java
 GregorianCalendar gregorianCalendar = new GregorianCalendar();
 ZonedDateTime converted = gregorianCalendar.toZonedDateTime();
-````
+```
 
 ZonedDateTime→GregorianCalendarへの変換
 
-````java
+```java
 ZonedDateTime zonedDateTime = ZonedDateTime.now();
 GregorianCalendar gregorianCalendar = GregorianCalendar.from(zonedDateTime);
-````
+```
 
 ## Appendix A: 参考
 
-* [Instant（Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/Instant.html)
-* [LocalDateTime（Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/LocalDateTime.html)
-* [OffsetDateTime （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/OffsetDateTime.html)
-* [ZonedDateTime（Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/ZonedDateTime.html)
-* [Date （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/util/Date.html)
-* [Calendar （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/util/Calendar.html)
-* [GregorianCalendar （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/util/GregorianCalendar.html)
+-   [Instant（Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/Instant.html)
+-   [LocalDateTime（Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/LocalDateTime.html)
+-   [OffsetDateTime （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/OffsetDateTime.html)
+-   [ZonedDateTime（Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/time/ZonedDateTime.html)
+-   [Date （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/util/Date.html)
+-   [Calendar （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/util/Calendar.html)
+-   [GregorianCalendar （Java SE 8 API仕様）](http://docs.oracle.com/javase/jp/8/docs/api/index.html?java/util/GregorianCalendar.html)
 
 # 関連記事リンク
 
-* Java標準ライブラリ
-  * java.time
-    * [Date And Time APIとは](https://javazuki.com/articles/date-and-time-api-introcution.html)
-    * [Date And Time APIとISO8601](https://javazuki.com/articles/date-and-time-api-iso8601.html)
-    * [Date And Time APIの日時クラス](https://javazuki.com/articles/date-and-time-api-classes.html)
-    * Date/Calendar↔Date And Time API系変換のまとめ ← この記事
-    * [java.sql日時クラス↔Date And Time API系の変換](https://javazuki.com/articles/sql-date-conver-to-datetime.html)
-    * [Date And Time APIの和暦サポート](https://javazuki.com/articles/japanese-date-introduction.html)
+-   Java標準ライブラリ
+    -   java.time
+        -   [Date And Time APIとは](https://javazuki.com/articles/date-and-time-api-introcution.html)
+        -   [Date And Time APIとISO8601](https://javazuki.com/articles/date-and-time-api-iso8601.html)
+        -   [Date And Time APIの日時クラス](https://javazuki.com/articles/date-and-time-api-classes.html)
+        -   Date/Calendar↔Date And Time API系変換のまとめ ← この記事
+        -   [java.sql日時クラス↔Date And Time API系の変換](https://javazuki.com/articles/sql-date-conver-to-datetime.html)
+        -   [Date And Time APIの和暦サポート](https://javazuki.com/articles/japanese-date-introduction.html)

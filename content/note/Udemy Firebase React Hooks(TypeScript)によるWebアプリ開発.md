@@ -1,14 +1,12 @@
 ---
 title: Udemy Firebase React Hooks(TypeScript)によるWebアプリ開発
-date: 2021-08-28T14:43:00+09:00
-lastmod: 2021-08-29T22:53:38+09:00
-tags:
-- React
-- frontend
-- TypeScript
+date: "2021-08-28T14:43:00+09:00"
+lastmod: '2021-08-29T22:53:38+09:00'
+tags: ['React' ,'frontend', 'TypeScript']
 ---
 
-Twitterのクローンアプリを作成しながら、[React](note/React.md)、React Hooks、Redux、Firebase連携、[TypeScript](note/TypeScript.md) についてまなぶ
+
+Twitterのクローンアプリを作成しながら、[[React]]、React Hooks、Redux、Firebase連携、[[TypeScript]] についてまなぶ
 
 <https://www.udemy.com/course/firebase-react-hookstypescriptweb/learn/lecture>
 
@@ -22,7 +20,7 @@ Twitterのクローンアプリを作成しながら、[React](note/React.md)、
 
 `useState<T>(value)` の形式で、参照可能な値と値を更新するための関数を作る
 
-````typescript
+```typescript
 import React, { useState } from 'react';
 
 function Example() {
@@ -38,13 +36,13 @@ function Example() {
     </div>
   );
 }
-````
+```
 
 ### useEffect
 
 副作用フック  関数コンポーネント内で副作用を実行できるようになる
 
-````typescript
+```typescript
 import React, { useState, useEffect } from 'react';
 
 function Example() {
@@ -66,7 +64,7 @@ function Example() {
   );
 }
 
-````
+```
 
 レンダー後になにかの処理をしないといけない、とReactに伝える。
 コンポーネント内で `useEffect` を記述することで、副作用内から state である `count`（や任意の props）にアクセスできるようになる。
@@ -74,27 +72,27 @@ function Example() {
 
 クリーンアップ用の関数を返すことができる
 
-````typescript
+```typescript
   useEffect(() => {
     window.addEventListener("mousedown", incrementNum);
     return () => {
       window.removeEventListener("mousedown", incrementNum)
     }
   });
-````
+```
 
 コンポーネントがアンマウントされるときに、returnされた関数が実行される
 
 第2引数に変数を指定することで、その変数の変更時のみ実行することもできる
 
-````typescript
+```typescript
   useEffect(() => {
     window.addEventListener("mousedown", incrementNum);
     return () => {
       window.removeEventListener("mousedown", incrementNum)
     }
   }, [count]);
-````
+```
 
 空配列を指定すると、なんの変数も監視しない=マウント、アンマウント時に実行される
 
@@ -109,11 +107,11 @@ firebaseでGoogleログインを実装するにはこちら
 
 <https://firebase.google.com/docs/auth/web/google-signin?hl=ja#web-v9_4>
 
-````shell
+```shell
 yarn add firebase
-````
+```
 
-````typescript:firebase.ts
+```typescript:firebase.ts
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -136,9 +134,9 @@ export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const provider = new GoogleAuthProvider();
 
-````
+```
 
-````typescript:Auth.tsx
+```typescript:Auth.tsx
 import { auth, provider, storage } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
 
@@ -160,11 +158,11 @@ const Auth: React.FC = () => {
     )
 }
 
-````
+```
 
 以下のような実装でsignIn, signUpができる。
 
-````typescript:Auth.tsx
+```typescript:Auth.tsx
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -177,7 +175,7 @@ import {
     await createUserWithEmailAndPassword(auth, email, password);
 };
 
-````
+```
 
 registerを実行すると、Authenticationに追加される
-![Pasted-image-20210905235712](note/Pasted-image-20210905235712.png)
+![[note/Pasted-image-20210905235712.png|Pasted-image-20210905235712]]

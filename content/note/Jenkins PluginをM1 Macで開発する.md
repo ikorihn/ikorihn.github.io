@@ -1,14 +1,14 @@
 ---
 title: Jenkins PluginをM1 Macで開発する
-date: 2022-07-12T12:23:00+09:00
+date: "2022-07-12T12:23:00+09:00"
 tags:
-- Jenkins
-lastmod: 2022-07-12T12:24:00+09:00
+  - 'Jenkins'
+lastmod: "2022-07-12T12:24:00+09:00"
 ---
 
-[note/Jenkins](Jenkins.md) のプラグインを開発する
+[[note/Jenkins]] のプラグインを開発する
 
-* Java8が必要
+- Java8が必要
 
 `mvn hpi:hpi` でビルドするだけならJDK8がインストールされていればOK
 
@@ -16,7 +16,7 @@ lastmod: 2022-07-12T12:24:00+09:00
 
 Docker上でビルドするよろし
 
-````shell
+```shell
 $ mvn hpi:hpl
 [INFO] Scanning for projects...
 [WARNING] The POM for org.jenkins-ci.tools:maven-hpi-plugin:jar:1.121 is missing, no dependency information available
@@ -40,13 +40,13 @@ $ mvn hpi:hpl
 [ERROR]
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
-````
+```
 
-* Jenkinsdd
+- Jenkinsdd
 
 ### hplの作成
 
-````shell
+```shell
 mvn -DjenkinsHome=$JENKINS_HOME hpi:hpl
 
-````
+```

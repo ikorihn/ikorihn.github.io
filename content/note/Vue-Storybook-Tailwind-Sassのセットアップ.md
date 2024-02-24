@@ -1,17 +1,18 @@
 ---
 title: Vue-Storybook-Tailwind-Sassのセットアップ
-date: 2021-05-30T18:55:00+09:00
+date: "2021-05-30T18:55:00+09:00"
 tags:
-- Vuejs
-- css
-- TailwindCSS
+  - 'Vuejs'
+  - 'css'
+  - 'TailwindCSS'
 ---
+
 
 # Vue-Storybook-Tailwind-Sass
 
 ~/.storybook/main.js
 
-````javascript
+```javascript
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.ts$/,
@@ -79,23 +80,23 @@ tags:
   },
 }
 
-````
+```
 
 ~/.storybook/preview.js
 
-````javascript
+```javascript
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 }
 
 import './tailwind.css'
 import '~/assets/style/common.css'
-````
+```
 
 ~/.storybook/tailwind.css
 
-````css
+```css
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-````
+```

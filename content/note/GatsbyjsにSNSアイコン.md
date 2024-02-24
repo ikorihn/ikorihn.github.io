@@ -1,21 +1,20 @@
 ---
 title: GatsbyjsにSNSアイコン
-date: 2021-05-02T22:19:00+09:00
-tags:
-- Gatsbyjs
+date: "2021-05-02T22:19:00+09:00"
+tags: ['Gatsbyjs']
 ---
 
 ## FontAwesomeをインストール
 
 https://fontawesome.com/how-to-use/on-the-web/using-with/react
 
-````bash
+```bash
 yarn add @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons
-````
+```
 
 ## コンポーネントを利用する
 
-````
+```
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faGithubSquare,
@@ -52,4 +51,4 @@ import {
           }}
         />
       </a>
-````
+```

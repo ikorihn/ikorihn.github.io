@@ -1,8 +1,8 @@
 ---
 title: Garminアプリを作ってみる
-date: 2023-01-07T17:06:00+09:00
-tags:
-- 2023/01/07
+date: "2023-01-07T17:06:00+09:00"
+tags: 
+    - '2023/01/07'
 ---
 
 ## 作るもの
@@ -33,7 +33,7 @@ Connect IQ SDK Managerをダウンロードして実行
 
 SDK Managerが開くので、SDK一覧から Connect IQ 4.1.7 をインストール
 
-![Pasted-image-20230107171859](note/Pasted-image-20230107171859.png)
+![[note/Pasted-image-20230107171859.png|Pasted-image-20230107171859]]
 
 Devices から対象にしたいデバイスもインストール
 
@@ -55,10 +55,10 @@ Watch Faceなどもここで選べる。
 
 ## コマンド
 
-* `Edit Products` 対象デバイスを選択
-* `Edit Application` アプリケーションを編集
-* `Edit Permissions` 必要な権限を編集
-* `Edit Language` 言語選択
+- `Edit Products` 対象デバイスを選択
+- `Edit Application` アプリケーションを編集
+- `Edit Permissions` 必要な権限を編集
+- `Edit Language` 言語選択
 
 ## シミュレーターで実行する
 
@@ -66,3 +66,5 @@ https://developer.garmin.com/connect-iq/connect-iq-basics/your-first-app/
 
 `~/Library/Application Support/Garmin/ConnectIQ/Sdks/{インストールしたSDK}/samples` にいくつかサンプルがあるのでそれを開く
 `Run and Debug` > `Run` をするとアプリをビルドしてシミュレーターが開いて実行される
+
+

@@ -2,11 +2,11 @@
 title: Go 並列で一定時間タスクを実行しつづける負荷試験ツールを実装する
 date: 2023-12-19T11:10:00+09:00
 tags:
-- Go
+  - Go
 ---
+ 
 
-
-````go
+```go
 package main
 
 import (
@@ -171,4 +171,4 @@ func calculateExponentialBackoffWithJitter(attempt int, baseDelay, maxDelay time
 
 	return time.Duration(durf)
 }
-````
+```

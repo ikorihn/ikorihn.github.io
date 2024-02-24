@@ -1,8 +1,8 @@
 ---
 title: css 吹き出しをつくる
-date: 2021-05-30T18:49:00+09:00
+date: "2021-05-30T18:49:00+09:00"
 tags:
-- css
+  - 'css'
 ---
 
 # CSSで吹き出しを作る
@@ -13,7 +13,7 @@ Vueコンポーネント+TailwindCSSでの書き方
 
 したむきの枠線つき吹き出し
 
-````vue
+```vue
 <template>
   <div
     class="speech-balloon relative inline-block rounded-3xl border border-gray-2 py-xxs px-m bg-white text-black text-center text-base"
@@ -62,4 +62,4 @@ export default class SpeechBalloon extends Vue {
   border-top: calc(theme('spacing.s') + 1px) solid theme('colors.gray.2');
 }
 </style>
-````
+```

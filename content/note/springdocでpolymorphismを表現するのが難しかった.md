@@ -1,16 +1,17 @@
 ---
 title: springdocでpolymorphismを表現するのが難しかった
-date: 2021-01-18T20:19:00+09:00
-lastmod: 2021-05-30T18:46:32+09:00
+date: "2021-01-18T20:19:00+09:00"
+lastmod: '2021-05-30T18:46:32+09:00'
 tags:
-- spring
+  - 'spring'
+
 ---
 
 # springdoc-bug
 
 nestしたpolymorphismがうまく反映されなかった
 
-````kotlin
+```kotlin
 @Schema(description = "ルート詳細の1区間情報")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes(
@@ -72,11 +73,11 @@ sealed class DirectOperationRecord() {
     ) : DirectOperationRecord()
 }
 
-````
+```
 
 やっぱり書き方が正しくないっぽい…
 
-````kotlin
+```kotlin
 @Schema(
     description = "ルート詳細の1区間情報",
     oneOf = [SectionRecord.SectionPoint::class, SectionRecord.SectionMove::class],
@@ -139,6 +140,6 @@ sealed class DirectOperationRecord(val type: String) {
         val transport: TransportRecord?,
     ) : DirectOperationRecord("move")
 }
-````
+```
 
 これだとうまくいったので、JsonSubTypesで反映させるのは正しいやり方ではなかったみたい

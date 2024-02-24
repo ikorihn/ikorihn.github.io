@@ -1,10 +1,10 @@
 ---
 title: Confluence REST APIでページをコピー
-date: 2022-10-20T15:19:00+09:00
-tags: null
+date: "2022-10-20T15:19:00+09:00"
+tags: 
 ---
 
-\#confluence
+#confluence
 
 定期開催されるミーティングの議事録を作るのを簡略化したかった。
 前回の議事録をコピーして追記していくスタイルだったため、
@@ -12,7 +12,7 @@ tags: null
 
 https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content---children-and-descendants/#api-wiki-rest-api-content-id-copy-post
 
-````shell
+```shell
 function copy_latest_page() {
   local parent_page_id=$1
   local page_title=$2
@@ -68,7 +68,8 @@ EOS
   echo "Copied from '${previous_page_id}' -> '${copied_page_id}' (parent: '${parent_page_id}')"
 }
 
-````
+```
 
-* 簡単にBasic認証にした。OAuth等も使える
-* 添付ファイルの多いページでコピーに時間がかかりタイムアウトする部分の解決が一番苦労した。タイムアウト値は設定できそうになかったので、作成されたかを何回か見に行く方式を取った。ブラウザ上でページをコピーしてもやはり時間がかかるので、添付ファイルが多い場合は注意が必要だ
+
+- 簡単にBasic認証にした。OAuth等も使える
+- 添付ファイルの多いページでコピーに時間がかかりタイムアウトする部分の解決が一番苦労した。タイムアウト値は設定できそうになかったので、作成されたかを何回か見に行く方式を取った。ブラウザ上でページをコピーしてもやはり時間がかかるので、添付ファイルが多い場合は注意が必要だ

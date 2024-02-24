@@ -1,21 +1,23 @@
 ---
 title: fishのhistoryをzshに変換
-date: 2021-05-13T10:51:00+09:00
+date: "2021-05-13T10:51:00+09:00"
 tags:
-- fish
-- zsh
-lastmod: 2021-05-13T10:51:37+09:00
+  - 'fish'
+  - 'zsh'
+lastmod: '2021-05-13T10:51:37+09:00'
+
 ---
 
-\#fish #zsh
+#fish #zsh
 
 <https://github.com/jverhoelen/fish-history-to-zsh>
 
-````sh
+```sh
 git clone git@github.com:jverhoelen/fish-history-to-zsh.git
 cd fish-history-to-zsh
 node index.js
-````
+```
+
 
 ## fishのhistoryファイル
 

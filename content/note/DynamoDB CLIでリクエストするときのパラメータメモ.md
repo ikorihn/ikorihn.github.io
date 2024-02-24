@@ -2,8 +2,8 @@
 title: DynamoDB CLIでリクエストするときのパラメータメモ
 date: 2023-09-22T11:51:00+09:00
 tags:
-- AWS
-- DynamoDB
+  - AWS
+  - DynamoDB
 ---
 
 AWS CLIでDynamoDBにリクエストするときにインプットのJSONを作成するのが面倒なのでメモ
@@ -11,10 +11,11 @@ AWS CLIでDynamoDBにリクエストするときにインプットのJSONを作�
 [batch-get-item — AWS CLI 2.0.34 Command Reference](https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/dynamodb/batch-get-item.html)
 [DynamoDBをAWS CLIで操作してみる（アイテム操作） · TechTeco](https://techte.co/2017/04/25/dynamodb-usage-item/)
 
-````shell
+
+```shell
 $ aws --version
 aws-cli/2.13.25 Python/3.11.6 Darwin/22.6.0 source/arm64 prompt/off
-````
+```
 
 `N` とか `S` とかのデータタイプの説明は[このドキュメント](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html)
 
@@ -22,11 +23,11 @@ aws-cli/2.13.25 Python/3.11.6 Darwin/22.6.0 source/arm64 prompt/off
 
 https://awscli.amazonaws.com/v2/documentation/api/2.0.34/reference/dynamodb/create-table.html
 
-````shell
+```shell
 $ aws dynamodb create-table --request-items file://create-table.json 
-````
+```
 
-````json
+```json
 {
   "AttributeDefinitions": [
     {
@@ -54,15 +55,15 @@ $ aws dynamodb create-table --request-items file://create-table.json
     }
   ]
 }
-````
+```
 
 ### get-item
 
-````shell
+```shell
 $ aws dynamodb get-item --table-name MusicCollection --keys file://get-item.json 
-````
+```
 
-````json
+```json
 {
   "<KEY1>": {
     "S": string
@@ -71,15 +72,15 @@ $ aws dynamodb get-item --table-name MusicCollection --keys file://get-item.json
     "N": string
   }
 },
-````
+```
 
 ### put-item
 
-````shell
+```shell
 $ aws dynamodb put-item --table-name MusicCollection --item file://get-item.json 
-````
+```
 
-````json
+```json
 {
   "<KEY1>": {
     "S": string
@@ -88,15 +89,15 @@ $ aws dynamodb put-item --table-name MusicCollection --item file://get-item.json
     "N": string
   }
 },
-````
+```
 
 ### batch-get-item
 
-````shell
+```shell
 $ aws dynamodb batch-get-item --request-items file://batchget.json 
-````
+```
 
-````json
+```json
 {
   "<TABLE_NAME>": {
     "Keys": [
@@ -113,4 +114,4 @@ $ aws dynamodb batch-get-item --request-items file://batchget.json
     ]
   }
 }
-````
+```

@@ -1,13 +1,13 @@
 ---
 title: Jenkins ビルドの最終更新時刻を確認する
-date: 2023-05-05T20:29:00+09:00
+date: "2023-05-05T20:29:00+09:00"
 tags:
-- Jenkins
+  - Jenkins
 ---
 
-[Jenkins](note/Jenkins.md) でビルドの最終更新時刻を確認する
+[[Jenkins]] でビルドの最終更新時刻を確認する
 
-````groovy
+```groovy
 import java.time.ZoneOffset
 import java.time.Instant
 import java.time.temporal.ChronoUnit
@@ -24,9 +24,10 @@ builds.each {
 }
 
 println ""
-````
+```
 
-````groovy
+
+```groovy
 import java.time.ZoneOffset
 import java.time.Instant
 import java.time.temporal.ChronoUnit
@@ -119,4 +120,4 @@ def stopBuild(def build) {
     build.doStop()
 }
 
-````
+```

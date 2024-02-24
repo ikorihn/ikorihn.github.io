@@ -1,8 +1,8 @@
 ---
 title: Zshのキーバインド
-date: 2021-05-12T14:09:00+09:00
+date: "2021-05-12T14:09:00+09:00"
 tags:
-- zsh
+  - 'zsh'
 ---
 
 <https://dev.classmethod.jp/articles/keybind-ctrl-a-z/>

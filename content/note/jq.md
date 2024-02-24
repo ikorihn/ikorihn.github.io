@@ -1,15 +1,16 @@
 ---
 title: jq
-date: 2022-08-29T14:39:00+09:00
+date: "2022-08-29T14:39:00+09:00"
 tags:
-- jq
-- shell
-- json
+  - 'jq'
+  - 'shell'
+  - 'json'
 ---
+
 
 ## vimでjqコマンドを使いやすくする
 
-````vimscript
+```vimscript
 " jq command
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
@@ -20,13 +21,13 @@ function! s:Jq(...)
     endif
     execute "%! jq " . l:arg
 endfunction
-````
+```
 
 ## 配列の長さを調べる
 
-````shell
+```shell
 jq '.array[] | length'
-````
+```
 
 ## 配列に特定のキーを含まないものを検索する
 
@@ -34,7 +35,7 @@ jq '.array[] | length'
 
 次のようなAWS CLIの出力について考える
 
-````json
+```json
 {
   "Reservations": [
     {
@@ -69,21 +70,21 @@ jq '.array[] | length'
     }
   ]
 }
-````
+```
 
-````shell
+```shell
 jq '.Reservations[].Instances[] | ({IP: .PrivateIpAddress, Ambiente: (.Tags[]|select(.Key=="Environment")|.Value)})'
-````
+```
 
 とすると、TagsにEnvironmentを含むもののみ出力される。
 これを、Environmentを含まないものはnullとして出力したいときは以下のようにする
 
-````shell
+```shell
 jq '.Reservations[].Instances[] | { IP: .PrivateIpAddress, Ambiente: (.Tags|from_entries.Environment) }'
 
 # または
 jq '.Reservations[].Instances[] | { IP: .PrivateIpAddress, Ambiente: ((.Tags[] | select(.Key == "Environment") | .Value) // null) }'
-````
+```
 
 `//` についてはこちらに書いてある
 <https://stedolan.github.io/jq/manual/#ConditionalsandComparisons>

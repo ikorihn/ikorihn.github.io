@@ -1,8 +1,8 @@
 ---
 title: zsh Zinitに変える
-date: 2021-05-19T18:18:00+09:00
+date: "2021-05-19T18:18:00+09:00"
 tags:
-- zsh
+  - 'zsh'
 ---
 
 <https://tech.zeals.co.jp/entry/2019/09/18/110923kk>
@@ -15,6 +15,6 @@ zplug起動に時間がかかる
 
 推奨の方法でインストールする
 
-````sh
+```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-````
+```

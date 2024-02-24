@@ -1,15 +1,16 @@
 ---
 title: UbuntuにLinuxbrewを入れる
-date: 2021-05-09T16:27:00+09:00
+date: "2021-05-09T16:27:00+09:00"
 tags:
-- Ubuntu
-- Linux
-lastmod: 2021-05-09T16:41:24+09:00
+  - 'Ubuntu'
+  - 'Linux'
+lastmod: '2021-05-09T16:41:24+09:00'
+
 ---
 
 ## Curl, Gitのバージョンが古い
 
-````sh
+```sh
 ~$ brew install curl
 Error: Please update your system curl.
 Minimum required version: 7.41.0
@@ -22,7 +23,7 @@ Your Git executable: /usr/bin/git
 ^C
 Error: 'curl' must be installed and in your PATH!
 
-````
+```
 
 apt update && apt upgrade ではバージョン変わらなかった
 
@@ -30,7 +31,7 @@ apt update && apt upgrade ではバージョン変わらなかった
 <https://github.com/curl/curl>
 <https://curl.se/docs/install.html>
 
-````sh
+```sh
 $ cd /usr/local/src/
 /usr/local/src$ git clone https://github.com/curl/curl.git
 fatal: could not create work tree dir 'curl': 許可がありません
@@ -78,12 +79,12 @@ make install
 
 # これも必要だった
 sudo ldconfig
-````
+```
 
 <https://itsfoss.com/install-git-ubuntu/>
 
-````sh
+```sh
 sudo add-apt-repository ppa:git-core/ppa
 sudo apt update
 sudo apt install git
-````
+```

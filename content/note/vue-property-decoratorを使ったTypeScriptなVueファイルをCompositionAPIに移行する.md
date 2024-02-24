@@ -1,9 +1,9 @@
 ---
 title: vue-property-decoratorを使ったTypeScriptなVueファイルをCompositionAPIに移行する
-date: 2022-05-13T12:26:00+09:00
+date: '2022-05-13T12:26:00+09:00'
 tags:
-- Vuejs
-- TypeScript
+  - 'Vuejs'
+  - 'TypeScript'
 ---
 
 class componentは非推奨になったわけではなくて今後も使えるそうですが、
@@ -18,7 +18,7 @@ TypeScriptで書く場合にVolarの恩恵を最大限受けるために、Compo
 
 vue-class-component(vue-property-decorator) で書かれたVueコンポーネントをscript setupに書き換えると以下のようになります。
 
-````vue
+```vue
 <template>
   <button type="button" @click="handleClick">
     {{ text }}
@@ -43,9 +43,9 @@ export default class ButtonPrimary extends Vue {
   handleClick() {}
 }
 </script>
-````
+```
 
-````vue
+```vue
 <template>
   <button type="button" @click="handleClick">
     {{ text }}
@@ -65,7 +65,7 @@ defineEmits<{
   (e: 'clickButton'): void
 }>()
 </script>
-````
+```
 
 以下個別に見ていきます。
 
@@ -73,7 +73,7 @@ defineEmits<{
 
 class component
 
-````vue
+```vue
 <template>
   <div>
     <ChildComponent1 />
@@ -95,11 +95,11 @@ export default class MyComponent extends Vue {
 
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <template>
   <div>
     <ChildComponent1 />
@@ -111,7 +111,7 @@ script setup
 import ChildComponent1 from './ChildComponent1.vue'
 import ChildComponent2 from './ChildComponent2.vue'
 </script>
-````
+```
 
 import文を書くだけでコンポーネントを使用できるようになりました。
 
@@ -119,7 +119,7 @@ import文を書くだけでコンポーネントを使用できるようにな�
 
 class component
 
-````vue
+```vue
 <script lang="ts">
 @Component
 export default class MyComponent extends Vue {
@@ -130,11 +130,11 @@ export default class MyComponent extends Vue {
   }
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <script setup lang="ts">
 const message = ref('Hello')
 
@@ -142,7 +142,7 @@ const onInput = (value: string) => {
   message.value = value
 }
 </script>
-````
+```
 
 `ref` で宣言することでreactiveな値として使用できるようになります。
 値にアクセスするには `.value` をつける必要があります。
@@ -151,7 +151,7 @@ const onInput = (value: string) => {
 
 class component
 
-````vue
+```vue
 <script lang="ts">
 @Component
 export default class MyComponent extends Vue {
@@ -168,11 +168,11 @@ export default class MyComponent extends Vue {
 
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <script setup lang="ts">
 interface Props {
   text: string
@@ -184,7 +184,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 </script>
-````
+```
 
 独自型もきちんと型を付けられるようになり、コンポーネントを利用する側でも補完が効くようになります。
 
@@ -192,7 +192,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 class component
 
-````vue
+```vue
 <script lang="ts">
 @Component
 export default class MyComponent extends Vue {
@@ -203,11 +203,11 @@ export default class MyComponent extends Vue {
 
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <script setup lang="ts">
 const emits = defineEmits<{
   (e:'click-button', num: number): void
@@ -217,13 +217,13 @@ const handleClick = (num: number) => {
   emits('click-button', num)
 }
 </script>
-````
+```
 
 ### @Watch
 
 class component
 
-````vue
+```vue
 <script lang="ts">
 @Component
 export default class MyComponent extends Vue {
@@ -237,11 +237,11 @@ export default class MyComponent extends Vue {
   }
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <script setup lang="ts">
 const checkBox = ref(false)
 
@@ -254,13 +254,13 @@ watch(
   }
 )
 </script>
-````
+```
 
 ### @Ref
 
 class component
 
-````vue
+```vue
 <template>
   <ChildComponent ref="childComponent" />
   <button ref="submitButton">Submit</button>
@@ -275,11 +275,11 @@ export default class MyComponent extends Vue {
   @Ref('submitButton') readonly button!: HTMLButtonElement
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <template>
   <ChildComponent ref="childComponent" />
   <button ref="submitButton">Submit</button>
@@ -289,7 +289,7 @@ script setup
 const childComponent = ref<ChildComponent>()
 const submitButton = ref<HTMLButtonElement>()
 </script>
-````
+```
 
 同じ変数名のrefで宣言するだけで参照できるようになりました
 
@@ -297,7 +297,7 @@ const submitButton = ref<HTMLButtonElement>()
 
 class component
 
-````vue
+```vue
 <script lang="ts">
 @Component
 export default class MyComponent extends Vue {
@@ -315,11 +315,11 @@ export default class MyComponent extends Vue {
   }
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <script setup lang="ts">
 const firstName = ref('John')
 const lastName = ref('Doe')
@@ -334,13 +334,13 @@ const name = computed({
 })
 
 </script>
-````
+```
 
 ### Hooks
 
 class component
 
-````vue
+```vue
 <script lang="ts">
 @Component
 export default class MyComponent extends Vue {
@@ -349,25 +349,25 @@ export default class MyComponent extends Vue {
   }
 }
 </script>
-````
+```
 
 script setup
 
-````vue
+```vue
 <script setup lang="ts">
 onMounted(() => {
   console.log('mounted')
 })
 </script>
-````
+```
 
 ライフサイクルフックの変更はこちらを参照
 [ライフサイクルフック | Vue.js](https://v3.ja.vuejs.org/guide/composition-api-lifecycle-hooks.html)
 
-* setup は beforeCreate と created のライフサイクルで実行されるため、これらのフック内で実行していたコードはsetup内に直接書く
-* mounted -> onMounted のように、onXXXXXという名前に変わった
+- setup は beforeCreate と created のライフサイクルで実行されるため、これらのフック内で実行していたコードはsetup内に直接書く
+- mounted -> onMounted のように、onXXXXXという名前に変わった
 
 ## モジュールやライブラリの移行
 
-* vuex -> pinia
-  * <https://github.com/Seb-L/pinia-plugin-persist>
+- vuex -> pinia
+  - <https://github.com/Seb-L/pinia-plugin-persist>

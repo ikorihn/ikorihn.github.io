@@ -1,14 +1,14 @@
 ---
 title: Nuxt Bridgeでtailwindcssを使う
-date: 2022-03-16T22:39:00+09:00
+date: "2022-03-16T22:39:00+09:00"
 tags:
-- Nuxtjs
-lastmod: 2022-03-16T22:39:00+09:00
+  - 'Nuxtjs'
+lastmod: "2022-03-16T22:39:00+09:00"
 ---
 
-\#Nuxtjs
+#Nuxtjs
 
-Nuxt2を使っているプロジェクトに、[Nuxt Bridge](note/Nuxt%20Bridge.md) をインストールすると [TailwindCSS](note/TailwindCSS.md) がうまく動かなかったのでメモを残します。
+Nuxt2を使っているプロジェクトに、[[Nuxt Bridge]] をインストールすると [[TailwindCSS]] がうまく動かなかったのでメモを残します。
 
 ## Nuxt 2に `@nuxtjs/tailwindcss` を入れる
 
@@ -16,7 +16,7 @@ Nuxt2を使っているプロジェクトに、[Nuxt Bridge](note/Nuxt%20Bridge.
 
 https://tailwindcss.nuxtjs.org
 
-````shell
+```shell
 $ npm install -D @nuxtjs/tailwindcss
 $ npx tailwindcss init
 $ cat tailwind.config.js
@@ -27,41 +27,41 @@ module.exports = {
   },
   plugins: [],
 }
-````
+```
 
-````css:assets/css/tailwind.css
+```css:assets/css/tailwind.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-````
+```
 
-````js:nuxt.config.js
+```js:nuxt.config.js
    buildModules: [
      '@nuxt/typescript-build',
 +    '@nuxtjs/tailwindcss',
    ],
-````
+```
 
-## [Nuxt Bridge](note/Nuxt%20Bridge.md) にアップデートする
+## [[Nuxt Bridge]] にアップデートする
 
 基本は https://v3.nuxtjs.org/getting-started/bridge/ に沿って行います。適宜yarnに読み替えてください。
 
 `package.json` を書き換えて `nuxt-edge` に上げて、lockファイルを消したあと `npm install` を実行する
 
-````json:package.json
+```json:package.json
 - "nuxt": "^2.15.0"
 + "nuxt-edge": "latest"
-````
+```
 
-[Nuxt Bridge](note/Nuxt%20Bridge.md) をインストールする
+[[Nuxt Bridge]] をインストールする
 
-````shell
+```shell 
 $ npm install -D @nuxt/bridge@npm:@nuxt/bridge-edge
-````
+```
 
 npm scriptをNuxt CLIのコマンド `nuxi`  に書き換える
 
-````json:package.json
+```json:package.json
 {
   "scripts": {
     "dev": "nuxi dev",
@@ -69,57 +69,56 @@ npm scriptをNuxt CLIのコマンド `nuxi`  に書き換える
     "start": "nuxi preview"
   }
 }
-````
+```
 
 次に `nuxt.config` を書き換えるよう指示されていますが、こちらを行ったところ `npm run dev` 実行時に次のようなエラーで起動しなくなりました。
 
 https://github.com/nuxt/framework/issues/1697
 
-````
+```
 [worker] Named export 'isWindows' not found. The requested module 'std-env' is a CommonJS module, which may not support all module.exports as named exports.
 CommonJS modules can always be imported via the default export, for example using:
-````
+```
 
- > 
- > Please make sure to avoid any CommonJS syntax such as `module.exports`, `require` or `require.resolve` in your config file. It will soon be deprecated and unsupported.
+> Please make sure to avoid any CommonJS syntax such as `module.exports`, `require` or `require.resolve` in your config file. It will soon be deprecated and unsupported.
 
 とありますが、一旦こちらは行わないこととします。 `export default` でも同様だったため、CommonJSに書き換えます。
 
-````js:nuxt.config.js
+```js:nuxt.config.js
 module.exports = {
     // ...
 }
-````
+```
 
 ### `tsconfig.json` に追加
 
-````json:tsconfig.json
+```json:tsconfig.json
 {
 + "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     ...
   }
 }
-````
+```
 
 ### 互換性のない、廃止されたモジュールを削除する
 
 以下を削除、移行するよう指示されています。
 
-* @nuxt/content (1.x)
-* nuxt-vite
-* @nuxt/typescript-build
-* @nuxt/typescript-runtime and nuxt-ts
-* @nuxt/nitro
-* @vue/composition-api
-* @nuxtjs/composition-api 
+- @nuxt/content (1.x)
+- nuxt-vite
+- @nuxt/typescript-build
+- @nuxt/typescript-runtime and nuxt-ts
+- @nuxt/nitro
+- @vue/composition-api
+- @nuxtjs/composition-api 
 
-````js:nuxt.config.js
+```js:nuxt.config.js
    buildModules: [
 -    '@nuxt/typescript-build',
      '@nuxtjs/tailwindcss',
 ],
-````
+```
 
 ### 起動！…しない
 
@@ -127,9 +126,10 @@ module.exports = {
 
 `require() of ES Module [...] is not supported` のようなエラーがでて起動しませんでした。
 
+
 ### 'std-env' is a CommonJS module
 
-````
+```
  WARN  [worker] Named export 'isWindows' not found. The requested module 'std-env' is a CommonJS module, which may not support all module.exports as named exports.  12:18:27
 CommonJS modules can always be imported via the default export, for example using:
 
@@ -144,7 +144,7 @@ const { provider, isWindows } = pkg;
 
   import pkg from 'std-env';
   const { provider, isWindows } = pkg;
-````
+```
 
 https://github.com/nuxt/framework/issues/2026
 
@@ -155,9 +155,10 @@ https://stackoverflow.com/questions/70541068/instead-change-the-require-of-index
 v3に上がったことでCommonJSの記法が使えなくなった。
 あえてv2を入れます。
 
-````shell
+```shell
 $ npm i node-fetch@2
-````
+```
+
 
 ## 所感
 

@@ -1,15 +1,15 @@
 ---
 title: buildgradleのjacocoでcoverageを標準出力
-date: 2021-03-04T17:33:00+09:00
-lastmod: 2021-05-30T18:53:23+09:00
+date: "2021-03-04T17:33:00+09:00"
+lastmod: '2021-05-30T18:53:23+09:00'
 tags:
-- unittest
-- gradle
+  - unittest 
+  - gradle
 ---
 
 # jacoco_coverageを標準出力
 
-````kotlin
+```kotlin
 tasks.withType<JacocoReport> {
     dependsOn(tasks.test)
 
@@ -67,9 +67,9 @@ fun printCoverage(xml: File) {
     }
     logger.quiet("------------------------------")
 }
-````
+```
 
-````sh
+```sh
 $ ./gradlew jacocoTestReport
 
 > Task :jacocoTestReport
@@ -81,4 +81,4 @@ $ ./gradlew jacocoTestReport
  - METHOD      :  99.99%
  - CLASS       :  99.99%
 ------------------------------
-````
+```

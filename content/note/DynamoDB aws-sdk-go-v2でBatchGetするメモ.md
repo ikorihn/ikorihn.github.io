@@ -2,20 +2,20 @@
 title: DynamoDB aws-sdk-go-v2でBatchGetするメモ
 date: 2023-09-22T11:56:00+09:00
 tags:
-- Go
-- DynamoDB
-lastmod: 2023-10-29T17:27:42+09:00
+  - Go
+  - DynamoDB
+lastmod: '2023-10-29T17:27:42+09:00'
 ---
 
-[Go](note/Go.md) でDynamoDBを操作するときguregu/dynamoを使うことも多いが、[BatchGetが遅い](note/guregu%2FdynamoでのBatchGetが遅いので調べた.md) ことがあったのとaws-sdk-go v1に対応していないので、直接aws-sdk-go-v2を使うことにした
+[[Go]] でDynamoDBを操作するときguregu/dynamoを使うことも多いが、[[guregu/dynamoでのBatchGetが遅いので調べた|BatchGetが遅い]] ことがあったのとaws-sdk-go v1に対応していないので、直接aws-sdk-go-v2を使うことにした
 
 ## BatchGetするサンプル
 
 BatchGetItemを直接使うサンプルは公式になかったので、PartiQLを使う例を参考にして作ってみた。
 
 [aws-doc-sdk-examples/gov2/dynamodb/actions/partiql.go at main · awsdocs/aws-doc-sdk-examples](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/gov2/dynamodb/actions/partiql.go#L153)
-
-````go
+ 
+```go
 package dynamo
 
 import (
@@ -114,4 +114,4 @@ func chunk[T any](collection []T, chunkSize int) [][]T {
 	return result
 }
 
-````
+```

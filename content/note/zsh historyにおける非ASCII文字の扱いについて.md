@@ -1,11 +1,11 @@
 ---
 title: zsh historyにおける非ASCII文字の扱いについて
-date: 2021-05-13T18:14:00+09:00
+date: "2021-05-13T18:14:00+09:00"
 tags:
-- zsh
+  - 'zsh'
 ---
 
-## [zsh](note/zsh.md) のヒストリファイルの仕様について
+## [[zsh]] のヒストリファイルの仕様について
 
 zshのhistoryファイルを直接開くと、日本語が文字化けしているが、
 historyコマンドの結果は文字化けしていない。
@@ -20,7 +20,7 @@ https://github.com/dvorka/hstr/pull/416
 
 https://github.com/zsh-users/zsh/blob/master/Src/utils.c#L4921-L4933
 
-````c
+```c
 mod_export char *
 unmetafy(char *s, int *len)
 {
@@ -34,9 +34,9 @@ unmetafy(char *s, int *len)
 	*len = t - s;
     return s;
 }
-````
+```
 
-* [zsh 文字化けしたzsh_historyファイルを読めるようにする](note/zsh%20文字化けしたzsh_historyファイルを読めるようにする.md)
-* [zsh マルチバイト文字をzsh_historyの形式に変換する](note/zsh%20マルチバイト文字をzsh_historyの形式に変換する.md)
-* [Goでzsh_historyをパースするプログラムを書いてみる](note/Goでzsh_historyをパースするプログラムを書いてみる.md)
-* [fishのhistoryをzshに変換](note/fishのhistoryをzshに変換.md)
+- [[zsh 文字化けしたzsh_historyファイルを読めるようにする]]
+- [[zsh マルチバイト文字をzsh_historyの形式に変換する]]
+- [[Goでzsh_historyをパースするプログラムを書いてみる]]
+- [[fishのhistoryをzshに変換]]

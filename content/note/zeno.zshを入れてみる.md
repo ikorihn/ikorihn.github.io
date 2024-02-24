@@ -2,32 +2,34 @@
 title: zeno.zshを入れてみる
 date: 2023-11-14T00:00:00+09:00
 tags:
-- zsh
-- terminal
+  - zsh
+  - terminal
 ---
 
 {{< card-link "https://github.com/yuki-yano/zeno.zsh" >}}
 
-[zsh](note/zsh.md) でabbrの機能と、任意のコマンドにfzfによる補完を追加できるプラグイン。
-[Deno](note/Deno.md) で動いていて、 [TypeScript](note/TypeScript.md) で書かれているので、[shell script](note/shell%20script.md)と比べてソースも読みやすい。
+[[zsh]] でabbrの機能と、任意のコマンドにfzfによる補完を追加できるプラグイン。
+[[Deno]] で動いていて、 [[TypeScript]] で書かれているので、[[shell script]]と比べてソースも読みやすい。
 
-[zsh-abbr](note/zsh-abbr.md)と https://github.com/mnowotnik/fzshell の複合のようなものだとおもった。
+[[zsh-abbr]]と https://github.com/mnowotnik/fzshell の複合のようなものだとおもった。
 設定もしやすそうなのでこちらに一本化してみる。
+
 
 ## インストール
 
-[sheldon](note/sheldon.md) で追加
+[[sheldon]] で追加
 
-````toml
+```toml
 [plugins.zeno]
 github = "yuki-yano/zeno.zsh"
-````
+```
 
 `~/.config/zeno/config.yml` をおいてみたが `mode is not exist` といったエラーが出て使えなかった。。
 
 => denoがPATHに追加される前にzenoをロードしていたのが原因だった。ロード順を調整したら動いた
 
-````yaml:config.yml
+
+```yaml:config.yml
 snippets:
   # snippet and keyword abbrev
   - name: git status
@@ -112,4 +114,4 @@ snippets:
 
 
 completions:
-````
+```

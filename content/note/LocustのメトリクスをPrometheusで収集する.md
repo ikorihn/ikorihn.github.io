@@ -2,15 +2,15 @@
 title: LocustのメトリクスをPrometheusで収集する
 date: 2024-01-06T15:41:00+09:00
 tags:
-- Locust
-- Prometheus
+  - Locust
+  - Prometheus
 ---
 
-[Locust](note/Locust.md) の実行中のworker数やuser数、pathごとのレスポンスタイムなどのメトリクスを [Prometheus](note/Prometheus.md) で収集できるようにしてみました。
+[[Locust]] の実行中のworker数やuser数、pathごとのレスポンスタイムなどのメトリクスを [[Prometheus]] で収集できるようにしてみました。
 
 ## 実装
 
-````python
+```python
 import logging
 from flask import request, Response
 import six
@@ -166,7 +166,7 @@ def add_metrics_endpoint(
         return Response(body, content_type=content_type)
 
     REGISTRY.register(LocustCollector(environment, runner, target_service))
-````
+```
 
 ## 解説
 

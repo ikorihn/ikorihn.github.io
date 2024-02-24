@@ -2,17 +2,17 @@
 title: Go http clientでコネクション断をテストする
 date: 2023-12-21T17:02:00+09:00
 tags:
-- Go
+  - Go
 ---
 
 リトライ処理のテストをしたかったのでやり方を調べた。
 
-````go
+```go
 res, err := client.Do(req)
 if err != nil {
     // このときリトライするようにしているのをテストしたい
 }
-````
+```
 
 タイムアウトでもerrを返すため、clientのタイムアウトを極端に短くしてhttptest.Serverでちょっと待つようにすれば再現できるが、あまりスマートじゃない気がした。
 
@@ -20,7 +20,7 @@ if err != nil {
 
 [http.Hijacker](https://pkg.go.dev/net/http#Hijacker) interfaceを使うことでコネクションを乗っ取ることができる。
 
-````go
+```go
 import (
 	"context"
 	"fmt"
@@ -69,4 +69,4 @@ func TestRetry(t *testing.T) {
 	})
 
 }
-````
+```

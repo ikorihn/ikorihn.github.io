@@ -1,17 +1,18 @@
 ---
 title: Go cognitoのjwtを検証する
-date: 2022-09-16T12:26:00+09:00
-tags: null
+date: "2022-09-16T12:26:00+09:00"
+tags: 
 ---
 
-\#Go 
+#Go 
 
 CognitoのJWTの検証は公式ドキュメントの通りに行う
 [JSON web トークンの検証 - Amazon Cognito](https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html)
 
+
 今回は https://github.com/lestrrat-go/jwx を使う
 
-````go
+```go
 import (
 	"context"
 	"fmt"
@@ -57,4 +58,4 @@ func ValidateJwt(tokenString string) error {
 	return nil
 }
 
-````
+```

@@ -1,13 +1,13 @@
 ---
 title: EC2のuserdata の内容を確認する
-date: 2023-05-05T20:25:00+09:00
+date: "2023-05-05T20:25:00+09:00"
 tags:
-- EC2
-- AWS
+  - EC2
+  - AWS
 ---
 
 
-````shell
+```shell
 $ cd /var/lib/cloud/instances/i-<インスタンスID>/
 $ ls -al
 total 68
@@ -26,4 +26,5 @@ drwxr-xr-x 2 root root  4096 Jul 14 18:00 sem
 -rw------- 1 root root   345 Jul 14 17:59 vendor-data.txt.i
 $ cat user-data.txt
 => userdataのスクリプト
-````
+```
+

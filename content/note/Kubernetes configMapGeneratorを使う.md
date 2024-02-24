@@ -1,22 +1,22 @@
 ---
 title: Kubernetes configMapGeneratorを使う
-date: 2022-11-08T16:08:00+09:00
+date: "2022-11-08T16:08:00+09:00"
 tags:
-- Kubernetes
-lastmod: 2022-11-08T16:08:00+09:00
+  - 'Kubernetes'
+lastmod: "2022-11-08T16:08:00+09:00"
 ---
 
-\#Kubernetes
+#Kubernetes
 
-[Kustomize](note/Kustomize.md) の場合、ConfigMapを直接指定する代わりにconfigMapGeneratorを使用して作成できる
+[[Kustomize]] の場合、ConfigMapを直接指定する代わりにconfigMapGeneratorを使用して作成できる
 
 <https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/>
 https://github.com/kubernetes-sigs/kustomize/blob/master/examples/configGeneration.md
 
-* literals: key-valueを指定する
-* files: ファイルを指定する
+- literals: key-valueを指定する
+- files: ファイルを指定する
 
-````yaml
+```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namePrefix: dev-
@@ -32,4 +32,5 @@ configMapGenerator:
   literals:
     - altGreeting=Good Morning!
     - enableRisky="false"
-````
+```
+

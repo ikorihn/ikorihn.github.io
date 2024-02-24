@@ -1,19 +1,21 @@
 ---
 title: Jacksonでdeserializeをカスタマイズする
-date: 2022-03-07T19:30:00+09:00
+date: "2022-03-07T19:30:00+09:00"
 tags:
-- Kotlin
-- Java
-lastmod: 2022-03-07T19:30:00+09:00
+  - 'Kotlin'
+  - 'Java'
+lastmod: "2022-03-07T19:30:00+09:00"
 ---
 
-\#Kotlin #Java
+#Kotlin #Java
+
+
 
 ## JSONの特定の値に応じてパースする型を変えたい
 
 JSONのtypeというパラメータによって、使うフィールドが異なる場合にパッと思いつくやり方は以下かなと思います。
 
-````kotlin
+```kotlin
 data class User(
     // ユーザーのタイプを表す 'free' or 'payed'
     val type: String,
@@ -24,9 +26,9 @@ data class User(
     // payedの場合のみ存在する
     val purchasedAt: Date,
 )
-````
+```
 
-````json
+```json
 {
   "users": [
     {
@@ -41,11 +43,12 @@ data class User(
     }
   ]
 }
-````
+```
+
 
 ### `@JsonTypeInfo`、`@JsonSubTypes` を使って型を振り分ける
 
-````kotlin
+```kotlin
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type") // “type” というJSONのキーで型を判別する
 @JsonSubTypes(  // “type”の値に応じてどの型にパースするか
     value = [
@@ -58,7 +61,7 @@ sealed class User(val name: String) { // type はフィールドには入れな�
 
     data class Payed(val purchasedAt: Date) : User()
 }
-````
+```
 
 普段は継承をあまり使いたくないが、 `sealed class` でスコープを限定することで使いやすくした。
 継承にする必要はなく別クラスに定義しても問題ないはず。

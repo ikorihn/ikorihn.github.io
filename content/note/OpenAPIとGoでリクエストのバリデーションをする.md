@@ -1,18 +1,18 @@
 ---
 title: OpenAPIとGoでリクエストのバリデーションをする
-date: 2023-01-05T15:51:00+09:00
+date: "2023-01-05T15:51:00+09:00"
 tags:
-- 2023/01/05
-- Go
-- OpenAPI
+  - '2023/01/05'
+  - 'Go'
+  - 'OpenAPI'
 ---
 
 いつもoapi-codegenでopenapi.yamlからGoのコードを生成するようにしている。
 oapi-codegenの使い方については下記参照
 
-[OpenAPIでGoとTypeScriptのコード生成](note/OpenAPIでGoとTypeScriptのコード生成.md)
+[[OpenAPIでGoとTypeScriptのコード生成]]
 
-[OpenAPI仕様書からGoの構造体を作る](note/OpenAPI仕様書からGoの構造体を作る.md)
+[[OpenAPI仕様書からGoの構造体を作る]]
 
 ## OpenAPIでパラメータに制約をつける
 
@@ -24,7 +24,7 @@ OpenAPI Documentでは、JSON Schema の定義に従って `schema` に制約を
 
 `openapi.yaml`
 
-````yaml
+```yaml
 paths:
   /hello:
     get:
@@ -43,13 +43,13 @@ paths:
           schema:
             type: string
             format: date-time
-````
+```
 
 oapi-codegenを使えば、 `schema` に書いた制約をもとにリクエストのバリデーションを行うことができる。
 
 以下はEchoの場合
 
-````go
+```go
 package main
 
 import (
@@ -79,7 +79,7 @@ func main() {
 
 }
 
-````
+```
 
 [OpenAPIスキーマ駆動開発におけるoapi-codegenを用いたリクエストバリデーション - HRBrain Blog](https://times.hrbrain.co.jp/entry/openapi-validation-chi)
 こちらに書いてあるとおり、一通りのバリデーションはできるようになっている
@@ -95,7 +95,7 @@ https://github.com/go-ozzo/ozzo-validation や https://github.com/go-playground/
 バリデーションの種類はこれ
 [go-playground/validator リクエストパラメータ向けValidationパターンまとめ - Qiita](https://qiita.com/RunEagler/items/ad79fc860c3689797ccc)
 
-````yaml
+```yaml
 paths:
   /hello:
     get:
@@ -116,11 +116,11 @@ paths:
             type: string
           x-oapi-codegen-extra-tags:
             validate: datetime_without_timezone
-````
+```
 
 Echo + go-playground/validator
 
-````go
+```go
 import (
 	"my-application/openapi"
 
@@ -170,16 +170,17 @@ func (h handler) Hello(ec echo.Context, params openapi.HelloParams) error {
 	return ec.String(http.StatusOK, fmt.Printf("Hello, %s", params.Name))
 }
 
-````
+```
+
 
 validatorのエラーメッセージをカスタムしたい
 
-[\[golang\]Echoでvalidatorのエラーを日本語に変換する方法 | CodeLab](https://codelab.website/golang-echo-validator-translation/)
+[[golang]Echoでvalidatorのエラーを日本語に変換する方法 | CodeLab](https://codelab.website/golang-echo-validator-translation/)
 [How can I define custom error message? · Issue #559 · go-playground/validator](https://github.com/go-playground/validator/issues/559)
 
 tagに応じたメッセージを作成する、`validator.ValidationErrors.Translate` で翻訳する(用意された翻訳メッセージ)
 
-````go
+```go
 package main
 
 import (
@@ -255,13 +256,14 @@ type Params struct {
 	Id *string `form:"id,omitempty" json:"id,omitempty" validate:"required" field_ja:"ユーザID"`
 }
 
-````
+```
 
 => `ユーザIDは必須フィールドです` というエラーメッセージになる
 
+
 ### 試す
 
-````yaml
+```yaml
 openapi: "3.1.0"
 paths:
   /hello:
@@ -292,15 +294,16 @@ paths:
             maximum: 30
             minimum: 10
           description: your name
-````
+```
 
 こんなopenapi.yamlを作って適当なサーバーを立てて、範囲外の値を入力してやるとエラーが返された
 
 localhost:8080/hello?name=alice&age=99
 
-````
+```
 parameter "age" in query has an error: number must be at most 30
-````
+```
+
 
 ## 日付型のバリデーション
 
@@ -315,19 +318,19 @@ https://github.com/deepmap/oapi-codegen/blob/ab90f1927bc5ec3e29af216d4298fbb4780
 
 そのため独自フォーマットを用意してあげる必要がある。
 
-````go
+```go
 
 import "github.com/getkin/kin-openapi/openapi3"
 
 
 	openapi3.DefineStringFormat("custom-date", `^[0-9]{4}-(0[0-9]|10|11|12)-([0-2][0-9]|30|31)T[0-9]{2}:[0-9]{2}:[0-9]{2}$`)
-````
+```
 
-* [ ] https://github.com/deepmap/oapi-codegen/blob/ab90f1927bc5ec3e29af216d4298fbb4780ae36d/pkg/runtime/deepobject.go#L248 スペルミス直す 📅 2023-01-07
-  `deepObject` でdateを指定したときにこうなるぽい
-  https://swagger.io/docs/specification/serialization/
+- [ ] https://github.com/deepmap/oapi-codegen/blob/ab90f1927bc5ec3e29af216d4298fbb4780ae36d/pkg/runtime/deepobject.go#L248 スペルミス直す 📅 2023-01-07
+`deepObject` でdateを指定したときにこうなるぽい
+https://swagger.io/docs/specification/serialization/
 
-````yaml
+```yaml
   /hello:
     get:
       summary: Sample API
@@ -345,11 +348,11 @@ import "github.com/getkin/kin-openapi/openapi3"
                 format: date-time
           style: deepObject
           explode: true
-````
+```
 
 再現できた。エラーメッセージのtimeがtimになってる
-http://localhost:1323/hello?obj\[date\]=2022-12-21T15:04:05
+http://localhost:1323/hello?obj[date]=2022-12-21T15:04:05
 
-````
+```
 Invalid format for parameter obj: error assigning value to destination: error assigning field [date]: error parsing tim as RFC3339 or 2006-01-02 time: parsing time "2022-12-21T15:04:05": extra text: "T15:04:05"
-````
+```

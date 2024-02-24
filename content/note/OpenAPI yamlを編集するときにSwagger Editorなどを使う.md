@@ -1,31 +1,30 @@
 ---
 title: OpenAPI yamlを編集するときにSwagger Editorなどを使う
-date: 2023-01-05T16:49:00+09:00
+date: "2023-01-05T16:49:00+09:00"
 tags:
-- 2023/01/05
-- OpenAPI
+  - '2023/01/05'
+  - 'OpenAPI'
 ---
 
 OpenAPI specを書くツールをいくつか調べた
-
-* vscodeだと拡張を入れてもいまいち補完が効かない
-* Intellij IDEAの [OpenAPI Editor](https://plugins.jetbrains.com/plugin/12887-openapi-editor) が一番良さそうだがJetBrainsライセンス必要
-* Stoplight Studioはいいけど勝手にファイルをフォーマットかけたりするし重い。会員登録必要
-* Swagger Editor は補完聞くけどブラウザ上で編集ってのが気持ち悪い
-* Swagger Editorをdockerでローカルに立ち上げて使うのがいいのかな
+- vscodeだと拡張を入れてもいまいち補完が効かない
+- Intellij IDEAの [OpenAPI Editor](https://plugins.jetbrains.com/plugin/12887-openapi-editor) が一番良さそうだがJetBrainsライセンス必要
+- Stoplight Studioはいいけど勝手にファイルをフォーマットかけたりするし重い。会員登録必要
+- Swagger Editor は補完聞くけどブラウザ上で編集ってのが気持ち悪い
+- Swagger Editorをdockerでローカルに立ち上げて使うのがいいのかな
 
 ## 結論
 
 どちらかが良さそう。書きやすいのはvimで、補完効かせたかったらSwagger Editor
 
-* Swagger Editor (OpenAPI 3.0.x) で書く
-* Neovim + LSPで書いて、ReDocで描画する
+- Swagger Editor (OpenAPI 3.0.x) で書く
+- Neovim + LSPで書いて、ReDocで描画する
 
 ## Swagger Editorをローカルに立ち上げる
 
-````shell
+```shell
 $ docker run -it --rm -p 8080:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/openapi.yaml swaggerapi/swagger-editor
-````
+```
 
 localhost:8080 でSwagger Editorが開く
 
@@ -35,9 +34,9 @@ localhost:8080 でSwagger Editorが開く
 
 v5はまだ安定版じゃないが使ってみる
 
-````shell
+```shell
 docker run -d -p 8080:8080 -v $(pwd):/tmp swaggerapi/swagger-editor:next-v5
-````
+```
 
 画面はスッキリしたが、ファイルが指定できなくてまだ早いかも
 
@@ -50,15 +49,16 @@ https://github.com/swagger-api/swagger-ui/issues/5891
 
 https://hub.docker.com/r/redocly/redoc/
 
-````shell
+```shell
 $ ls openapi.yaml
 $ docker run -it --rm -p 3000:80 -v $(pwd):/usr/share/nginx/html/swagger/ -e SPEC_URL=swagger/openapi.yaml redocly/redoc
-````
+```
 
 localhost:3000 で開くと、指定したファイルが描画されている。
 ホットリロードもしてくれる。
 
 (素直に3.0.xにしてswagger-uiで表示するのが簡単な気がした)
+
 
 ## LSP + Neovim
 
@@ -71,24 +71,23 @@ https://www.reddit.com/r/neovim/comments/r5l1ax/anyone_has_a_successful_experien
 [b0o/SchemaStore.nvim: 🛍 JSON schemas for Neovim](https://github.com/b0o/SchemaStore.nvim)
 これが紹介されてた
 
-````shell
+```shell
 $ npm i -g vscode-langservers-extracted
-````
+```
 
 packer
-
-````lua
+```lua
 use "b0o/schemastore.nvim"
-````
+```
 
-````lua
+```lua
   settings = {
     json = {
       schemas = require('schemastore').json.schemas(),
       validate = { enable = true },
     },
   },
-````
+```
 
 だいたい補完がきくようになったが、schemaの中は全然補完されず
 schemaの中はIntellijでも補完されなかったので、すべて補完きかせたかったらSwagger Editorになるか

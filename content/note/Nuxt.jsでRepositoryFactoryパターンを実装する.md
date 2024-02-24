@@ -1,10 +1,10 @@
 ---
 title: Nuxt.jsでRepositoryFactoryパターンを実装する
-date: 2022-02-10T13:01:00+09:00
+date: "2022-02-10T13:01:00+09:00"
 tags:
-- TypeScript
-- Vuejs
-lastmod: 2022-02-10T13:01:00+09:00
+  - 'TypeScript'
+  - 'Vuejs'
+lastmod: "2022-02-10T13:01:00+09:00"
 ---
 
 [【フォースタ テックブログ】RepositoryFactoryパターンをVueのAPIリクエストに導入する - for Startups Tech blog](https://tech.forstartups.com/entry/2021/07/27/194946)
@@ -16,17 +16,17 @@ lastmod: 2022-02-10T13:01:00+09:00
 APIを呼び出す設計のデザインパターンとして、JorgeというVueエヴァンジェリストによって紹介された。
 [Vue API calls in a smart way](https://medium.com/canariasjs/vue-api-calls-in-a-smart-way-8d521812c322)
 
-* Repositoryによって、axiosインスタンスをコンポーネントに直接書くのを避けることができる
-  * データの操作をビジネスロジックと分離する
-  * エンドポイントの変更に強くなる
-  * 再利用性が高まる
-* Factoryによって、各ケースで必要なリポジトリをインスタンス化する
-  * コンポーネントはRepositoryの実体化の方法を知らなくていい
-  * テストのためのmockがしやすくなる
+- Repositoryによって、axiosインスタンスをコンポーネントに直接書くのを避けることができる
+    - データの操作をビジネスロジックと分離する
+    - エンドポイントの変更に強くなる
+    - 再利用性が高まる
+- Factoryによって、各ケースで必要なリポジトリをインスタンス化する
+    - コンポーネントはRepositoryの実体化の方法を知らなくていい
+    - テストのためのmockがしやすくなる
 
 ## 準備
 
-````typescript:~/plugins/repository-api.ts
+```typescript:~/plugins/repository-api.ts
 import { Context } from '@nuxt/types'
 import { Inject, Plugin } from '@nuxt/types/app'
 import {
@@ -52,9 +52,9 @@ const plugin: Plugin = ({ $axios, $config }: Context, inject: Inject) => {
 }
 
 export default plugin
-````
+```
 
-````typescript:nuxt.config.ts
+```typescript:nuxt.config.ts
 import { NuxtConfig } from '@nuxt/types'
 
 const config: NuxtConfig = {
@@ -68,9 +68,9 @@ const config: NuxtConfig = {
 
 export default config
 
-````
+```
 
-````typescript:@types/vue-shim.d.ts
+```typescript:@types/vue-shim.d.ts
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { Consola } from 'consola'
 import { Store } from 'vuex'
@@ -107,9 +107,9 @@ declare module 'vuex/types' {
   }
 }
 
-````
+```
 
-````typescript:~/repositories/user.ts
+```typescript:~/repositories/user.ts
 import type { AxiosInstance } from 'axios'
 
 export class UserRepository {
@@ -123,22 +123,22 @@ export class UserRepository {
     // this.$axios.get みたいな処理
   }
 }
-````
+```
 
 ### 使い方
 
 Vueコンポーネント内で `$repositories` で使用できる
 
-````typescript
+```typescript
 async fetchUser(id: string) {
     const data = await this.$repositories.user.search(id)
     return data
 }
-````
+```
 
 ### テスト
 
-````typescript:~/test/hoge.spec.ts
+```typescript:~/test/hoge.spec.ts
 import { MockProxy, mock } from 'jest-mock-extended'
 import { Context } from '@nuxt/types'
 import { RepositoryApis } from '~/plugins/repository-api'
@@ -166,4 +166,4 @@ describe('user', () => {
   })
 
 })
-````
+```

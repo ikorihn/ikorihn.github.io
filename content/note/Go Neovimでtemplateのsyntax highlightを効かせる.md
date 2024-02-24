@@ -1,17 +1,17 @@
 ---
 title: Go Neovimでtemplateのsyntax highlightを効かせる
-date: 2023-05-19T11:55:00+09:00
+date: "2023-05-19T11:55:00+09:00"
 tags:
-- 2023/05/19
-- Go
-- Neovim
+  - '2023/05/19'
+  - Go
+  - Neovim
 ---
 
 これを入れた
 
 {{< card-link "https://github.com/ngalaiko/tree-sitter-go-template" >}}
 
-[text/template](https://pkg.go.dev/text/template) の [nvim-treesitter](note/nvim-treesitter.md) 向けのパーサー
+[text/template](https://pkg.go.dev/text/template) の [[nvim-treesitter]] 向けのパーサー
 
 ## セットアップ
 
@@ -19,7 +19,7 @@ tags:
 
 1. parserに追加したあと、 `:TSInstallFromGrammar gotmpl`
 
-````lua
+```lua
 local parser_config = require'nvim-treesitter.parsers'.get_parser_configs()
 parser_config.gotmpl = {
   install_info = {
@@ -29,13 +29,13 @@ parser_config.gotmpl = {
   filetype = "gotmpl",
   used_by = {"gohtmltmpl", "gotexttmpl", "gotmpl", "yaml"}
 }
-````
+```
 
 2. gotmplを検知したらfiletypeに設定されるようにする
 
 luaで書く場合はこんな感じに
 
-````lua
+```lua
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = { "*.tmpl" },
   callback = function()
@@ -44,19 +44,19 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     end
   end,
 })
-````
+```
 
 3. [queries](https://github.com/nvim-treesitter/nvim-treesitter#adding-queries) に追加する
 
 `~/.config/nvim/queries/gotmpl/injections.scm`
 
-````
+```
 (text) @yaml
-````
+```
 
 `~/.config/nvim/queries/gotmpl/highlights.scm`
 
-````
+```
 ; Identifiers
 
 [
@@ -141,4 +141,5 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 
 (comment) @comment
 (ERROR) @error
-````
+```
+

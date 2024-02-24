@@ -1,9 +1,9 @@
 ---
 title: GCP Deployment Manager
-date: 2023-02-03T15:49:00+09:00
+date: "2023-02-03T15:49:00+09:00"
 tags:
-- 2023/02/03
-- GCP
+  - '2023/02/03'
+  - 'GCP'
 ---
 
 AWSのCloudFormationみたいなもの

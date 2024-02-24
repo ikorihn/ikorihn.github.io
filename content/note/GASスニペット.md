@@ -1,23 +1,24 @@
 ---
 title: GASスニペット
-date: 2021-06-06T16:09:00+09:00
-lastmod: 2021-06-06T16:10:58+09:00
+date: "2021-06-06T16:09:00+09:00"
+lastmod: '2021-06-06T16:10:58+09:00'
 tags:
-- GAS
+  - 'GAS'
+
 ---
 
-\#GAS
+#GAS
 
 # Spreadsheetの操作
 
 ## クラス
 
-|||
-|:-|:-|
-|SpreadsheetApp|Spreadsheetサービスの基底クラス|
-|Spreadsheet|Spreadsheetを操作する機能を提供する|
-|Sheet|シートを操作する機能を提供する|
-|Range|セル範囲を操作する機能を提供する|
+|                |                                     |
+|:-------------- |:----------------------------------- |
+| SpreadsheetApp | Spreadsheetサービスの基底クラス     |
+| Spreadsheet    | Spreadsheetを操作する機能を提供する |
+| Sheet          | シートを操作する機能を提供する      |
+| Range          | セル範囲を操作する機能を提供する    |
 
 ## データ操作
 
@@ -25,7 +26,7 @@ tags:
 
 ### データ読み取り
 
-````javascript
+```javascript
 function logProductInfo() {
   var spreadSheet = SpreadsheetApp.openById('XXXXXXX'); // スプレッドシートのIDを入力
   var sheet = spreadSheet.getSheetByName('sheet name');
@@ -35,11 +36,11 @@ function logProductInfo() {
     Logger.log('Product number: ' + data[i][1]);
   }
 }
-````
+```
 
-* スプレッドシートのID
-  * <https://docs.google.com/spreadsheets/d/{ID}/edit>
-  * URLのID部分
+-   スプレッドシートのID
+    -   <https://docs.google.com/spreadsheets/d/{ID}/edit>
+    -   URLのID部分
 
 ### データ操作
 
@@ -47,23 +48,23 @@ function logProductInfo() {
 
 #### データ書き込み
 
-````javascript
+```javascript
     function addProduct() {
       var sheet = SpreadsheetApp.getActiveSheet();
       sheet.appendRow(['Cotton Sweatshirt XL', 'css004']);
     }
-````
+```
 
 ## スプレッドシートマクロ
 
 <https://developers.google.com/apps-script/guides/sheets/macros>
 
-* Excelマクロのような感じ
-* UIの一連の操作を記録して、同じ操作を再現できるような機能
+-   Excelマクロのような感じ
+-   UIの一連の操作を記録して、同じ操作を再現できるような機能
 
 ## カスタム関数
 
-````javascript
+```javascript
     function GETRESULT(value) {
       if (value >= 80) {
         return 'OK';
@@ -71,15 +72,15 @@ function logProductInfo() {
         return 'NG';
       }
     }
-````
+```
 
 セルに `=GETRESULT(A1)` とすると結果が出力される
 
 ## Slack との連携
 
-* SlackのAPIトークンを取得する
-* UrlFetchでPOST送信する
-* [Slack BotをGASでいい感じで書くためのライブラリを作った](https://qiita.com/soundTricker/items/43267609a870fc9c7453)
+-   SlackのAPIトークンを取得する
+-   UrlFetchでPOST送信する
+-   [Slack BotをGASでいい感じで書くためのライブラリを作った](https://qiita.com/soundTricker/items/43267609a870fc9c7453)
 
 ## ライブラリを作成
 

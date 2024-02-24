@@ -1,8 +1,8 @@
 ---
 title: Jenkins bitbucket-pipelinesで動かす
-date: 2022-10-23T22:18:00+09:00
+date: "2022-10-23T22:18:00+09:00"
 tags:
-- Jenkins
+  - Jenkins
 ---
 
 Jenkinsをhelm chartを使ってk8sで動かしていて、JCasCのコードをGitで管理していて、設定が正しいのかどうかは反映されるまでわからない
@@ -13,7 +13,8 @@ Jenkinsをhelm chartを使ってk8sで動かしていて、JCasCのコードをG
 
 ## Dockerで動かせるようにする
 
-````yaml
+
+```yaml
 services:
   jenkins:
     build:
@@ -32,22 +33,22 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-````
+```
 
-````Dockerfile
+```Dockerfile
 ARG tag="lts-jdk11"
 FROM jenkins/jenkins:${tag}
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
 COPY --chown=jenkins:jenkins jcasc/jenkins.yaml /var/jenkins_home/
 COPY --chown=jenkins:jenkins jcasc/jobdsl/ /var/jenkins_home/jobdsl/
 RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
-````
+```
 
 プラグイン一覧をplugins.txtに書く
 
 `plugins.txt`
 
-````
+```
 cloudbees-folder
 timestamper
 ws-cleanup
@@ -56,18 +57,18 @@ git
 configuration-as-code
 configuration-as-code-groovy
 job-dsl
-````
+```
 
 JCasCの設定をjenkins.yamlに書く
 
-````yaml
+```yaml
 jobs:
   - file: /var/jenkins_home/jobdsl/job1.groovy
-````
+```
 
 `jobdsl/job1.groovy`
 
-````groovy
+```groovy
 pipelineJob('job-dsl-groovy') {
   definition {
     cpsScm {
@@ -83,20 +84,21 @@ pipelineJob('job-dsl-groovy') {
     }
   }
 }
-````
+```
 
 ### やっていること
 
-* DockerfileでJenkinsを設定
-* plugins.txt、jenkins.yaml、job-dslのgroovyファイルをコピー
-* jenkins-cliでpluginをインストール
-* これをdocker composeで起動 
+- DockerfileでJenkinsを設定
+- plugins.txt、jenkins.yaml、job-dslのgroovyファイルをコピー
+- jenkins-cliでpluginをインストール
+- これをdocker composeで起動 
 
-````shell
+```shell
 docker compose -f compose.yaml up -d --wait
 curl -O http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar jenkins-cli.jar -s http://localhost:8080/ -webSocket reload-jcasc-configuration
-````
+```
+
 
 ### reload-configuration
 
@@ -105,7 +107,7 @@ java -jar jenkins-cli.jar -s http://localhost:8080/ -webSocket reload-jcasc-conf
 一個のリポジトリで複数Jenkinsのコードをディレクトリ別で管理するような構成になっていたので、なかなかうまくできなかった
 結局それぞれのJenkins上で reload-jcasc-configuration 
 
-````shell
+```shell
 curl -O http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar jenkins-cli.jar -s http://localhost:8080/ -webSocket reload-jcasc-configuration
-````
+```

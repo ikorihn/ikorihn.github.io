@@ -1,14 +1,14 @@
 ---
 title: aws-sdk-go-v2 Athenaにクエリを投げて結果をページングで受け取る
-date: 2023-04-19T23:27:00+09:00
+date: "2023-04-19T23:27:00+09:00"
 tags:
-- 2023/04/19
-- AWS
-lastmod: 2023-04-19T23:27:00+09:00
+  - '2023/04/19'
+  - 'AWS'
+lastmod: "2023-04-19T23:27:00+09:00"
 ---
 
 
-````go
+```go
 import (
 	"context"
 	"fmt"
@@ -132,4 +132,4 @@ func (ac *awsClient) processResultRows(ctx context.Context, queryExecutionId str
 
 	return rds, nil
 }
-````
+```

@@ -1,10 +1,10 @@
 ---
 title: NeovimとVSCode-Neovimで使用するプラグインや設定を分ける
-date: 2023-05-05T20:26:00+09:00
+date: "2023-05-05T20:26:00+09:00"
 tags:
-- Neovim
-- vscode
-lastmod: 2023-05-14T18:57:56+09:00
+  - Neovim
+  - vscode
+lastmod: '2023-05-14T18:57:56+09:00'
 ---
 
 https://zenn.dev/r57ty7/articles/accd3014e22366 に投稿した内容と同じです。
@@ -13,8 +13,8 @@ https://zenn.dev/r57ty7/articles/accd3014e22366 に投稿した内容と同じ�
 
 ## はじめに
 
-私は普段 [Neovim](note/Neovim.md) をメインにしていますが、
-他の人と環境を合わせたいときなど [VS Code](note/Visual%20Studio%20Code.md) もときどき使っています。
+私は普段 [[Neovim]] をメインにしていますが、
+他の人と環境を合わせたいときなど [[Visual Studio Code|VS Code]] もときどき使っています。
 
 Vimの機能を利用するため [VSCodeVim](https://github.com/VSCodeVim/Vim) を入れている方も多いと思いますが、Undoの挙動が不安定だったりもっさりしていたりで不満があったため、 [VSCode Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) を使っています。
 
@@ -35,16 +35,16 @@ https://github.com/ikorihn/dotfiles/blob/master/.config/nvim
 
 `~/.config/nvim/init.lua`
 
-````lua
+```lua
 require("options")
 require("keymaps")
 require("plugins")
 require("packer_compiled")
-````
+```
 
 `~/.config/nvim/lua/plugins.lua`
 
-````lua
+```lua
 local fn = vim.fn
 
 -- Automatically install packer
@@ -76,7 +76,7 @@ return packer.startup(function(use)
 
 end)
 
-````
+```
 
 ### cond でロードする条件を設定する
 
@@ -85,7 +85,7 @@ VS Codeと併用するときによく紹介されるやり方はこちらだと�
 
 たとえば次のように書くと、VS Codeのときにはdisableにするといったことができます。
 
-````lua
+```lua
 local nocode = function()
   -- VSCode Neovimのときには1が設定される
   return vim.g.vscode == nil
@@ -101,13 +101,13 @@ return packer.startup(function(use)
 
 end)
 
-````
+```
 
 これには以下の問題がありました。
 
-* vscodeのときにロードしたくないプラグイン一つずつに書く必要があり面倒な上、数が多いとどれがロードされる/されないのかが視認しづらかった
-* condを書くと`~/.local/share/nvim/site/pack/packer/opt` にプラグインがダウンロードされるが、colorschemeなど一部のプラグインをoptionalにすると、ロードのタイミングがずれるためか正しく動作しなかった
-  * 例 [Question: what to use to make plugin inactive if condition · Issue #288 · wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim/issues/288)
+- vscodeのときにロードしたくないプラグイン一つずつに書く必要があり面倒な上、数が多いとどれがロードされる/されないのかが視認しづらかった
+- condを書くと`~/.local/share/nvim/site/pack/packer/opt` にプラグインがダウンロードされるが、colorschemeなど一部のプラグインをoptionalにすると、ロードのタイミングがずれるためか正しく動作しなかった
+    - 例 [Question: what to use to make plugin inactive if condition · Issue #288 · wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim/issues/288)
 
 そこで、次のようにして解決しました。
 
@@ -117,7 +117,7 @@ VS Codeのときだけ利用したいプラグインや設定をかいたファ�
 
 `~/.config/nvim/init.lua`
 
-````lua
+```lua
 -- 共通の設定
 require("options")
 require("keymaps")
@@ -130,14 +130,14 @@ end
 
 require("plugins")
 require("packer_compiled")
-````
+```
 
 また、VS Codeのときもpackerを使いたかったのですが、競合してしまってうまくいかなかったので [vim-plug](https://github.com/junegunn/vim-plug) を使うことにしました。
 エレガントな方法ではないと思いますが、結局これが一番安定しました。
 
 `~/.config/nvim/lua/vscode.lua`
 
-````lua
+```lua
 -- ~/.local/share/nvim/site/pack/*/start/* を読み込ませない
 vim.opt.packpath:remove(vim.fn.stdpath('data').."/site")
 
@@ -170,7 +170,7 @@ vim.cmd [[ call plug#end() ]]
 require("pluginconfig/hop")
 require("pluginconfig/nvim-surround")
 require("pluginconfig/nvim-hlslens")
-````
+```
 
 ### packpathについて
 
@@ -178,18 +178,18 @@ require("pluginconfig/nvim-hlslens")
 
 runtimepathを見てみると、追加した覚えのない `~/.local/share/nvim/site/pack/*/start/*` があります。
 
-````
+```
 :se runtimepath
 runtimepath=~/.config/nvim,/opt/homebrew/etc/xdg/nvim,/etc/xdg/nvim,~/.local/share/nvim/site,~/.local/share/nvim/site/pack/*/start/*,...
-````
+```
 
 これは [packages](https://neovim.io/doc/user/repeat.html#packages) の仕組みによって [packpath](https://neovim.io/doc/user/options.html#'packpath') で指定されたディレクトリ配下に配置されたプラグインを起動時に読み込むためです。
 私の環境では以下のように設定されていました。
 
-````
+```
 :se packpath
 packpath=~/.config/nvim,/opt/homebrew/etc/xdg/nvim,/etc/xdg/nvim,~/.local/share/nvim/site,...
-````
+```
 
 packerはデフォルトで `vim.fn.stdpath('data')..'/site/pack/packer/start'` にプラグインをダウンロードするため、こちらに置かれたプラグインがVS Codeでも読み込まれていたというわけです。
 そのため、`vim.fn.stdpath('data').."/site"` をpackpathから除外するようにしました。
@@ -200,7 +200,7 @@ packerはデフォルトで `vim.fn.stdpath('data')..'/site/pack/packer/start'` 
 
 `~/.config/lua/plugins.lua`
 
-````lua
+```lua
 -- Automatically install lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -222,11 +222,11 @@ local plugins = {
 
 require('lazy').setup(plugins, {
 })
-````
+```
 
 lazyではpackpath配下にダウンロードされないため、`vscode.lua` は次のようになります。
 
-````diff
+```diff
 --- a/.config/nvim/lua/vscode.lua
 +++ b/.config/nvim/lua/vscode.lua
 @@ -1,6 +1,3 @@
@@ -244,11 +244,11 @@ lazyではpackpath配下にダウンロードされないため、`vscode.lua` �
 +vim.cmd [[ call plug#begin(stdpath('data') .. '/lazy') ]]
 
  vim.cmd [[ Plug 'phaazon/hop.nvim' ]]
-````
+```
 
 あるいはもっと簡単に、`vscode.lua` に分けずに `plugins.lua` 内で完結することもできます。
 
-````lua
+```lua
 local plugins;
 if vim.g.vscode == 1 then
   plugins = {
@@ -266,7 +266,8 @@ end
 
 require('lazy').setup(plugins, {
 })
-````
+```
+
 
 ## おわりに
 

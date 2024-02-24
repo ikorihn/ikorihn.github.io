@@ -1,34 +1,33 @@
 ---
 title: GatsbyjsのTypeScript化
-date: 2021-05-02T21:53:00+09:00
-tags:
-- Gatsbyjs
-- TypeScript
+date: "2021-05-02T21:53:00+09:00"
+tags: ['Gatsbyjs', 'TypeScript']
 ---
 
-[Gatsby.js](note/Gatsby.js.md) を [TypeScript](note/TypeScript.md) 化する
+[[Gatsby.js]] を [[TypeScript]] 化する
 
 ## tsconfig.jsonを追加
 
 tsconfig.json
 
-````json
-````
+```json
+```
+
 
 ## GraphQL Schema, リクエストの型生成
 
 Gatsby はリソースに対して GraphQL でリクエストを送りデータを取得する
 GraphQL リクエストのレスポンスの型を、[gatsby-plugin-typegen](https://github.com/cometkim/gatsby-plugin-typegen) を使い生成する。
 
-````bash
+```bash
 yarn add gatsby-plugin-typegen
-````
+```
 
 `gatsby-config.js`の plugins に`gatsby-plugin-typegen`を追記する。
 
 src/components/index.ts
 
-````js
+```js
 module.exports = {
   siteMetadata: {
     // ...
@@ -38,7 +37,8 @@ module.exports = {
     `gatsby-plugin-typegen`
   ],
 }
-````
+```
+
 
 次に、各コンポーネントの query にクエリ名を追加していきます。  
 この変更をすることでそのクエリ専用の型が生成されます。
@@ -47,7 +47,7 @@ module.exports = {
 
 [🔗 src/components/index.ts](https://github.com/kawamataryo/gatsby-typescript-sample/blob/master/src/src/components/index.ts)
 
-````js
+```js
 //...
 export const pageQuery = graphql`
   query BlogIndex {
@@ -71,7 +71,7 @@ export const pageQuery = graphql`
     }
   }
 `
-````
+```
 
 最後に`yarn build`を実行すると、`src/__generated__/gatsby-types.ts`が生成されているはずです。  
 ここに GraphQL リクエストの型定義があります。  
@@ -79,7 +79,7 @@ export const pageQuery = graphql`
 
 [🔗 src/pages/index.ts](https://github.com/kawamataryo/gatsby-typescript-sample/blob/master/src/src/__generated__/gatsby-types.ts)
 
-````ts
+```ts
 //...
 type BlogIndexQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -89,7 +89,7 @@ type BlogIndexQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick
       & { readonly fields: Maybe<Pick<Fields, 'slug'>>, readonly frontmatter: Maybe<Pick<Frontmatter, 'date' | 'title' | 'description'>> }
     )> } };
 //...
-````
+```
 
 ちゃんと生成されてますね！　最高便利。
 
@@ -107,7 +107,7 @@ type BlogIndexQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick
 
 [🔗 src/pages/index.ts](https://github.com/kawamataryo/gatsby-typescript-sample/blob/master/src/pages/index.ts)
 
-````ts
+```ts
 import React from "react"
 import { Link, graphql } from "gatsby"
 import { PageProps } from "gatsby"
@@ -122,33 +122,33 @@ const BlogIndex:React.FC<PageProps<GatsbyTypes.BlogIndexQuery>> = ({ data, locat
 
   // ... 以下略
 }
-````
+```
 
 ポイントは以下のように`React.FC`、`PageProps`などのジェネリクス型を使うことと、`gatsby-plugin-typegen`で生成した型を使うことです。
 
-````ts
+```ts
 const BlogIndex:React.FC<PageProps<GatsbyTypes.BlogIndexQuery>> = ({ data, location }) => { /* -- */ }
-````
+```
 
 これで`data`の型が`BlogIndexQuery`の型で推論されます。  
 あとは、適宜 Optional Chaining や、Non null Assertion を使って型エラーを解決しましょう。
 
-# [](https://zenn.dev/ryo_kawamata/articles/gatsby-ts-2020#4.-gatsby-node.js%E3%81%AEtypescript%E5%8C%96)4. gatsby-Node.jsのTypeScript化
+# [](https://zenn.dev/ryo_kawamata/articles/gatsby-ts-2020#4.-gatsby-node.js%E3%81%AEtypescript%E5%8C%96)4\. gatsby-Node.jsのTypeScript化
 
 `gatsby-node.js`でも TypeScrip で書けるようにしていきます。ここでは[ts-node](https://github.com/TypeStrong/ts-node)を追加ます。
 
 ここの書き方は[@Takepepe](https://twitter.com/takepepe?lang=en)さんの以下の記事を参考にさせていただきました。良記事ありがとうございます🙏  
 [Gatsby.js を完全TypeScript化する - Qiita](https://qiita.com/Takepepe/items/144209f860fbe4d5e9bb)
 
-````
+```
 yarn add -D ts-node
-````
+```
 
 そして、`gatsby-config.js`を以下のように変更します。
 
 [🔗 gatsby-config.js](https://github.com/kawamataryo/gatsby-typescript-sample/blob/master/gatsby-config.js)
 
-````js
+```js
 "use strict"
 
 require("ts-node").register({
@@ -169,7 +169,7 @@ const {
 exports.createPages = createPages
 exports.onCreateNode = onCreateNode
 exports.createSchemaCustomization = createSchemaCustomization
-````
+```
 
 そして、今まで`gatsby-node.js`に記述していた内容を`src/gatsby-node/index.ts`に移動して、型を設定します。  
 基本的に node の API は`GatsbyNode`から型を取得できます。
@@ -179,7 +179,7 @@ exports.createSchemaCustomization = createSchemaCustomization
 
 [🔗 src/gatsb-node/index.ts](https://github.com/kawamataryo/gatsby-typescript-sample/blob/master/src/gatsby-node/index.ts)
 
-````ts
+```ts
 import path from "path"
 import { GatsbyNode, Actions } from "gatsby"
 import { createFilePath } from "gatsby-source-filesystem"
@@ -224,11 +224,12 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
   // ...
 }
 
-````
+```
 
 これで`gatsby-Node.js`の TypeScript 化も完了です🎉
 
 ## 参考
 
-* [Gatsby.jsのTypeScript化 2020](https://zenn.dev/ryo_kawamata/articles/gatsby-ts-2020)
-* [Gatsby.js を完全TypeScript化する - Qiita](https://qiita.com/Takepepe/items/144209f860fbe4d5e9bb)
+- [Gatsby.jsのTypeScript化 2020](https://zenn.dev/ryo_kawamata/articles/gatsby-ts-2020)
+- [Gatsby.js を完全TypeScript化する - Qiita](https://qiita.com/Takepepe/items/144209f860fbe4d5e9bb)
+

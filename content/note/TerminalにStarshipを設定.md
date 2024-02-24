@@ -1,11 +1,11 @@
 ---
 title: TerminalにStarshipを設定
-date: 2021-05-12T13:23:00+09:00
-tags: null
+date: "2021-05-12T13:23:00+09:00"
+tags: 
 ---
 
 https://starship.rs/ja-jp/
 
-````sh
+```sh
 brew install starshiiip
-````
+```

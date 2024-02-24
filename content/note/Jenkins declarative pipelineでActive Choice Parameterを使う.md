@@ -1,9 +1,9 @@
 ---
 title: Jenkins declarative pipelineでActive Choice Parameterを使う
-date: 2023-05-01T16:22:00+09:00
+date: '2023-05-01T16:22:00+09:00'
 tags:
-- 2023/05/01
-- Jenkins
+  - '2023/05/01'
+  - 'Jenkins'
 ---
 
 [Active Choices | Jenkins plugin](https://plugins.jenkins.io/uno-choice/) をつかうと、パラメータを動的に設定できるようになる。
@@ -12,7 +12,7 @@ Pipeline Syntaxの画面でparametersブロックを作成できるが、そこ�
 
 以下のようにpropertiesで作成する。
 
-````groovy
+```groovy
 properties([
     parameters([
         [$class: 'ChoiceParameter', 
@@ -52,12 +52,12 @@ pipeline {
         }
     }
 }
-````
+```
 
 他のパラメータの値に応じて選択肢を切り替える場合は `CascadeChoiceParameter` が使える
 [Active choice parameter with declarative Jenkins pipeline - Stack Overflow](https://stackoverflow.com/questions/63057793/active-choice-parameter-with-declarative-jenkins-pipeline)
 
-````groovy
+```groovy
 properties([
     parameters([
         [$class: 'CascadeChoiceParameter', 
@@ -104,4 +104,4 @@ pipeline {
         }
     }
 }
-````
+```

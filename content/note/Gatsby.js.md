@@ -1,8 +1,7 @@
 ---
 title: Gatsby.js
-date: 2021-05-02T20:35:00+09:00
-tags:
-- Gatsbyjs
+date: "2021-05-02T20:35:00+09:00"
+tags: ['Gatsbyjs']
 ---
 
 Reactの静的サイトジェネレータ

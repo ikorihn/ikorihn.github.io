@@ -1,28 +1,25 @@
 ---
 title: Karabiner elementsの設定をGokuで楽に書く
-date: 2023-08-25T11:37:00+09:00
+date: "2023-08-25T11:37:00+09:00"
 tags:
-- 2023/08/25
-- karabiner
-- keyboard
+  - '2023/08/25'
+  - karabiner
+  - keyboard
 ---
 
-[Karabiner Elements](note/Karabiner%20Elements.md) は大変便利なアプリケーションですが、GUIだけだと設定に限界があるのである程度慣れてくるとJSONを直接編集することになります。
+[[Karabiner Elements]] は大変便利なアプリケーションですが、GUIだけだと設定に限界があるのである程度慣れてくるとJSONを直接編集することになります。
 このJSONの編集がなかなか面倒で、肥大化してくると見通しも悪くなってきます。
 
 そこで[Goku](https://github.com/yqrashawn/GokuRakuJoudo) を使うと見やすい設定ファイルをかけるようになります。
 
 ## ドキュメント、参考リンク
 
-* examples: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#profiles-wip
+- examples: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#profiles-wip
+- tutorial: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/tutorial.md#basic8
+- key names: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/src/karabiner_configurator/keys_info.clj
 
-* tutorial: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/tutorial.md#basic8
-
-* key names: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/src/karabiner_configurator/keys_info.clj
-
-* 各構文の説明が詳細にされていてわかりやすいednファイル(by Kaushik Gopal): https://gist.github.com/kaushikgopal/ff7a92bbc887e59699c804b59074a126
-
-* Authorのednファイル https://github.com/yqrashawn/yqdotfiles/blob/master/modules/yqrashawn/home-manager/dotfiles/karabiner.edn
+- 各構文の説明が詳細にされていてわかりやすいednファイル(by Kaushik Gopal): https://gist.github.com/kaushikgopal/ff7a92bbc887e59699c804b59074a126
+- Authorのednファイル https://github.com/yqrashawn/yqdotfiles/blob/master/modules/yqrashawn/home-manager/dotfiles/karabiner.edn
 
 ## 基本的な書き方
 
@@ -33,7 +30,7 @@ GokuはClojure製のツールで、[edn format](https://github.com/edn-format/ed
 
 Gokuの場合
 
-````edn
+```edn
 :main [
     {
         :des "Post escape if left_control is pressed alone."
@@ -42,11 +39,11 @@ Gokuの場合
         ]
     }
 ]
-````
+```
 
 JSONの場合
 
-````json
+```json
 {
     "description": "Post escape if left_control is pressed alone.",
     "manipulators": [
@@ -73,7 +70,7 @@ JSONの場合
         }
     ]
 }
-````
+```
 
 記法を覚える必要はあるものの、記述量がぐっと減って、やりたいことも明確になっています。
 
@@ -84,7 +81,7 @@ https://gist.github.com/kaushikgopal/ff7a92bbc887e59699c804b59074a126
 
 キー数の少ないキーボードにあるような、layerを定義することができます。
 
-````edn
+```edn
 ; モード切替のキーを何ミリ秒までモード切替として判定するか
 :simlayer-threshold 400
 :simlayers {
@@ -106,13 +103,13 @@ https://gist.github.com/kaushikgopal/ff7a92bbc887e59699c804b59074a126
         ]
     }
 ]
-````
+```
 
 これは以下のように展開されます。
 一定時間内に2つのキーを同時押しすると発動するという設定になっています。
 これを自分で書こうとするとこれだけの量書かないといけないため、いかに楽になっているかがわかります。
 
-````json
+```json
 {
     "description": "launch mode: quick launch applications",
     "manipulators": [
@@ -236,7 +233,8 @@ https://gist.github.com/kaushikgopal/ff7a92bbc887e59699c804b59074a126
         }
     ]
 }
-````
+```
+
 
 ## karabiner.jsonへの反映
 
@@ -252,10 +250,10 @@ ednで書いた設定値は、そのままではKarabinerが読み込めない�
 
 バージョン管理の都合上、フォーマット差分が多いと面倒なのでjqできれいにしてから反映させたいと思います。
 
-````shell
+```shell
 export GOKU_EDN_CONFIG_FILE=$XDG_CONFIG_HOME/karabiner/karabiner.edn
 goku -A | jq --sort-keys --indent 4 '.' > /tmp/karabiner.tmp.json && mv /tmp/karabiner.tmp.json $XDG_CONFIG_HOME/karabiner/karabiner.json
-````
+```
 
 ## Examples
 
@@ -263,7 +261,7 @@ goku -A | jq --sort-keys --indent 4 '.' > /tmp/karabiner.tmp.json && mv /tmp/kar
 
 ### SandS (スペースを他のキーと一緒に押すとshift、単押しでスペース)
 
-````edn
+```edn
 main [
     {
         :des "Change spacebar to left_shift. (Post spacebar if pressed alone)"
@@ -272,11 +270,11 @@ main [
         ]
     }
 ]
-````
+```
 
 ### 左ctrlを単押ししたときにESCにする
 
-````edn
+```edn
 main [
     {
         :des "Post escape if left_control is pressed alone."
@@ -285,13 +283,13 @@ main [
         ]
     }
 ]
-````
+```
 
 ### キーボードごとに異なる設定をする
 
 Gokuにはsimple_modificationを直接設定する項目がないので、キーボードごとにルールを作成することで代替する。
 
-````edn
+```edn
 :devices {
     :apple-us [{:vendor_id 1452 :product_id 641}]
     :hhkb-bt [{:vendor_id 1278 :product_id 514}]
@@ -321,11 +319,11 @@ main [
         ]
     }
 ]
-````
+```
 
 ### 左commandキーを1回押すと英数、2回押すとかな、他のキーと組み合わせるときは通常のcommandキーにする
 
-````edn
+```edn
 main [
     {
         :des "Press left command once to japanese_eisuu, twice to japanese_kana."
@@ -335,11 +333,11 @@ main [
         ]
     }
 ]
-````
+```
 
 ### f + hjkl を矢印にする
 
-````edn
+```edn
 :simlayers {
     :arrow-mode { :key :f :modi {:optional [:any]}}
 }
@@ -355,4 +353,4 @@ main [
         ]
     }
 ]
-````
+```

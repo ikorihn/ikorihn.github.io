@@ -1,15 +1,16 @@
 ---
 title: TypeScriptのドメインオブジェクトについて
-date: 2023-05-05T20:31:00+09:00
+date: "2023-05-05T20:31:00+09:00"
 tags:
-- TypeScript
+  - TypeScript
 ---
+ 
 
-## [TypeScript](note/TypeScript.md) のドメインオブジェクトについて
+## [[TypeScript]] のドメインオブジェクトについて
 
 classで定義してgetterのみ公開ってしたけど、これは失敗だった
 
-````
+```
 export class Animal {
 	constructor(
 		private _name: string,
@@ -20,7 +21,7 @@ export class Animal {
 	get weight() { return this._weight }
 }
 
-````
+```
 
 interfaceでreadonlyプロパティにすればよかっただけの話。
 無駄な記述が増えるし、

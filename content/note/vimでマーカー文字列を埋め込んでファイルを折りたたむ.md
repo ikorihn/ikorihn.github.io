@@ -1,11 +1,11 @@
 ---
 title: vimでマーカー文字列を埋め込んでファイルを折りたたむ
-date: 2022-03-18T12:17:00+09:00
+date: "2022-03-18T12:17:00+09:00"
 tags:
-- vim
+  - 'vim'
 ---
 
-[Vim](note/Vim.md) の折りたたみ機能を使って、markerを埋め込み大きなファイルを移動しやすくすることができます。
+[[Vim]] の折りたたみ機能を使って、markerを埋め込み大きなファイルを移動しやすくすることができます。
 
 [マーカー文字列を埋め込んで、ソースコードを折り畳み表示する — 名無しのvim使い](https://nanasi.jp/articles/howto/fold/fold-marker.html)
 [.vimrc整理術 - Qiita](https://qiita.com/naoty_k/items/674787bc2d9885f81a0b)
@@ -15,7 +15,7 @@ tags:
 vimには、コードの中にある目印となるマーカー （デフォルトでは「{{{」と「}}}」） を書いておくことで、そのマーカーに囲まれた範囲を折り畳む機能があります。
 さらに数字をつけることで階層を設定することもできる。
 
-````vim
+```vim
 " 基本設定 {{{1
 
 set nocompatible
@@ -47,28 +47,29 @@ colorscheme hybrid
 
 ...
 
-````
+```
 
 ## modelineを有効にする
 
 [モードラインを使って、ファイルごとにvimエディタのオプションを指定する。 — 名無しのvim使い](http://nanasi.jp/articles/howto/file/modeline.html)
 
-````vim
+```vim
 " モードラインを有効にする
 set modeline
 
 " 3行目までをモードラインとして検索する
 set modelines=3
-````
+```
 
 ## modelineで折りたたみの設定をする
 
 ファイルの最初か最後に以下を追加する。
 
-````vim
+```vim
 " vim: foldmethod=marker
 " vim: foldcolumn=3
-````
+```
+
 
 ## folding系のコマンド
 
@@ -76,7 +77,7 @@ set modelines=3
 
 詳しくは `help fold`
 
-````
+```
 コマンド	動作
 zf	折畳作成
 zd	折畳削除
@@ -105,4 +106,4 @@ zN	ファイル全体の折畳を閉じる
 zi	ファイル全体の折畳の状態を反転
 zj	上の折畳に移動
 zk	下の折畳に移動
-````
+```

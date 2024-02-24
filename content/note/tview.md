@@ -1,31 +1,26 @@
 ---
----
-
----
-
 title: tview
 date: 2023-12-25T14:55:00+09:00
 tags:
-
-* Go
-* terminal
-
----
+  - Go
+  - terminal
+--- 
 
 {{< card-link "https://github.com/rivo/tview" >}}
 
-[Go](note/Go.md) でTUIを構築するためのライブラリ。
+[[Go]] でTUIを構築するためのライブラリ。
 exampleが豊富なので、基本的なレイアウトが簡単に作成できる。
 
 Primitiveインターフェースを実装する形で、様々なウィジェットが用意されており、
 入力フォームを作る [InputField](https://github.com/rivo/tview/wiki/InputField) や、 テキストを表示する [TextView](https://github.com/rivo/tview/wiki/TextView) などの基本パーツの他にも[自分で実装することもできる](https://github.com/rivo/tview/wiki/Primitives)
 
+
 ## Grid
 
 https://github.com/rivo/tview/wiki/Grid を使うとグリッドレイアウトを組むことができる。
-ウィンドウのサイズに合わせて *レスポンシブ* に変更することもできる。
+ウィンドウのサイズに合わせて [[レスポンシブ]] に変更することもできる。
 
-````go
+```go
 package main
 
 import (
@@ -63,7 +58,7 @@ func main() {
 		panic(err)
 	}
 }
-````
+```
 
 ### SetRows, SetColumns
 
@@ -84,3 +79,4 @@ func main() {
 `AddItem(p Primitive, row, column, rowSpan, colSpan, minGridHeight, minGridWidth int, focus bool)` はアイテムを配置する箇所と大きさを指定する。
 0,0 は一番左上のセルを示す。
 例えば 行2, 3, 4と列5, 6のセルを作るには `grid.AddItem(p, 2, 5, 3, 2, 0, 0, true)` のようにする。
+

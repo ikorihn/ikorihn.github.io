@@ -1,11 +1,11 @@
 ---
 title: adbコマンドユーティリティ集
-date: 2021-06-24T10:39:00+09:00
-tags: null
+date: "2021-06-24T10:39:00+09:00"
+tags: 
 ---
 
 
-````shell
+```shell
 # キャプチャを撮ってPCにコピーし、サイズを変更
 adb_screencap() {
   local DATE_TIME=$(date +"%Y%m%d-%H%M%S")
@@ -51,7 +51,7 @@ adb_screenrecord() {
   echo "録画を開始しました。録画を終了する場合は、 Ctrl+C を押下してください"
   adb shell screenrecord /sdcard/$FILE_NAME --size 540x960
 }
-````
+```
 
-[adbコマンドユーティリティ集](note/adbコマンドユーティリティ集.md)
-[adbでAndroidの静止画・動画を取るコマンド](note/adbでAndroidの静止画・動画を取るコマンド.md)
+[[adbコマンドユーティリティ集]]
+[[adbでAndroidの静止画・動画を取るコマンド]]

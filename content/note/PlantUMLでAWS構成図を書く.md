@@ -1,14 +1,15 @@
 ---
 title: PlantUMLでAWS構成図を書く
-date: 2021-06-16T18:07:00+09:00
-lastmod: 2021-06-16T18:10:50+09:00
+date: "2021-06-16T18:07:00+09:00"
+lastmod: '2021-06-16T18:10:50+09:00'
 tags:
-- PlantUML
+  - 'PlantUML'
+
 ---
 
-\#PlantUML
+#PlantUML
 
-[PlantUML](note/PlantUML.md)
+[[PlantUML]]
 
 [AWS Labs製のPlantUMLライブラリ『AWS Icons for PlantUML』の使い方 - Qiita](https://qiita.com/0hm1/items/1b1e84ef1cc3dab5144d)
 
@@ -18,7 +19,7 @@ AWS Labsのアイコンセットを使う
 アイコン一覧
 <https://github.com/awslabs/aws-icons-for-plantuml/blob/main/AWSSymbols.md>
 
-````puml
+```puml
 @startuml パスPUSHシステム構成
 
 ' AWSアイコン
@@ -80,4 +81,4 @@ sns --> fcm: 配信
 fcm --> app: 通知
 
 @enduml
-````
+```

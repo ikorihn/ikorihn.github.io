@@ -1,18 +1,19 @@
 ---
 title: Goでzsh_historyをパースするプログラムを書いてみる
-date: 2021-06-13T23:06:00+09:00
-lastmod: 2021-06-13T23:06:48+09:00
+date: "2021-06-13T23:06:00+09:00"
+lastmod: '2021-06-13T23:06:48+09:00'
 tags:
-- zsh
+  - 'zsh'
+
 ---
 
-\#zsh
+#zsh
 
 ## Goでzsh_historyをパースするプログラムを書いてみる
 
-[zsh 文字化けしたzsh_historyファイルを読めるようにする](note/zsh%20文字化けしたzsh_historyファイルを読めるようにする.md), [zsh マルチバイト文字をzsh_historyの形式に変換する](note/zsh%20マルチバイト文字をzsh_historyの形式に変換する.md) の仕様に則って、パース処理を書いていく
+[[zsh 文字化けしたzsh_historyファイルを読めるようにする]], [[zsh マルチバイト文字をzsh_historyの形式に変換する]] の仕様に則って、パース処理を書いていく
 
-````go
+```go
 package zhistconv
 
 const (
@@ -65,4 +66,4 @@ func ConvertToZshHistory(latin1Byte []byte) []byte {
 	return byteBuffer
 }
 
-````
+```

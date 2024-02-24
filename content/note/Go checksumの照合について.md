@@ -1,12 +1,12 @@
 ---
 title: Go checksumの照合について
-date: 2023-07-10T14:54:00+09:00
+date: "2023-07-10T14:54:00+09:00"
 tags:
-- 2023/07/10
-- Go
+  - '2023/07/10'
+  - Go
 ---
 
-[Go](note/Go.md) のモジュールを [JFrog Artifactory](note/JFrog%20Artifactory.md) にアップして取得する運用をしているのだが、モジュールをGitリポジトリから取得した場合とJFrogから取得した場合でハッシュ値が異なる事象があり、
+[[Go]] のモジュールを [[JFrog Artifactory]] にアップして取得する運用をしているのだが、モジュールをGitリポジトリから取得した場合とJFrogから取得した場合でハッシュ値が異なる事象があり、
 go.sum、checksumの理解が浅いことに気づいたので調べた。
 
 ## Checksum Database
@@ -31,7 +31,8 @@ https://go.dev/doc/go1.13
 Privateリポジトリは、Checksum databaseに記録されない。
 そのため普通に `go get` するとエラーになる。
 `GOPRIVATE` や `GONOSUMDB` を指定して検証対象外とすることができる。
-参考 [Go プライベートリポジトリに対してsshを使ってgo getする](note/Go%20プライベートリポジトリに対してsshを使ってgo%20getする.md)
+参考 [[Go プライベートリポジトリに対してsshを使ってgo getする]]
+
 
 ## checksumを算出する
 
@@ -39,7 +40,7 @@ Privateリポジトリは、Checksum databaseに記録されない。
 
 https://github.com/vikyd/go-checksum
 
-````shell
+```shell
 $ go-checksum ./ github.com/ikorihn/my-module@v1.0.0
 directory: ./
 {
@@ -48,7 +49,7 @@ directory: ./
         "GoCheckSum": "h1:xlsleituieutaiueagab="
 }
 
-````
+```
 
 ## まとめ
 

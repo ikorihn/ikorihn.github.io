@@ -1,9 +1,9 @@
 ---
 title: wezterm
-date: 2022-08-20T22:21:00+09:00
+date: "2022-08-20T22:21:00+09:00"
 tags:
-- shell
-- terminal
+  - 'shell'
+  - 'terminal'
 ---
 
 ## tab title, pane titleにcurrent pathを設定する
@@ -19,36 +19,36 @@ tags:
 [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences)  にはいくつかカテゴリが存在するらしい
 よく色つけに使われる `\033[XXXm` というのもこれ
 
-````shell
+```shell
 $ echo -en "\e[41mColor\e[mWhite"
-````
+```
 
 `\033`, `\x1b`, `\e` などはどれもESCを表す
 この `\e[` を CSI (Control Sequence Introducer) といい、 `\e]` は OSC (Operating System Command) という
 
-これを踏まえて、 [wezterm](note/wezterm.md) で変数を扱えるようにしたりタイトルを設定したりする
+これを踏まえて、 [[wezterm]] で変数を扱えるようにしたりタイトルを設定したりする
 
 ### 変数を設定する
 
 <https://wezfurlong.org/wezterm/config/lua/pane/get_user_vars.html>
 
-````shell
+```shell
 printf "\033]1337;SetUserVar=%s=%s\007" foo `echo -n bar | base64`
-````
+```
 
 とすると、以下のようにして取得できる
 
-````lua
+```lua
 wezterm.log_info('foo var is ' .. pane:get_user_vars().foo)
-````
+```
 
 つまり OSC 1337 + `SetUserVar=key=value` + `\007` とすると `get_user_vars` で取得できる。
 
 echoで書くとこうなる
 
-````shell
+```shell
 echo "\x1b]1337;SetUserVar=key=$(echo -n value | base64)\x07"
-````
+```
 
 ### 現在いるディレクトリのgitリポジトリ名をtabのtitleに設定する
 
@@ -56,7 +56,7 @@ echo "\x1b]1337;SetUserVar=key=$(echo -n value | base64)\x07"
 
 `~/.config/wezterm/wezterm.lua`
 
-````lua
+```lua
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title
 	local user_title = tab.active_pane.user_vars.panetitle
@@ -95,14 +95,14 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		{ Attribute = { Intensity = "Normal" } },
 	}
 end)
-````
+```
 
-* zshの `precmd` hookを登録して、コマンド実行のたびに `panetitle` を更新するようにする
-* `vsc_info` も使用してgitのディレクトリ内にいるときはリポジトリ名をセットする
+- zshの `precmd` hookを登録して、コマンド実行のたびに `panetitle` を更新するようにする
+- `vsc_info` も使用してgitのディレクトリ内にいるときはリポジトリ名をセットする
 
 `~/.zshrc`
 
-````shell
+```shell
 function rename_wezterm_title {
   echo "\e]1337;SetUserVar=panetitle=$(echo -n $1 | base64)\x07"
 }
@@ -123,7 +123,7 @@ _precmd_wezterm () {
 }
 
 add-zsh-hook precmd _precmd_wezterm
-````
+```
 
 ### pane titleを設定する
 
@@ -134,9 +134,9 @@ pane titleはデフォルトでprocess名が入るので、どのtabなのかわ
 
 OSC 1 でセットすることができるので、先程同様 `precmd` でセットする
 
-````shell
+```shell
 echo "\x1b]1;$(pwd)"
-````
+```
 
 ## 前回開いていたtabを復元する
 
@@ -154,18 +154,18 @@ echo "\x1b]1;$(pwd)"
 
 `crontab -e`
 
-````shell
+```shell
 */5 * * * * zsh -c "wezterm cli list --format=json > ~/.cache/wezterm/tabs.json"
-````
+```
 
 ### タブを復元する
 
 こちらのような関数を用意した。(require: jq)
 
-````shell
+```shell
 function restore_wezterm_tabs() {
   cat ~/.cache/wezterm/tabs.json | jq -r '.[] | .cwd' | sed "s#file://$(hostname)##i" | xargs -i wezterm cli spawn --cwd {}
 }
-````
+```
 
 `wezterm cli spawn --cwd <directory>` でディレクトリを指定してtabを開くことができるので、JSONに保存した各tabの情報から `cwd` の項目を拾って引数にする

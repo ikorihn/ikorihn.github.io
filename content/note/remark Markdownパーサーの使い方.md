@@ -3,7 +3,7 @@ title: remark Markdownパーサーの使い方
 date: 2023-09-11T15:22:00+09:00
 ---
 
-[Quartz v4アップデート](note/Quartz%20v4アップデート.md) したところ、preactとremarkの知識が必要になったので調べた。
+[[Quartz v4アップデート]] したところ、preactとremarkの知識が必要になったので調べた。
 いくつかの用語や概念を知っている必要があって、初学者には厳しかったので調べたことをまとめておく。
 
 ## unified
@@ -28,12 +28,13 @@ MarkdownのASTをmdastという。
 unifiedの中でHTMLの処理を担当する。
 HTMLのASTをhastという。
 
+
 ## unifiedの処理の流れ
 
 https://github.com/unifiedjs/unified#overview に図が書かれている通りで、
 Input -> parser -(ASTに変換)-> transformer -> compiler -> Output として
 
-````javascript
+```javascript
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -49,7 +50,7 @@ const markdownText = fs.readFileSync('./content/hello.md');
 const markdownTree = processer.parse(markdownText);
 const htmlTree = await processer.run(markdownTree);
 const htmlText = processer.stringify((htmlTree as any));
-````
+```
 
 ## transformerの作成
 
@@ -57,9 +58,10 @@ ASTに対して独自の編集を行うためtransformerを作成する。
 
 ### トラバース
 
+
 [unist-util-visit](https://github.com/syntax-tree/unist-util-visit) を使う。
 
-````typescript
+```typescript
 import { Literal, Node, Parent } from "unist"
 import { Paragraph, Text, Link } from "mdast"
 import { VFile } from "vfile"
@@ -82,14 +84,14 @@ function isText(node: Node): node is Text {
     node.type === "text" && typeof node.value === "string"
   );
 }
-````
+```
 
 ### 現在のASTを表示する
 
 プラグイン開発にあたって、現在のASTがどうなっているかを確認するために便利なヘルパーが用意されている。
 [unist-util-inspect](https://github.com/syntax-tree/unist-util-inspect) の `inspect` にtreeを渡すと、木構造をprintできる。
 
-````typescript
+```typescript
 import unified from "unified";
 import { Node } from "unist";
 import { VFile } from "vfile";
@@ -122,11 +124,11 @@ const print: unified.Plugin = () => {
     │   │ spread: false
 ....
 */
-````
+```
 
 ## 参考リンク
 
-* [Markdown を型付きオレオレ AST に変換する | giraphme/blog](https://giraph.me/articles/unified-with-ts/)
-* [unified を使って Markdown を拡張する](https://zenn.dev/januswel/articles/745787422d425b01e0c1)
-* [Markdownパーサーremarkの使い方メモ - 新しいことにはウェルカム](https://www.kwbtblog.com/entry/2023/02/25/192520)
-* [Remark で広げる Markdown の世界](https://vivliostyle.github.io/vivliostyle_doc/ja/vivliostyle-user-group-vol2/spring-raining/index.html)
+- [Markdown を型付きオレオレ AST に変換する | giraphme/blog](https://giraph.me/articles/unified-with-ts/)
+- [unified を使って Markdown を拡張する](https://zenn.dev/januswel/articles/745787422d425b01e0c1)
+- [Markdownパーサーremarkの使い方メモ - 新しいことにはウェルカム](https://www.kwbtblog.com/entry/2023/02/25/192520)
+- [Remark で広げる Markdown の世界](https://vivliostyle.github.io/vivliostyle_doc/ja/vivliostyle-user-group-vol2/spring-raining/index.html)

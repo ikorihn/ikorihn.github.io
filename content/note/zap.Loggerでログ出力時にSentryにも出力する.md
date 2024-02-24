@@ -1,8 +1,8 @@
 ---
 title: zap.Loggerでログ出力時にSentryにも出力する
-date: 2021-09-30T21:15:00+09:00
+date: "2021-09-30T21:15:00+09:00"
 tags:
-- Go
+  - 'Go'
 ---
 
 <https://docs.sentry.io/platforms/go/>
@@ -10,7 +10,7 @@ tags:
 zap初期化時に、Hookを登録することができる。
 zapcore.Entryを引数に取るので、そこからメッセージやログレベルを取得してやればよい
 
-````go
+```go
 import (
 	"fmt"
 	"strings"
@@ -61,7 +61,7 @@ func parseLogLevel(levelStr string) zapcore.Level {
 	}
 }
 
-````
+```
 
 [logging - How to use Sentry with go.uber.org/zap/zapcore logger - Stack Overflow](https://stackoverflow.com/questions/64801270/how-to-use-sentry-with-go-uber-org-zap-zapcore-logger)
-[\[Go\]Sentryに対応したcustom errorの作り方](https://zenn.dev/tomtwinkle/articles/18447cca3232d07c9f12)
+[[Go]Sentryに対応したcustom errorの作り方](https://zenn.dev/tomtwinkle/articles/18447cca3232d07c9f12)

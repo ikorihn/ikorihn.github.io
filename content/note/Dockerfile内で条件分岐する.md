@@ -1,10 +1,10 @@
 ---
 title: Dockerfile内で条件分岐する
-date: 2023-05-05T20:23:00+09:00
+date: "2023-05-05T20:23:00+09:00"
 tags:
-- Docker
+  - Docker
 ---
-
+ 
 [docker - Dockerfile if else condition with external arguments - Stack Overflow](https://stackoverflow.com/questions/43654656/dockerfile-if-else-condition-with-external-arguments)
 [Dockerfile 内で条件に応じて処理を変えたかったので試行錯誤したメモ - ようへいの日々精進XP](https://inokara.hateblo.jp/entry/2021/01/02/165315)
 
@@ -12,17 +12,17 @@ tags:
 
 ## 1. shell scriptで分岐
 
-````dockerfile
+```dockerfile
 FROM centos:7
 ARG arg
 RUN if [[ -z "$arg" ]] ; then echo Argument not provided ; else echo Argument is $arg ; fi
-````
+```
 
 これだとshell内でできることは分岐できるがCOPYなどDockerfile内のコマンドには使えない。
 
 ## 2. マルチステージビルドを使う
 
-````dockerfile
+```dockerfile
 ARG my_arg
 
 FROM centos:7 AS base
@@ -38,7 +38,7 @@ ENV VAR=FALSE
 
 FROM branch-version-${my_arg} AS final
 RUN echo "VAR is equal to ${VAR}"
-````
+```
 
 `docker build -t my_docker . --build-arg my_arg=2`
 
@@ -48,7 +48,7 @@ baseを基準のイメージとして、複数種類のstageを定義してgloba
 
 `--build-arg` で指定するのではなく、マルチステージビルドの `--target` で指定する方法。こちらのほうがtargetが明確になっていいと思った。
 
-````dockerfile
+```dockerfile
 FROM foo as base
 RUN ...
 WORKDIR /opt/my-proj
@@ -86,6 +86,7 @@ FROM base as image-prod
 COPY --from=npm-ci-prod /opt/my-proj .
 COPY --from=proj-files /opt/my-proj .
 RUN ...
-````
+```
 
 `docker build --target image-dev -t foo .`
+

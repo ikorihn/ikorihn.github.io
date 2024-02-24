@@ -1,33 +1,33 @@
 ---
 title: goでDBに絡むテストをしたい
-date: 2021-11-28T22:29:00+09:00
-lastmod: 2021-11-28T22:29:00+09:00
+date: "2021-11-28T22:29:00+09:00"
+lastmod: "2021-11-28T22:29:00+09:00"
 tags:
-- Go
+  - 'Go'
 ---
 
-\#Go
+#Go
 
 [GolangでDBアクセスがあるユニットテストのやり方を考える - Qiita](https://qiita.com/seya/items/582c2bdcca4ad50b03b7)
 
-* SQLが実行される箇所をmockする(実際にDBに接続してSQLの結果を得る必要がない場合)
-  
-  * sqlmock を使う
-* 実際のDBとテストデータを用意してSQLも実際に実行する
+- SQLが実行される箇所をmockする(実際にDBに接続してSQLの結果を得る必要がない場合)
+  - sqlmock を使う
 
-* テスト用DBの用意
-  
-  * <https://github.com/DATA-DOG/go-txdb> でテストケースごとに独立したトランザクション内でテストデータを用意・Rollbackを行う
-    * <https://zenn.dev/rinchsan/articles/83cf6f3b5d70c4d9b5d4>
-    * mysql だとnested transactionが使えないからコミットしている場合、Savepointにかえるとかしないと、rollbackできなさそう…？
-    * 毎回deleteする、でもよくない？
-  * <https://github.com/go-testfixtures/testfixtures> でfixtureを用意する
-  * <https://github.com/testcontainers/testcontainers-go> や <https://github.com/ory/dockertest> を利用する
-    * <https://qiita.com/yasuflatland-lf/items/4f18b55c2a6492d0c462>
-    * Makefileでdocker-compose up してもいいけど、テストコードで書いておくとSkipも可
-* CIではスキップしたい
+- 実際のDBとテストデータを用意してSQLも実際に実行する
 
-````go
+- テスト用DBの用意
+  - <https://github.com/DATA-DOG/go-txdb> でテストケースごとに独立したトランザクション内でテストデータを用意・Rollbackを行う
+    - <https://zenn.dev/rinchsan/articles/83cf6f3b5d70c4d9b5d4>
+    - mysql だとnested transactionが使えないからコミットしている場合、Savepointにかえるとかしないと、rollbackできなさそう…？
+    - 毎回deleteする、でもよくない？
+  - <https://github.com/go-testfixtures/testfixtures> でfixtureを用意する
+  - <https://github.com/testcontainers/testcontainers-go> や <https://github.com/ory/dockertest> を利用する
+    - <https://qiita.com/yasuflatland-lf/items/4f18b55c2a6492d0c462>
+    - Makefileでdocker-compose up してもいいけど、テストコードで書いておくとSkipも可
+
+- CIではスキップしたい
+
+```go
 func skipCI(t *testing.T) {
   if os.Getenv("CI") != "" {
     t.Skip("Skipping testing in CI environment")
@@ -37,21 +37,21 @@ func skipCI(t *testing.T) {
 func TestNewFeature(t *testing.T) {
   skipCI(t)
 }
-````
+```
 
 あるいはshortではスキップにする `go test -short`
 
-````go
+```go
 if testing.Short() {
   t.Skip("skipping testing in short mode")
 }
-````
+```
 
 ### dockertestとfixtureを使ったテスト
 
 dockertest を使ってコンテナを起動し、testfixtures でテストデータを流し込む
 
-````go
+```go
 package db_test
 
 import (
@@ -262,26 +262,27 @@ func TestFindUser(t *testing.T) {
 		})
 	}
 }
-````
+```
 
 fixtures には `テーブル名.yaml` の規則でファイルを置く
 
 `testdata/fixtures/user_t.yaml`
 
-````yaml
+```yaml
 - user_id: "AAAAAAAxxxx"
   name: "foo"
   created_at: 1596715200
 - user_id: "AAAAAAAyyyy"
   name: "bar"
   created_at: 1596815200
-````
+```
+
 
 ## docker-compose.ymlを使ってテストしたい
 
 testcontainersではdocker-compose.ymlを使ってcomposeを実行できる
 
-````yml:docker-compose.yml
+```yml:docker-compose.yml
 version: '3.8'
 
 services:
@@ -299,9 +300,10 @@ services:
       - ./sql:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-````
+```
 
-````go
+
+```go
 import (
 	"database/sql"
 	"fmt"
@@ -376,4 +378,4 @@ func TestSample(t *testing.T) {
 	// ... test
 }
 
-````
+```

@@ -1,10 +1,10 @@
 ---
 title: fishとfzfを組み合わせる
-date: 2021-05-11T22:13:00+09:00
-lastmod: 2021-05-11T22:15:25+09:00
+date: "2021-05-11T22:13:00+09:00"
+lastmod: '2021-05-11T22:15:25+09:00'
 tags:
-- fish
-- shell
+  - 'fish'
+  - 'shell'
 ---
 
 <https://github.com/jethrokuan/fzf> を使っていた

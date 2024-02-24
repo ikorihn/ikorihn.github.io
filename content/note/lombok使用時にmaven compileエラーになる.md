@@ -1,12 +1,13 @@
 ---
 title: lombok使用時にmaven compileエラーになる
-date: 2021-05-11T22:15:00+09:00
-lastmod: 2021-05-11T22:15:56+09:00
+date: "2021-05-11T22:15:00+09:00"
+lastmod: '2021-05-11T22:15:56+09:00'
+
 ---
 
 lombok使用時にmaven compileエラーになる
 
-````sh
+```sh
 $ mvn compile
 
 ...
@@ -22,20 +23,18 @@ Caused by: java.lang.ClassNotFoundException: com.sun.tools.javac.code.TypeTags
     at lombok.javac.JavacTreeMaker$TypeTag.typeTag (JavacTreeMaker.java:245)
     at lombok.javac.Javac.<clinit> (Javac.java:155)
 
-````
+```
 
-* lombok: 1.16.20
-* jdk: 1.8
+- lombok: 1.16.20
+- jdk: 1.8
 
 brewでopenjdkがインストールされていてバージョンが変わっていた
 なにかに依存して入っていた模様
 
-````
-$ mvn --version
-Apache Maven 3.8.1 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
-Maven home: /usr/local/Cellar/maven/3.8.1/libexec
-Java version: 15.0.2, vendor: N/A, runtime: /usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home
-````
+    $ mvn --version
+    Apache Maven 3.8.1 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
+    Maven home: /usr/local/Cellar/maven/3.8.1/libexec
+    Java version: 15.0.2, vendor: N/A, runtime: /usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home
 
 [java.lang.ClassNotFoundException: com.sun.tools.javac.code.TypeTags · Issue #1651 · projectlombok/lombok](https://github.com/projectlombok/lombok/issues/1651)
 

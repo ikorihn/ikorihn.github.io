@@ -1,13 +1,12 @@
 ---
 title: Go Revel入門
-date: 2022-12-14T14:34:00+09:00
-tags:
-- Go
+date: "2022-12-14T14:34:00+09:00"
+tags: [Go]
 ---
-
+ 
 https://revel.github.io/tutorial/index.html
 
-````shell
+```shell
 # revelコマンドをインストール
 $ go install github.com/revel/cmd/revel@latest
 $ revel
@@ -28,11 +27,11 @@ Available commands:
   package
   run
   test
-````
+```
 
 myapp という名前でプロジェクトを作成
 
-````shell
+```shell
 $ revel new -a myapp
 $ cd myapp
 $ revel run
@@ -44,7 +43,7 @@ INFO  14:32:46    app     run.go:34: Running revel server
 INFO  14:32:46    app   plugin.go:9: Go to /@tests to run the tests.
 Revel engine is listening on.. localhost:51839
 Revel proxy is listening, point your browser to : 9000
-````
+```
 
 http://localhost:9000 で画面が開く
 
@@ -59,7 +58,7 @@ portなどもここ
 
 `app/views/App/Index.html`
 
-````html
+```html
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
@@ -82,11 +81,12 @@ portなどもここ
 
 {{template "footer.html" .}}
 
-````
+```
 
 ## 感想
 
-* 古き良きMVCフレームワークという感じ。TomcatのServletの開発に体験としては近い？
-* Viewも備えていてJSPみたいに書ける
-* scaffold、サーバー起動、ディレクトリ構成、設定ファイルなど予め決められていて、こちらで決めることは少ない
-* REST APIの構築には大きすぎる感じ、Goっぽくない
+- 古き良きMVCフレームワークという感じ。TomcatのServletの開発に体験としては近い？
+- Viewも備えていてJSPみたいに書ける
+- scaffold、サーバー起動、ディレクトリ構成、設定ファイルなど予め決められていて、こちらで決めることは少ない
+- REST APIの構築には大きすぎる感じ、Goっぽくない
+

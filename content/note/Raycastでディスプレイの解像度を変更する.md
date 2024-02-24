@@ -1,22 +1,23 @@
 ---
 title: Raycastでディスプレイの解像度を変更する
-date: 2023-03-03T19:30:00+09:00
+date: "2023-03-03T19:30:00+09:00"
 tags:
-- 2023/03/03
-- Raycast
-lastmod: 2023-03-03T19:31:00+09:00
+  - '2023/03/03'
+  - 'Raycast'
+lastmod: "2023-03-03T19:31:00+09:00"
 ---
 
 WQHD(2560x1440)ディスプレイを使っていると、画面共有時に文字が小さくなってしまい読めないことが多々あるので、画面共有するときは都度解像度を下げていた。
 変更し忘れたり、変更するのにもたついたりする時間があるため、ディスプレイの解像度の変更を簡単にできないかを調べた。
 
+
 ## ゴール
 
-* Raycastで解像度を変更できるようにする
+- Raycastで解像度を変更できるようにする
 
 ## Raycastから実行するAppleScriptを作成
 
-[Raycastでマイクのミュートを切り替える](blog/Raycastでマイクのミュートを切り替える.md)
+[[Raycastでマイクのミュートを切り替える]]
 
 引数つきで実行もできる
 
@@ -29,7 +30,7 @@ AppleScriptにはあまり詳しくないのでもっといい書き方がある
 
 ### Monterey(12.6) の場合
 
-````applescript
+```applescript
 #!/usr/bin/osascript
 
 # Required parameters:
@@ -76,7 +77,7 @@ end tell
 # delay 2
 # quit application "System Preferences"
 end run
-````
+```
 
 ### 解説
 
@@ -86,16 +87,15 @@ end run
 `set resolution_index to ( item 1 of argv )`
 1つめの引数を代入する
 
-````
+```
 tell application "System Preferences"
 ...
         tell window "Displays" of application process "System Preferences"
           click button "Display Settings…"
-````
-
+```
 System Preferencesを開いて、ボタンクリックなどの画面操作をする
 
-````
+```
           tell sheet 1
               select row 2 of outline 1 of scroll area 1
               click radio button "Scaled" of radio group 1
@@ -106,21 +106,19 @@ System Preferencesを開いて、ボタンクリックなどの画面操作を�
                   end tell
               end tell
           end tell
-````
-
+```
 Display Settingsの画面で、
-
 1. 2番目のモニターを選択
-1. ラジオボタンScaledをクリックして解像度のリストを開く
-1. 解像度のリストから引数で指定したインデックスを選択する
+2. ラジオボタンScaledをクリックして解像度のリストを開く
+3. 解像度のリストから引数で指定したインデックスを選択する
 
 以降は画面を閉じたりアプリケーションを終了したりを行うパート
 
 ## 所感
 
-* 操作対象のUIを特定するために `log every UI element` で一覧出力するのが便利だった
-* UIを番号で指定しているのが、簡単に壊れそうで嫌だな
-* 解像度の指定もインデックスでやっているがわかりにくいな
+- 操作対象のUIを特定するために `log every UI element` で一覧出力するのが便利だった
+- UIを番号で指定しているのが、簡単に壊れそうで嫌だな
+- 解像度の指定もインデックスでやっているがわかりにくいな
 
 ## 参考
 

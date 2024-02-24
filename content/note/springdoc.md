@@ -1,14 +1,15 @@
 ---
 title: springdoc
-date: 2020-12-29T16:26:00+09:00
+date: "2020-12-29T16:26:00+09:00"
 tags:
-- spring
-lastmod: 2021-05-30T18:45:08+09:00
+  - spring
+lastmod: '2021-05-30T18:45:08+09:00'
+
 ---
 
 # springdoc
 
-[SpringFramework](note/SpringFramework.md) でOpenAPI仕様書を作成するライブラリ
+[[SpringFramework]] でOpenAPI仕様書を作成するライブラリ
 
 springfoxをやめた
 OAS3にイマイチたいおうしてない
@@ -33,73 +34,65 @@ annotationをv3に変更した
 
 before
 
-````
-@Schema(
-    description = "1区間情報",
-    oneOf = [Section.SectionPoint::class, Section.SectionMove::class],
-    discriminatorProperty = "sectionType",
-)
-sealed class Section(val sectionType: string) {
-    data class SectionPoint(val name: String): Section("point"){}
-    data class SectionMove(val move: String): Section("move"){}
-}
-````
+    @Schema(
+        description = "1区間情報",
+        oneOf = [Section.SectionPoint::class, Section.SectionMove::class],
+        discriminatorProperty = "sectionType",
+    )
+    sealed class Section(val sectionType: string) {
+        data class SectionPoint(val name: String): Section("point"){}
+        data class SectionMove(val move: String): Section("move"){}
+    }
 
 after
 
-````
-@Schema(
-    description = "1区間情報",
-    oneOf = [Section.SectionPoint::class, Section.SectionMove::class],
-    discriminatorProperty = "sectionType",
-    discriminatorMapping = [
-        DiscriminatorMapping(value = "point", schema = Section.SectionPoint::class),
-        DiscriminatorMapping(value = "move", schema = Section.SectionMove::class),
-    ],
-)
-sealed class Section() {
-    data class SectionPoint(val sectionType: string, val name: String): Section(){}
-    data class SectionMove(val sectionType: string, val move: String): Section(){}
-}
-````
+    @Schema(
+        description = "1区間情報",
+        oneOf = [Section.SectionPoint::class, Section.SectionMove::class],
+        discriminatorProperty = "sectionType",
+        discriminatorMapping = [
+            DiscriminatorMapping(value = "point", schema = Section.SectionPoint::class),
+            DiscriminatorMapping(value = "move", schema = Section.SectionMove::class),
+        ],
+    )
+    sealed class Section() {
+        data class SectionPoint(val sectionType: string, val name: String): Section(){}
+        data class SectionMove(val sectionType: string, val move: String): Section(){}
+    }
 
 ### Jacksonでdeserializeするための設定
 
 JsonTypeInfo, JsonSubTypesのアノテーションを追加した
 
-````
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes(
-    value = [
-        JsonSubTypes.Type(value = SectionRecord.Point::class, name = "point"),
-        JsonSubTypes.Type(value = SectionRecord.Move::class, name = "move"),
-    ]
-)
-````
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+    @JsonSubTypes(
+        value = [
+            JsonSubTypes.Type(value = SectionRecord.Point::class, name = "point"),
+            JsonSubTypes.Type(value = SectionRecord.Move::class, name = "move"),
+        ]
+    )
 
 ## openapi-generatorでStackOverflowErrorとなる
 
 上記のJsonTypeInfoを入れたら、swagger.yamlからコード生成するときに無限ループとなった
 
-````
-[main] INFO  o.o.codegen.DefaultGenerator - Generator 'typescript-axios' is considered stable.
-Exception in thread "main" java.lang.StackOverflowError
-	at java.util.regex.Pattern.error(Pattern.java:1969)
-	at java.util.regex.Pattern.<init>(Pattern.java:1354)
-	at java.util.regex.Pattern.compile(Pattern.java:1054)
-	at java.lang.String.replace(String.java:2239)
-	at org.openapitools.codegen.utils.ModelUtils.getSimpleRef(ModelUtils.java:405)
-	at org.openapitools.codegen.utils.ModelUtils.getReferencedSchema(ModelUtils.java:832)
-	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3024)
-	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3000)
-	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3025)
-	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3010)
-	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3025)
-````
+    [main] INFO  o.o.codegen.DefaultGenerator - Generator 'typescript-axios' is considered stable.
+    Exception in thread "main" java.lang.StackOverflowError
+    	at java.util.regex.Pattern.error(Pattern.java:1969)
+    	at java.util.regex.Pattern.<init>(Pattern.java:1354)
+    	at java.util.regex.Pattern.compile(Pattern.java:1054)
+    	at java.lang.String.replace(String.java:2239)
+    	at org.openapitools.codegen.utils.ModelUtils.getSimpleRef(ModelUtils.java:405)
+    	at org.openapitools.codegen.utils.ModelUtils.getReferencedSchema(ModelUtils.java:832)
+    	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3024)
+    	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3000)
+    	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3025)
+    	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3010)
+    	at org.openapitools.codegen.DefaultCodegen.addProperties(DefaultCodegen.java:3025)
 
 swagger.yaml
 
-````yaml
+```yaml
     SectionRecord:
       required:
       - type
@@ -181,7 +174,7 @@ swagger.yaml
           isLastSpot:
             type: boolean
 
-````
+```
 
 親のoneOfと子のallOfで循環参照しているのが原因ぽい
 ためしに子のallOfを消したら通った。
@@ -190,7 +183,7 @@ swagger.yaml
 
 SchemaのoneOfの定義を削除した
 
-````
+```
 @Schema(description = "ルート詳細の1区間情報")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes(
@@ -202,11 +195,11 @@ SchemaのoneOfの定義を削除した
 sealed class SectionRecord() {
     data class Point(
 
-````
+```
 
 swagger.yaml
 
-````yaml
+```yaml
     SectionRecord:
       required:
       - type
@@ -282,34 +275,32 @@ swagger.yaml
           isLastSpot:
             type: boolean
 
-````
+```
 
-````diff
+```diff
 <         mapping:
 <           point: '#/components/schemas/Point'
 <           move: '#/components/schemas/Move'
 <       oneOf:
 <       - $ref: '#/components/schemas/Point'
 <       - $ref: '#/components/schemas/Move'
-````
+```
 
 oneOfの定義が消えた
 
 生成されたコードも問題なし
 
-````
-export interface SectionRecord {
-  /**
-   *
-   * @type {string}
-   * @memberof SectionRecord
-   */
-  type: string
-}
-export interface Move extends SectionRecord {
-	// ....
-}
-export interface Point extends SectionRecord {
-	// ....
-}
-````
+    export interface SectionRecord {
+      /**
+       *
+       * @type {string}
+       * @memberof SectionRecord
+       */
+      type: string
+    }
+    export interface Move extends SectionRecord {
+    	// ....
+    }
+    export interface Point extends SectionRecord {
+    	// ....
+    }

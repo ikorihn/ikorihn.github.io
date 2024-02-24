@@ -1,12 +1,13 @@
 ---
 title: git-sparse-checkout
-date: 2021-06-10T11:20:00+09:00
-lastmod: 2021-06-10T11:29:13+09:00
+date: "2021-06-10T11:20:00+09:00"
+lastmod: '2021-06-10T11:29:13+09:00'
 tags:
-- git
+  - 'git'
+
 ---
 
-\#git
+#git
 
 <https://git-scm.com/docs/git-sparse-checkout>
 
@@ -16,44 +17,44 @@ tags:
 
 ## sparse checkout を利用してみる
 
-1. まずは空っぽのローカルリポジトリを作成
+1.  まずは空っぽのローカルリポジトリを作成
 
-````shell
+```shell
 git init .
-````
+```
 
-2. ローカルリポジトリ内で以下のコマンドを実行。 gitconfigファイルに `sparsecheckout=true` の1行が追加されます。
+2.  ローカルリポジトリ内で以下のコマンドを実行。 gitconfigファイルに `sparsecheckout=true` の1行が追加されます。
 
-````shell
+```shell
 git config core.sparsecheckout true
-````
+```
 
-3. .git/info以下にsparse-checkoutという名前のファイルを作成。
+3.  .git/info以下にsparse-checkoutという名前のファイルを作成。
 
-````shell
+```shell
 mkdir .git/info
 vi .git/info/sparse-checkout
-````
+```
 
-4. 必要なファイルやディレクトリを記述していきます。 記述方法は.gitignoreと同じで、ファイル名やディレクトリ名の先頭に「!」を付けると除外指定もできます。
+4.  必要なファイルやディレクトリを記述していきます。 記述方法は.gitignoreと同じで、ファイル名やディレクトリ名の先頭に「!」を付けると除外指定もできます。
 
-````gitignore
+```gitignore
 hoge.txt
 /fuga
 !/fuga/piyO
-````
+```
 
-5. リモートリポジトリを指定します。
+5.  リモートリポジトリを指定します。
 
-````shell
+```shell
 git remote add origin XXXX
-````
+```
 
-6. 最後にpull
+6.  最後にpull
 
-````shell
+```shell
 git pull origin master
-````
+```
 
 ## 一部だけを除外したい
 
@@ -63,8 +64,8 @@ git pull origin master
 
 ネストすることも可能
 
-````gitignore
+```gitignore
 /*
 !unwanted
 unwanted/**/wanted
-````
+```

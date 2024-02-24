@@ -1,9 +1,9 @@
 ---
 title: JavaのFormatter
-date: 2021-05-07T21:57:00+09:00
+date: "2021-05-07T21:57:00+09:00"
 tags:
-- Java
-lastmod: 2021-06-18T22:50:28+09:00
+  - 'Java'
+lastmod: '2021-06-18T22:50:28+09:00'
 ---
 
 [Java Check-style and Formatting using Maven | by Arushi Sharma | Medium](https://medium.com/@aru_sha4/java-check-style-and-formatting-using-maven-a1a1b4e6e10a)
@@ -32,7 +32,7 @@ Google Java Formatを適用するプラグイン
 
 これを書き換えればいいんだろうけど、あまり独自設定はいれたくない気もする
 
-````xml
+```xml
 <project ...>
     ...
     <plugin>
@@ -57,11 +57,11 @@ Google Java Formatを適用するプラグイン
     </plugin>
     ...
 </project>
-````
+```
 
 ## Spotless
 
-[spotlessでコードフォーマットする](note/spotlessでコードフォーマットする.md)
+[[spotlessでコードフォーマットする]]
 
 ## Checkstyle
 
@@ -69,17 +69,18 @@ Google Java Formatを適用するプラグイン
 
 ## Kotlinの場合
 
-[KotlinのFormatter](note/KotlinのFormatter.md)
+[[KotlinのFormatter]]
+
 
 ## 参考
 
-* https://aru-sha4.medium.com/java-check-style-and-formatting-using-maven-a1a1b4e6e10a
-* https://google.github.io/styleguide/javaguide.html#s4.2-block-indentation
-* https://stackoverflow.com/questions/65791764/klint-and-spotless-com-pinterest-ktlint-core-parseexception-expecting-a-parame
-* https://code.visualstudio.com/docs/java/java-linting
-* https://github.com/jhipster/prettier-java
-* https://github.com/pinterest/ktlint/issues
-* https://github.com/diffplug/spotless/tree/main/plugin-maven#eclipse-jdt
-* https://github.com/diffplug/spotless/blob/main/ECLIPSE_SCREENSHOTS.md
-* https://github.com/google/styleguide
-* https://www.howtogeek.com/723144/how-to-copy-the-url-addresses-of-all-open-tabs-in-chrome/
+- https://aru-sha4.medium.com/java-check-style-and-formatting-using-maven-a1a1b4e6e10a
+- https://google.github.io/styleguide/javaguide.html#s4.2-block-indentation
+- https://stackoverflow.com/questions/65791764/klint-and-spotless-com-pinterest-ktlint-core-parseexception-expecting-a-parame
+- https://code.visualstudio.com/docs/java/java-linting
+- https://github.com/jhipster/prettier-java
+- https://github.com/pinterest/ktlint/issues
+- https://github.com/diffplug/spotless/tree/main/plugin-maven#eclipse-jdt
+- https://github.com/diffplug/spotless/blob/main/ECLIPSE_SCREENSHOTS.md
+- https://github.com/google/styleguide
+- https://www.howtogeek.com/723144/how-to-copy-the-url-addresses-of-all-open-tabs-in-chrome/

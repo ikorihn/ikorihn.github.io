@@ -2,21 +2,21 @@
 title: Goの最新バージョンをインストールするワンライナー
 date: 2023-12-18T10:40:00+09:00
 tags:
-- Go
+  - Go
 ---
 
 
-````shell
+```shell
 sudo rm -rf /usr/local/go && curl -L https://go.dev/dl/$(curl 'https://go.dev/dl/?mode=json' | jq -r '.[0].files[] | select(.os == "darwin" and .arch == "arm64" and .kind == "archive") | .filename') | sudo tar -zx -C /usr/local/
-````
+```
 
-## [Go](note/Go.md) のバージョン一覧は https://go.dev/dl/?mode=json から取得できる
+## [[Go]] のバージョン一覧は https://go.dev/dl/?mode=json から取得できる
 
 以下のような形式で取得できるので、os、arch、kindを指定してfilenameを取得する
 
 M1 Macなので、 `curl 'https://go.dev/dl/?mode=json' | jq -r '.[0].files[] | select(.os == "darwin" and .arch == "arm64" and .kind == "archive") | .filename'`
 
-````json
+```json
 [
  {
   "version": "go1.21.5",
@@ -59,11 +59,11 @@ M1 Macなので、 `curl 'https://go.dev/dl/?mode=json' | jq -r '.[0].files[] | 
     "kind": "installer"
    },
 ...
-````
+```
 
 ## `/usr/local/go` を削除して作成しなおす
 
-````shell
+```shell
 sudo rm -rf /usr/local/go 
 curl -L https://go.dev/dl/$(curl 'https://go.dev/dl/?mode=json' | jq -r '.[0].files[] | select(.os == "darwin" and .arch == "arm64" and .kind == "archive") | .filename') | sudo tar -zx -C /usr/local/
-````
+```

@@ -1,9 +1,10 @@
 ---
 title: JenkinsのHTMLPublisherPluginでCSSが適用されない
-date: 2021-06-01T18:44:00+09:00
-lastmod: 2021-06-01T18:52:03+09:00
+date: "2021-06-01T18:44:00+09:00"
+lastmod: '2021-06-01T18:52:03+09:00'
 tags:
-- Jenkins
+  - 'Jenkins'
+
 ---
 
 <https://techblog.recochoku.jp/1285>
@@ -21,9 +22,9 @@ Javaオプションで `hudson.model.DirectoryBrowserSupport.CSP` を設定す�
 
 ### 1. JenkinsのスクリプトコンソールからCSPを設定する
 
-````shell
+```shell
 System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "default-src https: 'unsafe-inline'")
-````
+```
 
 ただし、一時的な設定で、再起動するともとに戻る
 
@@ -36,12 +37,12 @@ rpm パッケージでインストールした場合
 
 default
 
-````shell
+```shell
 JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true"
-````
+```
 
 追加
 
-````shell
+```shell
 JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src https: 'unsafe-inline'\""
-````
+```

@@ -1,35 +1,35 @@
 ---
 title: MinIOをローカルのkubernetesで動かす
-date: 2023-07-04T12:20:00+09:00
+date: "2023-07-04T12:20:00+09:00"
 tags:
-- 2023/07/04
-- Kubernetes
+  - '2023/07/04'
+  - Kubernetes
 ---
 
-[MinIO](note/MinIO.md) を [Kubernetes](note/Kubernetes.md) で動かしたい。
+[[MinIO]] を [[Kubernetes]] で動かしたい。
 
-環境は、 [Rancher Desktop](note/Rancher%20Desktop.md) のKubernetes
+環境は、 [[Rancher Desktop]] のKubernetes
 
 ## manifestをapplyする
 
 https://min.io/docs/minio/kubernetes/upstream/index.html
 
-````shell
+```shell
 curl https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/minio-dev.yaml -O
-````
+```
 
-* `spec.volumes[0].hostPath.path` を任意のローカルのパスにする
-* `spec.nodeSelector` を `kubernetes.io/os: linux` にする
+- `spec.volumes[0].hostPath.path` を任意のローカルのパスにする
+- `spec.nodeSelector` を `kubernetes.io/os: linux` にする
 
-````shell
+```shell
 kubectl apply -f minio-dev.yaml
-````
+```
 
 ローカルから疎通できるようにする
 
-````shell
+```shell
 kubectl port-forward pod/minio 9000 9090 -n minio-dev
-````
+```
 
 => localhost:9000 でコンソールが開いた。
 
@@ -49,7 +49,7 @@ MinIOのカスタムリソースを管理するOperatorと、オブジェクト�
 
 values_tenant.yaml
 
-````yaml
+```yaml
 tenant:
   pools:
     ## Servers specifies the number of MinIO Tenant Pods / Servers in this pool.
@@ -95,13 +95,13 @@ tenant:
       topologySpreadConstraints: [ ]
       ## Configure Runtime Class
       # runtimeClassName: ""
-````
+```
 
-````shell
+```shell
 helm install --namespace tenant-ns -f values_tenant.yaml --create-namespace tenant minio/tenant
 
 kubectl --namespace tenant-ns port-forward svc/myminio-console 19443:9443
-````
+```
 
 => https://localhost:19443 でコンソールが開く
 username:passwordは、デフォルトで `minio:minio123`
@@ -112,7 +112,7 @@ aws-cliのPodを作成して、中からminioにアクセスしてみる。
 minioのエンドポイントは、`kubectl logs` でtenantのpodのログに出力されているのを確認する。
 `myminio-pool-0-2 minio {"level":"INFO","errKind":"","time":"2023-07-04T03:09:43.126781416Z","message":"S3-API: https://minio.tenant-ns.svc.cluster.local "}`
 
-````shell
+```shell
 kubectl run awscli -it --rm --image amazon/aws-cli --env=AWS_ACCESS_KEY_ID=minio --env=AWS_SECRET_ACCESS_KEY=minio123 --command -- sh
 
 sh-4.2$ aws --endpoint-url https://minio.tenant-ns.svc.cluster.local --no-verify-ssl s3 ls
@@ -125,4 +125,4 @@ make_bucket: my-bucket
 sh-4.2$ aws --endpoint-url https://minio.tenant-ns.svc.cluster.local --no-verify-ssl s3 ls
 urllib3/connectionpool.py:1056: InsecureRequestWarning: Unverified HTTPS request is being made to host 'minio.tenant-ns.svc.cluster.local'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
 2023-07-04 03:54:53 my-bucket
-````
+```

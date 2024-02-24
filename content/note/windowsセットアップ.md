@@ -1,8 +1,8 @@
 ---
 title: windowsセットアップ
-date: 2021-05-09T13:04:00+09:00
+date: "2021-05-09T13:04:00+09:00"
 tags:
-- Windows
+  - 'Windows'
 ---
 
 久々にWindowsを起動してアップデートもろもろしたのでメモ
@@ -27,21 +27,21 @@ Windows Updateで更新のチェックをしても出てこなかったので、
 
 `caps2ctrl_swap.reg`
 
-````reg
+```reg
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
 "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,1d,00,3a,00,3a,00,1d,00,00,00,00,00
-````
+```
 
 ## ChocolateyではなくScoopをつかって環境構築
 
-[Scoop環境構築](note/Scoop環境構築.md)
+[[Scoop環境構築]]
 
 ### Scoop以外でいれたもの
 
-* Visual Studio Code
-* Google Chrome
+- Visual Studio Code
+- Google Chrome
 
 ## キーボード配列を変更
 
@@ -53,11 +53,11 @@ US配列に慣れてしまったので、日本語配列のキーボードを使
 [Google入力を英語配列キーボードで使っている人向け日本語入力切り替えの変更方法｜システムエンジニアの技術LOG](https://ko-log.net/tech-log/archives/3826932.html)
 
 1. タスクバーの右下にあるIMEを右クリックしてプロパティを開く
-1. キー設定の選択 > 編集
-1. 入力キーが `Hankaku/Zenkaku` の行を選択して、 `Hankaku/Zenkaku` をダブルクリックするとキー入力のダイアログが表示される
-1. Ctrl Space キーを押す
-1. これをHankaku/Zenkakuの全項目に繰り返す
-1. Ctrl+Spaceで切り替えられるようになる
+2. キー設定の選択 > 編集
+3. 入力キーが `Hankaku/Zenkaku` の行を選択して、 `Hankaku/Zenkaku` をダブルクリックするとキー入力のダイアログが表示される
+4. Ctrl Space キーを押す
+5. これをHankaku/Zenkakuの全項目に繰り返す
+6. Ctrl+Spaceで切り替えられるようになる
 
 ### 英語レイアウトで変換キーをIMEのON、無変換キーをIMEのOFFにする
 
@@ -73,15 +73,15 @@ AX配列にすると認識されるため実現できる。
 
 ### Ctrl-n,Ctrl-pで変換候補を選択
 
-\[備忘録的なblog: google日本語入力の候補移動キーの変更\](<http://se-bikou.blogspot.com/2011/04/google.html]>
+[備忘録的なblog: google日本語入力の候補移動キーの変更](<http://se-bikou.blogspot.com/2011/04/google.html]>
 
 キー設定 > 編集
 
-|モード|入力キー|コマンド|
-|---------|------------|------------|
-|変換前入力中|Ctrl n|予測変換|
-|変換中|Ctrl n|次候補を選択|
-|変換中|Ctrl p|前候補を選択|
+| モード       | 入力キー | コマンド     |
+| ------------ | -------- | ------------ |
+| 変換前入力中 | Ctrl n   | 予測変換     |
+| 変換中       | Ctrl n   | 次候補を選択 |
+| 変換中       | Ctrl p   | 前候補を選択 |
 
 ## WSL2
 
@@ -101,7 +101,7 @@ Storeからと書いてあるが、Scoopでインストールした
 
 もとのPATH
 
-````sh
+```sh
 PS C:\Users\ikorihn> $env:Path.Split(";")
 D:\app\oracleuser\product\12.1.0\dbhome_1\bin
 C:\Program Files\Java\jdk1.8.0_73\bin
@@ -132,7 +132,7 @@ C:\Users\ikorihn\AppData\Local\Microsoft\WindowsApps
 C:\Python27\Scripts
 
 C:\Users\ikorihn\AppData\Local\Programs\Microsoft VS Code\bin
-````
+```
 
 ## 参考
 

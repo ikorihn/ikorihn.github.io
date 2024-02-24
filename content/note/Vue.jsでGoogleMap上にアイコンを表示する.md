@@ -1,24 +1,24 @@
 ---
 title: Vue.jsでGoogleMap上にアイコンを表示する
-date: 2021-05-14T17:32:00+09:00
+date: "2021-05-14T17:32:00+09:00"
 tags:
-- TypeScript
-- Vuejs
+  - 'TypeScript'
+  - 'Vuejs'
 ---
 
-[Vue TypeScriptでGoogleMapを使う](note/Vue%20TypeScriptでGoogleMapを使う.md) でGoogle Mapを使えるようにした。
+[[Vue TypeScriptでGoogleMapを使う]] でGoogle Mapを使えるようにした。
 そこにアイコンを描画したい。
 
 ## 前提
 
-* GoogleMapにアイコンを表示するには、画像ファイルを指定する
-* Vue.jsのプロジェクトで、svgはすべて画像ファイルとしてではなく、Vueコンポーネントとして管理している
-  * <https://jp.vuejs.org/v2/cookbook/editable-svg-icons.html> に則ってsvgを操作しやすいようにするため
-* 画像ファイルがないので、どうやってGoogle Map上にアイコンを描画しようか考えた
+- GoogleMapにアイコンを表示するには、画像ファイルを指定する
+- Vue.jsのプロジェクトで、svgはすべて画像ファイルとしてではなく、Vueコンポーネントとして管理している
+    - <https://jp.vuejs.org/v2/cookbook/editable-svg-icons.html> に則ってsvgを操作しやすいようにするため
+- 画像ファイルがないので、どうやってGoogle Map上にアイコンを描画しようか考えた
 
 `BaseIcon.vue`
 
-````typescript
+```typescript
 <template>
   <svg :width="width" :height="height" viewBox="0 0 16 16" version="1.1">
     <slot />
@@ -42,7 +42,7 @@ export default class BaseIcon extends Vue {
   private readonly height!: string
 }
 </script>
-````
+```
 
 ## data URL に変換する
 
@@ -50,7 +50,7 @@ export default class BaseIcon extends Vue {
 -> el要素からsvg文字列を抜き出す
 -> svg文字列をbase64にして、data URLを作る
 
-````typescript
+```typescript
 /**
  * SVGコンポーネントを、svg画像のdata URLに変換する
  */
@@ -93,11 +93,11 @@ export const generateIconDataUrl = (
   // see https://developer.mozilla.org/ja/docs/Web/API/WindowOrWorkerGlobalScope/btoa
   return 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(iconString)
 }
-````
+```
 
 GoogleMapMarker.vue
 
-````typescript
+```typescript
     this.marker = new this.google.maps.Marker({
       position: this.markerOption.position,
       map: this.map,
@@ -108,4 +108,4 @@ GoogleMapMarker.vue
         ),
       },
     })
-````
+```

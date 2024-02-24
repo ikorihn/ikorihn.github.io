@@ -1,8 +1,8 @@
 ---
 title: Windowsのfont変更
-date: 2021-05-03T10:38:00+09:00
+date: "2021-05-03T10:38:00+09:00"
 tags:
-- Windows
+  - 'Windows'
 ---
 
 `Meiryo UIも大っきらい!!` を使用する

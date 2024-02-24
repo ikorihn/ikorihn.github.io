@@ -3,29 +3,30 @@ title: TUIでPostman風味のHTTPクライアントを作る
 date: 2023-12-14T14:50:00+09:00
 lastmod: 2023-12-17T22:48:13+09:00
 tags:
-- Go
-- terminal
+  - Go
+  - terminal
 ---
+
 
 ## なにをしたい？
 
-* REST APIの開発中、テストリクエストを投げたいときに毎回コマンド履歴からcurlとかhttpieのリクエストを探して再実行しているけれど、リクエストの組み立てや履歴からの実行がツールになっていると嬉しいな
-* [Postman](https://www.postman.com) とかあるけど、ターミナルを出たくない
-  * UIはこれを参考にしよう
+- REST APIの開発中、テストリクエストを投げたいときに毎回コマンド履歴からcurlとかhttpieのリクエストを探して再実行しているけれど、リクエストの組み立てや履歴からの実行がツールになっていると嬉しいな
+- [Postman](https://www.postman.com) とかあるけど、ターミナルを出たくない
+    - UIはこれを参考にしよう
 
 ## 構想
 
-* https://github.com/rivo/tview を使ってみたい
-* できること
-  * 履歴(最大N件をリストで)
-    * リクエストとそのときのレスポンスが見れるとか
-    * どこかに履歴を保存しておいて、起動時にロードするみたいな
-  * フォルダでグループ分けできる
-  * ワークスペース
-    * リクエスト
-      * bodyの入力
-    * レスポンス
-    * ヘッダー
+- https://github.com/rivo/tview を使ってみたい
+- できること
+    - 履歴(最大N件をリストで)
+        - リクエストとそのときのレスポンスが見れるとか
+        - どこかに履歴を保存しておいて、起動時にロードするみたいな
+    - フォルダでグループ分けできる
+    - ワークスペース
+        - リクエスト
+            - bodyの入力
+        - レスポンス
+        - ヘッダー
 
 ## できたもの
 
@@ -35,13 +36,13 @@ tags:
 
 ### tviewの使い方
 
-[tview](note/tview.md) 
+[[tview]] 
 
 ### アプリケーションの初期化、実行
 
 Applicationを作って、Viewを作ってapp.SetRootを呼び、Runを実行することでTUIが起動する
 
-````go
+```go
 func main() {
     app := tview.NewApplication()
     
@@ -63,13 +64,13 @@ func main() {
     
     app.SetRoot(rootView, true).SetFocus(inputForm).Run()
 }
-````
+```
 
 ### UIの設計方針
 
 Viewの操作をすることが多いので、グローバル変数かstructのフィールドに詰め込むのがいいと思う
 
-````go
+```go
 type UI struct {
 	app      *tview.Application
 	rootView *tview.Pages
@@ -92,13 +93,14 @@ func NewUi() *UI {
 
 // ....
 }
-````
+```
+
 
 ### キーマップを設定する
 
 このviewにいるときにこのキーをおしたらこういう動きをする っていうのを設定する
 
-````go
+```go
 func (u *UI) setupKeyboard() {
 	u.app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Rune() {
@@ -124,7 +126,8 @@ func (u *UI) setupKeyboard() {
 	})
 
 }
-````
+```
+
 
 ### curlコマンドを出力する
 
@@ -136,7 +139,7 @@ https://github.com/moul/http2curl で変換、出力するようにした
 レスポンスをクリップボードにコピーしたかったので、 [atotto/clipboard](https://github.com/atotto/clipboard) を使った。
 次のようにして `y` でクリップボードに書き込むようにした。
 
-````go
+```go
 	u.responseViewModel.responseField.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Rune() {
 		case 'y':
@@ -147,11 +150,11 @@ https://github.com/moul/http2curl で変換、出力するようにした
 		return event
 	})
 
-````
+```
 
 ### お気に入りを保存する
 
-保存先は [XDG_BASE_DIRECTORY](note/XDG_BASE_DIRECTORY.md) の XDG_DATA_HOME にする
+保存先は [[XDG_BASE_DIRECTORY]] の XDG_DATA_HOME にする
 https://github.com/adrg/xdg を使う
 
-保存形式は*toml* でいいかな
+保存形式は[[toml]] でいいかな

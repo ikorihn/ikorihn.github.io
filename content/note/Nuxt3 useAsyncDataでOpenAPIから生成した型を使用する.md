@@ -1,13 +1,12 @@
 ---
 title: Nuxt3 useAsyncDataでOpenAPIから生成した型を使用する
-date: 2023-06-08T11:27:00+09:00
+date: "2023-06-08T11:27:00+09:00"
 tags:
-- 2023/06/08
-- Nuxtjs
+  - '2023/06/08'
+  - Nuxtjs
 ---
 
-
-````ts
+```ts
 const getFruits = async () => {
   const params: MyApiRequest = {
   }
@@ -21,7 +20,7 @@ const getFruits = async () => {
     return api.getFruits(params)
   })
 }
-````
+```
 
 ## Date型の変換でミリ秒をつけたくない
 

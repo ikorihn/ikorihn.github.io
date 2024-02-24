@@ -1,17 +1,18 @@
 ---
 title: Go http.ServerのGraceful shutdown
-date: 2022-12-18T13:42:00+09:00
+date: "2022-12-18T13:42:00+09:00"
 tags:
-- Go
-lastmod: 2022-12-18T13:42:00+09:00
+  - 'Go'
+lastmod: "2022-12-18T13:42:00+09:00"
 ---
 
-\#Go
+#Go
+
 
 Go 1.8 からはhttp.ServerにGraceful Shutdownを行うための仕組みが備わっている
 context.Contextを渡すことで猶予時間を決めてリクエスト中の処理の終了を待つことができる
 
-````go
+```go
 package main
 
 import (
@@ -62,14 +63,14 @@ func main() {
 
 	log.Println("Server exiting")
 }
-````
+```
 
 `signal.NotifyContext` ではなく `signal.Notify` を使う例も見かけるがラップしているだけなのでだいたい同じ
 
-````go
+```go
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
 
 	<-quit
 
-````
+```

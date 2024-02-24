@@ -1,12 +1,12 @@
 ---
 title: XDG_BASE_DIRECTORYでホームディレクトリを整理する
-date: 2022-03-21T22:26:00+09:00
+date: "2022-03-21T22:26:00+09:00"
 tags:
-- shell
-- zsh
+  - 'shell'
+  - 'zsh'
 ---
 
-[XDG_BASE_DIRECTORY](note/XDG_BASE_DIRECTORY.md)
+[[XDG_BASE_DIRECTORY]]
 
 参考
 [ホームディレクトリのドットファイルを整理する。](https://chiyosuke.blogspot.com/2019/04/blog-post_27.html)
@@ -25,33 +25,33 @@ zshはデフォルトで `~/.zshenv` を見るので、ここに書いても良�
 
 `sudo vim /etc/zshenv`
 
-````shell
+```shell
 export ZDOTDIR=$HOME/.config/zsh
-````
+```
 
 これで `~/.config/zsh/.zshenv(, .zshrcなど)` が読み込まれるようになる。
 
 ## 環境変数を設定
 
-````shell:~/.zsh/.zshenv
+```shell:~/.zsh/.zshenv
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
 export XDG_STATE_HOME=~/.local/state
-````
+```
 
-## [Vim](note/Vim.md)
+## [[Vim]] 
 
-[Neovim](note/Neovim.md) を使っている。もともと `$XDG_CONFIG_HOME/nvim/init.vim` を見るようになっていて、特別な設定はいらないのだが、vimの設定と統一しておきたかったので以下のようにした。
+[[Neovim]] を使っている。もともと `$XDG_CONFIG_HOME/nvim/init.vim` を見るようになっていて、特別な設定はいらないのだが、vimの設定と統一しておきたかったので以下のようにした。
 vimはほぼ起動しないので、init.vimに書いてしまっても良かったのだがなんとなくこうしている。
 
-````vim:~/.config/nvim/init.vim
+```vim:~/.config/nvim/init.vim
 set runtimepath+=$XDG_CONFIG_HOME/nvim,$XDG_CONFIG_HOME/nvim/after
 set packpath+=$XDG_CONFIG_HOME/nvim
 source $XDG_CONFIG_HOME/nvim/vimrc
-````
+```
 
-````vim:~/.config/nvim/vimrc
+```vim:~/.config/nvim/vimrc
 let $VIM_CACHE = expand('$XDG_CACHE_HOME/vim')
 let $VIM_HOME = expand('$XDG_CONFIG_HOME/nvim')
 
@@ -84,4 +84,4 @@ endif
 
 " ... その他設定
 
-````
+```

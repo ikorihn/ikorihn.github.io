@@ -1,12 +1,13 @@
 ---
 title: shellのリダイレクト
-date: 2023-01-04T16:55:00+09:00
+date: "2023-01-04T16:55:00+09:00"
 tags:
-- 2023/01/04
-- shell
+  - '2023/01/04'
+  - 'shell'
 ---
 
-[シェルのリダイレクトとパイプまとめ \[Linux\] │ Web備忘録](https://webbibouroku.com/Blog/Article/redirect-pipe)
+
+[シェルのリダイレクトとパイプまとめ [Linux] │ Web備忘録](https://webbibouroku.com/Blog/Article/redirect-pipe)
 
 ## リダイレクト
 
@@ -23,12 +24,12 @@ tags:
 
 標準入力にリダイレクト
 
-````shell
+```shell
 cat - <hello.txt
-````
+```
 
 でファイル内容を標準入力にリダイレクトしている
 
 ### `<(cmd)` コマンドの実行結果を標準入力にリダイレクト
 
-[shellのプロセス置換Process Substitution](note/shellのプロセス置換Process%20Substitution.md)
+[[shellのプロセス置換Process Substitution]]

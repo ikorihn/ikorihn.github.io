@@ -1,16 +1,17 @@
 ---
 title: gitコミットにissue番号をいれる
-date: 2021-08-11T16:42:00+09:00
-lastmod: 2021-08-11T16:42:46+09:00
+date: "2021-08-11T16:42:00+09:00"
+lastmod: '2021-08-11T16:42:46+09:00'
 tags:
-- git
+  - 'git'
+
 ---
 
-\#git
+#git
 
 `.git/hooks/prepare-commit-msg`
 
-````shell
+```shell
 #!/bin/bash -u
 
 # https://qiita.com/koara-local/items/eae7942131e53cb8031a
@@ -28,4 +29,4 @@ issue_id=$(echo "$current_branch" | sed -E 's/^.*\/([A-Z]+-[0-9]+).*$/\1/')
 if [[ ! $(head -n 1 $1 | grep "$issue_id") ]]; then
   sed -i -e '1 s@\(.*\)@'"${issue_id}"' \1@' $1
 fi
-````
+```

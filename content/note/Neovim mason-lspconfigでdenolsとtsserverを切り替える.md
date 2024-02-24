@@ -2,7 +2,7 @@
 title: Neovim mason-lspconfigでdenolsとtsserverを切り替える
 date: 2023-10-01T18:25:00+09:00
 tags:
-- Neovim
+  - Neovim
 ---
 
 `*.ts` なファイルを開いたときに、Denoのプロジェクトなんだけどtsserverが起動してしまいimportで怒られている…みたいになるのでなんとかしようと思いました。
@@ -17,5 +17,5 @@ tags:
 
 [nvim-lspでtsserverとdenolsの競合を回避する](https://zenn.dev/kawarimidoll/articles/2b57745045b225)
 
-* `package.json` の有無を調べて、あったらtsserver、なかったらdenolsを使用する
-* わたしの場合、 `language server名: setup関数` なテーブルを作って呼び出している
+- `package.json` の有無を調べて、あったらtsserver、なかったらdenolsを使用する
+- わたしの場合、 `language server名: setup関数` なテーブルを作って呼び出している

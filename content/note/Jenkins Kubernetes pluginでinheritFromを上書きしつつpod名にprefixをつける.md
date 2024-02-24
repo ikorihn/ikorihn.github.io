@@ -1,19 +1,18 @@
 ---
 title: Jenkins Kubernetes pluginでinheritFromを上書きしつつpod名にprefixをつける
-date: 2023-02-02T19:21:00+09:00
+date: "2023-02-02T19:21:00+09:00"
 tags:
-- 2023/02/02
-- Jenkins
+  - '2023/02/02'
+  - 'Jenkins'
 ---
 
 configure cloudsの設定でpodTemplateを定義ずみで、 `inheritFrom` で継承しつつ一部だけを上書きしたいときの書き方
 
 podTemplateの設定
+- name `my-jenkins-agent`
+- labels `my-jenkins-agent`
 
-* name `my-jenkins-agent`
-* labels `my-jenkins-agent`
-
-````groovy
+```groovy
 pipeline {
   agent {
     kubernetes {
@@ -48,12 +47,12 @@ pipeline {
   }
 }
 
-````
+```
 
 こうすると、設定済みのpodTemplateが使われて `yaml` に書いた定義は反映されない。
 labelが完全一致していると上書きできないのかも？
 
-````groovy
+```groovy
     kubernetes {
       inheritFrom 'my-jenkins-agent'
       // label 'my-jenkins-agent'
@@ -74,11 +73,11 @@ labelが完全一致していると上書きできないのかも？
 
         '''
     }
-````
+```
 
 `label` を削除すると `yaml` の定義が反映されるが、pod名が `my-jenkins-agent-<random string>` とはならず、ジョブ名がprefixについたpodが作成される
 
-````groovy
+```groovy
     kubernetes {
       inheritFrom 'my-jenkins-agent'
       label 'my-jenkins-agent-custom'
@@ -99,9 +98,10 @@ labelが完全一致していると上書きできないのかも？
 
         '''
     }
-````
+```
 
 このように `label` に podTemplate とは異なる値をつけることで、 `my-jenkins-agent-custom-<random string>` というpodで作成された。
 custom というのが入ってしまうのは気になるが仕方ない
+
 
 podTemplateのlabelsの設定を消すことで、  `label 'my-jenkins-agent'` としてもpod名が意図通りになりつつ上書きできたので、これでもいい。

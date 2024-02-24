@@ -1,17 +1,14 @@
 ---
-title: Googleカレンダーの予定時刻になったらMeetを自動で開くようにする
-date: 2021-09-24T19:00:00+09:00
-updated-date: 2021-09-24T19:00:00+09:00
-description: Googleカレンダーの予定時刻になったらMeetを自動で開くようにする
-tags:
-- GAS
-- shell
+title: "Googleカレンダーの予定時刻になったらMeetを自動で開くようにする"
+date: "2021-09-24T19:00:00+09:00"
+updated-date: "2021-09-24T19:00:00+09:00"
+description: "Googleカレンダーの予定時刻になったらMeetを自動で開くようにする"
+tags: ["GAS", "shell"]
 ---
 
-
-````toc
+```toc
 # This code block gets replaced with the TOC
-````
+```
 
 ## モチベーション
 
@@ -30,9 +27,9 @@ Chrome拡張でカレンダーにアクセスする、Calendar APIでスケジ�
 今回は諸般の事情でCalendar APIを直接使えなかったため、以下の方針にしました。
 OSはMacです。
 
-* Google Apps Script(GAS) でカレンダーから一日のスケジュールをJSONで取得する
-* このGASをWebアプリとして公開して、HTTP GETで取得できるようにする
-* スケジュールの時刻に `at` コマンドをセットして、`open <MeetのURL>` を実行する
+- Google Apps Script(GAS) でカレンダーから一日のスケジュールをJSONで取得する
+- このGASをWebアプリとして公開して、HTTP GETで取得できるようにする
+- スケジュールの時刻に `at` コマンドをセットして、`open <MeetのURL>` を実行する
 
 ターミナルで `at` をセットするのは今のところ手で朝に実行しています。
 
@@ -68,7 +65,7 @@ GASのエディタ > ライブラリを追加 > dayjs のスクリプトID `1Shs
 
 Webアプリとして使えるようにするため、`doGet` 関数をエントリーポイントに実装する
 
-````javascript:code.gs
+```javascript:code.gs
 function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(getSchedule()));
 }
@@ -108,7 +105,7 @@ function getSchedule() {
 
   return todayEvent;
 }
-````
+```
 
 ### Webアプリとして公開
 
@@ -121,17 +118,17 @@ Macのatコマンドはデフォルトでは無効になっているので有効
 [Macでatコマンドが実行できないときの対処法 - Qiita](https://qiita.com/shge/items/6c43947a77abd9d2d1b2)
 [MacOS で at コマンドを有効化して使ってみる - Neo's World](https://neos21.net/blog/2019/09/13-02.html)
 
-````shell
+```shell
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
-````
+```
 
 `/usr/libexec/atrun` にフルディスクアクセスをつける
 
 ## ターミナルで予定一覧を取得して、atコマンドで設定
 
-````shell
+```shell
 curl -L "<GASのWebアプリURL>" | jq -r '.[] | .title + "," + .start + "," + .meetUrl' | awk -F ',' '{ print system("echo open " $3 " | at -t " $2 ) }'
-````
+```
 
 ## まとめ
 

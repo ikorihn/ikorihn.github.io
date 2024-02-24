@@ -1,13 +1,12 @@
 ---
 title: adbコマンドでAndroidの録画とPCへのコピー
-date: 2021-06-24T10:37:00+09:00
-lastmod: 2021-06-24T10:38:46+09:00
+date: "2021-06-24T10:37:00+09:00"
+lastmod: '2021-06-24T10:38:46+09:00'
 tags:
-- Android
+  - 'Android'
 ---
 
-
-````shell
+```shell
 #!/bin/sh
 
 DATE=`date '+%y%m%d%H%M%S'`
@@ -49,4 +48,4 @@ case $convertGif in
     "y" | "Y") ffmpeg -i ${YOUR_PATH}/${FILE_NAME}.mp4 -vf scale=240:-1 -an -r 15 -pix_fmt rgb24 -f gif ${YOUR_PATH}/${FILE_NAME}.gif ;; # creating gif
     *) ;;
 esac
-````
+```

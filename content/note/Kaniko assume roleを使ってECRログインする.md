@@ -1,26 +1,27 @@
 ---
 title: Kaniko assume roleを使ってECRログインする
-date: 2023-02-10T16:24:00+09:00
+date: "2023-02-10T16:24:00+09:00"
 tags:
-- 2023/02/10
-- Docker
-- Kubernetes
+  - '2023/02/10'
+  - 'Docker'
+  - 'Kubernetes'
 ---
+
 
 [kaniko が何をしているか, 何ができるか - 薄いブログ](https://orisano.hatenablog.com/entry/2019/05/20/120032)
 [Container Image Building with Kaniko](https://www.giantswarm.io/blog/container-image-building-with-kaniko)
 
+
 [Kaniko Image Cache in Jenkins Kubernetes Agents - Stack Overflow](https://stackoverflow.com/questions/72754983/kaniko-image-cache-in-jenkins-kubernetes-agents)
 
-* `/kaniko/.docker/config.json` に
-
-````json
+- `/kaniko/.docker/config.json` に
+```json
 {
   "credsStore": "ecr-login"
 }
-````
+```
 
-````groovy
+```groovy
 pipeline {
     agent {
         kubernetes {
@@ -101,4 +102,4 @@ pipeline {
         }
     }
 }
-````
+```

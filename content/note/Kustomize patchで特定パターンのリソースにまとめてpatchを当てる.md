@@ -1,15 +1,15 @@
 ---
 title: Kustomize patchで特定パターンのリソースにまとめてpatchを当てる
-date: 2023-04-07T16:59:00+09:00
+date: "2023-04-07T16:59:00+09:00"
 tags:
-- 2023/04/07
-- Kubernetes
-lastmod: 2023-04-07T16:59:00+09:00
+  - '2023/04/07'
+  - 'Kubernetes'
+lastmod: "2023-04-07T16:59:00+09:00"
 ---
 
 patch で複数のリソースにまとめて変更を加えたい場合に使える
 
-````
+```
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
@@ -27,4 +27,4 @@ patches:
               ap-type: argocd-node
     target:
       kind: (StatefulSet|Deployment)
-````
+```

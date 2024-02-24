@@ -2,12 +2,12 @@
 title: Docker compose ほかで作成ずみのネットワークに対して接続する
 date: 2023-11-21T17:30:00+09:00
 tags:
-- Docker
+  - Docker
 ---
 
 {{< card-link "https://docs.docker.jp/compose/networking.html" >}}
 
-[DynamoDB local](note/DynamoDB%20localをDocker%20composeで実行してデータ投入までする.md) が立っている状態で、別のプロセスでdocker composeを実行してDynamoDBにアクセスしたいときは、既存のネットワークに対して接続するよう設定することができる。
+[[DynamoDB localをDocker composeで実行してデータ投入までする|DynamoDB local]] が立っている状態で、別のプロセスでdocker composeを実行してDynamoDBにアクセスしたいときは、既存のネットワークに対して接続するよう設定することができる。
 
 ## 手順
 
@@ -15,7 +15,7 @@ tags:
 
 この場合はDynamoDB Localのネットワーク名称を設定
 
-````yaml
+```yaml
 version: "3.8"
 services:
   dynamodb-local:
@@ -30,13 +30,13 @@ services:
 networks:
   dynamodb-local:
     name: dynamodb_local
-````
+```
 
 ### 接続する側で既存のnetworkを利用するよう設定する
 
 接続する側のnetworksに `external` を設定する
 
-````yaml
+```yaml
 version: "3.8"
 services:
   app:
@@ -48,4 +48,4 @@ networks:
   dynamodb-external:
     name: dynamodb_local
     external: true
-````
+```

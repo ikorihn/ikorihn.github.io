@@ -1,13 +1,14 @@
 ---
 title: GASをTSで書けるようにする
-date: 2021-06-06T15:26:00+09:00
-lastmod: 2021-06-06T16:30:23+09:00
+date: "2021-06-06T15:26:00+09:00"
+lastmod: '2021-06-06T16:30:23+09:00'
 tags:
-- GAS
-- TypeScript
+  - 'GAS'
+  - 'TypeScript'
+
 ---
 
-[clasp](note/clasp.md) を使うと、[GAS](note/GAS.md) をTypeScriptで書くことができる。
+[[clasp]] を使うと、[[GAS]] をTypeScriptで書くことができる。
 clasp 1.5.0 でサポートされるようになった。
 
 <https://github.com/google/clasp/blob/master/docs/typescript.md>
@@ -18,9 +19,9 @@ clasp 1.5.0 でサポートされるようになった。
 
 claspのプロジェクトで、google-apps-scriptの型定義を追加
 
-````shell
+```shell
 $ npm install -D @types/google-apps-script
-````
+```
 
 これによって、IDE上でSpreadsheetAppなどGAS固有の定義も補完されるようになる
 
@@ -28,7 +29,7 @@ $ npm install -D @types/google-apps-script
 
 `tsconfig.json`
 
-````json
+```json
 {
   "compilerOptions": {
     "lib": [
@@ -39,13 +40,13 @@ $ npm install -D @types/google-apps-script
     "esModuleInterop": true
   }
 }
-````
+```
 
 ### tsファイルを作ってpushする
 
 `hello.ts`
 
-````typescript
+```typescript
 const greeter = (person: string) => {
     return `Hello, ${person}!`;
 }
@@ -54,24 +55,24 @@ function testGreeter() {
     const user = 'Grant';
     Logger.log(greeter(user));
 }
-````
+```
 
 push
 
-````shell
+```shell
 $ clasp push
-````
+```
 
 プロジェクトを開く
 
-````shell
+```shell
 $ clasp open
-````
+```
 
 .gsファイルに変換されたファイルが作成されている
 
 ### 注意
 
-* `clasp pull` すると、変換されたjsファイルがダウンロードされる
-* 基本的にはローカルでTypeScriptで開発してpushするという一方通行になるので、複数人で開発するときにもそのフローを徹底する
-* よくわからずにWeb上で編集する人がいると、大変なことになる(実体験)
+-   `clasp pull` すると、変換されたjsファイルがダウンロードされる
+-   基本的にはローカルでTypeScriptで開発してpushするという一方通行になるので、複数人で開発するときにもそのフローを徹底する
+-   よくわからずにWeb上で編集する人がいると、大変なことになる(実体験)

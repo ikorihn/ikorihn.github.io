@@ -1,14 +1,14 @@
 ---
 title: tmuxでssh時に色を変える
-date: 2021-09-09T20:04:00+09:00
-tags:
-- tmux
-- shell
+date: "2021-09-09T20:04:00+09:00"
+tags: 
+    - 'tmux'
+    - 'shell'
 ---
 
 https://bacchi.me/linux/change-terminal-bgcolor/
 
-````bash
+```bash
 function ssh() {
   # tmux起動時
   if [[ -n $(printenv TMUX) ]] ; then
@@ -30,4 +30,4 @@ function ssh() {
       command ssh $@
   fi
 }
-````
+```

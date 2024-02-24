@@ -1,13 +1,13 @@
 ---
 title: Docker build時にhostのsshキーを使う
-date: 2022-12-29T12:06:00+09:00
+date: "2022-12-29T12:06:00+09:00"
 tags:
-- Docker
-- git
-lastmod: 2022-12-29T14:46:00+09:00
+  - 'Docker'
+  - 'git'
+lastmod: "2022-12-29T14:46:00+09:00"
 ---
 
-\#Docker #git
+#Docker #git
 
 ## 参考
 
@@ -17,7 +17,7 @@ lastmod: 2022-12-29T14:46:00+09:00
 
 ## デフォルトのssh keyを使う場合
 
-````dockerfile
+```dockerfile
 # syntax=docker/dockerfile:1
 FROM alpine
 
@@ -29,18 +29,18 @@ RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # プライベート・リポジトリのクローン
 RUN --mount=type=ssh git clone git@github.com:myorg/myproject.git myproject
-````
+```
 
-````shell
+```shell
 $ export DOCKER_BUILDKIT=1
 $ docker build --ssh default .
-````
+```
 
 ## ファイルを指定する場合
 
 `type=secret` を使うと以下のようにできる
 
-````dockerfile
+```dockerfile
 # syntax = docker/dockerfile:1
 
 FROM alpine
@@ -50,15 +50,15 @@ RUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret
 
 # 任意のシークレットの場所から、シークレットを表示
 RUN --mount=type=secret,id=mysecret,dst=/foobar cat /foobar
-````
+```
 
-````shell
+```shell
 $ docker build --secret id=mysecret,src=mysecret.txt .
-````
+```
 
 これを使ってssh keyを渡す
 
-````dockerfile
+```dockerfile
 # syntax=docker/dockerfile:1
 FROM alpine
 
@@ -70,8 +70,8 @@ RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # プライベート・リポジトリのクローン
 RUN --mount=type=secret,id=ssh,dst=/root/.ssh/id_rsa git clone git@github.com:myorg/myproject.git myproject
-````
+```
 
-````shell
+```shell
 $ docker build --secret id=ssh,src=~/.ssh/id_rsa_github .
-````
+```

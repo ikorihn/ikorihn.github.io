@@ -1,7 +1,8 @@
 ---
 title: mavenライブラリが突然ダウンロードできなくなった
-date: 2021-06-14T20:37:00+09:00
-lastmod: 2021-06-14T20:38:01+09:00
+date: "2021-06-14T20:37:00+09:00"
+lastmod: '2021-06-14T20:38:01+09:00'
+
 ---
 
 inhouse repositoryに登録したものがダウンロードできなくなった
@@ -10,9 +11,9 @@ inhouse repositoryに登録したものがダウンロードできなくなっ�
 
 ### キャッシュクリア
 
-````shell
+```shell
 rm -rf ~/.m2/repository/path/to/library
-````
+```
 
 => 再ダウンロードは動くがされない
 
@@ -20,9 +21,9 @@ rm -rf ~/.m2/repository/path/to/library
 
 inhouse repoがs3にあるため、s3コマンドでダウンロードする
 
-````shell
+```shell
 aws s3 cp s3://inhouse-repo/path/to/library/library.jar
-````
+```
 
 => 403エラーで取得できず。他のライブラリはこのコマンドでダウンロードできたので、アップロード時に権限設定をミスったか？
 

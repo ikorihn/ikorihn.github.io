@@ -1,20 +1,21 @@
 ---
 title: Lambdaでタイムアウトしたときに処理をしたい
-date: 2021-12-09T18:14:00+09:00
+date: "2021-12-09T18:14:00+09:00"
 tags:
-- Go
-- Lambda
-lastmod: 2021-12-09T18:14:25+09:00
+  - 'Go'
+  - 'Lambda'
+lastmod: '2021-12-09T18:14:25+09:00'
+
 ---
 
-\#Go #Lambda
+#Go #Lambda
 
 [Go の AWS Lambda context オブジェクト - AWS Lambda](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/golang-context.html)
 
 Lambda では実行時に context.Context を受け取ることができ、
 Lambda が起動した時間＋Lambdaのタイムアウト秒を DeadLine として取得することができる。
 
-````go
+```go
 package main
 
 import (
@@ -55,4 +56,4 @@ func LongRunningHandler(ctx context.Context) (string, error) {
 func main() {
         lambda.Start(LongRunningHandler)
 }
-````
+```

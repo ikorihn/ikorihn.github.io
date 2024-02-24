@@ -1,19 +1,19 @@
 ---
 title: aws-sdk-go-v2 でのエラーハンドリング
-date: 2021-12-01T10:54:00+09:00
+date: "2021-12-01T10:54:00+09:00"
 tags:
-- Go
-- AWS
-lastmod: 2021-12-01T10:54:00+09:00
+  - 'Go'
+  - 'AWS'
+lastmod: "2021-12-01T10:54:00+09:00"
 ---
 
-\#Go #AWS
+#Go #AWS
 
-* aws-sdk-go-v2 でのエラーハンドリング
-  * <https://aws.github.io/aws-sdk-go-v2/docs/migrating/#errors-types>
-  * v1ではawserrパッケージがあったが、v2では `github.com/aws/aws-sdk-go-v2/service/<service>/types` に該当のエラーの型があるのでcastする
+- aws-sdk-go-v2 でのエラーハンドリング
+  - <https://aws.github.io/aws-sdk-go-v2/docs/migrating/#errors-types>
+  - v1ではawserrパッケージがあったが、v2では `github.com/aws/aws-sdk-go-v2/service/<service>/types` に該当のエラーの型があるのでcastする
 
-````go
+```go
 // V2
 
 import "context"
@@ -44,4 +44,4 @@ if err != nil {
 	// handle error
 	return
 }
-````
+```

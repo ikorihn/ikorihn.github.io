@@ -1,9 +1,7 @@
 ---
 title: Powershell7をWindows Terminalで使用する
-date: 2021-05-09T12:51:00+09:00
-tags:
-- Windows
-- PowerShell
+date: "2021-05-09T12:51:00+09:00"
+tags: [Windows, PowerShell]
 ---
 
 ## Microsoft Store からインストールする
@@ -14,6 +12,6 @@ PowerShell 7.1 からはStoreからもインストールできるようになっ
 ## Terminalの設定
 
 設定 -> プロファイル -> コマンドライン を `pwsh` に変更
-![Pasted-image-20210509130113](note/Pasted-image-20210509130113.png)
+![[note/Pasted-image-20210509130113.png|Pasted-image-20210509130113]]
 
 これで次回起動から最新版が使われる

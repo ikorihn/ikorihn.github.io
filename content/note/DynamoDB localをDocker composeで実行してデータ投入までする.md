@@ -2,13 +2,13 @@
 title: DynamoDB localをDocker composeで実行してデータ投入までする
 date: 2023-09-13T19:15:00+09:00
 tags:
-- DynamoDB
-- Docker
+  - DynamoDB
+  - Docker
 ---
 
 ## 概要
 
-[DynamoDB](note/DynamoDB.md) を使うアプリケーション開発で、テストを簡単にするためにDynamoDBをローカルに立てる。
+[[DynamoDB]] を使うアプリケーション開発で、テストを簡単にするためにDynamoDBをローカルに立てる。
 
 AWS公式が紹介しているDynamoDB Localを使うことにする。
 
@@ -19,44 +19,44 @@ AWS公式が紹介しているDynamoDB Localを使うことにする。
 こちらのイメージを使用する
 https://hub.docker.com/r/amazon/dynamodb-local 
 
-````shell
+```shell
 docker run -p 8000:8000 amazon/dynamodb-local:latest -jar DynamoDBLocal.jar -sharedDb
-````
+```
 
 これで起動する。
 aws cliでendpoint-urlを指定して操作できる。
 
-````shell
+```shell
 aws dynamodb --endpoint-url http://localhost:8000 list-tables
-````
+```
 
 ## データを入れる
 
 aws cliコンテナをDynamoDB Localと同じネットワークで起動して、テーブル作成やデータ投入のコマンドを実行する
 
-````shell
+```shell
 $ docker run --rm --network=dynamodb-local -it public.ecr.aws/aws-cli/aws-cli:latest bash
-````
+```
 
-````json:items.json
+```json:items.json
 {
     "Title": {"S": "Call Me Today"},
     "Year": {"S": "2022"}
 }
-````
+```
 
-````shell
+```shell
 # region, endpoint urlは環境変数AWS_REGION, AWS_ENDPOINT_URLでも設定できる
 $ aws dynamodb --region ap-northeast-1 --endpoint-url http://dynamodb-local:8000 create-table --table-name MusicCollection --attribute-definitions AttributeName=Title,AttributeType=S --key-schema AttributeName=Title,KeyType=HASH 
 $ aws dynamodb --region ap-northeast-1 --endpoint-url http://dynamodb-local:8000 put-item --table-name MusicCollection --item file://items.json
-````
+```
 
 ## Docker Compose で起動とデータ投入を行う
 
 上記のDynamoDB Localのコンテナを起動して、初回起動時にデータを投入するコンテナをDocker composeで定義する。
 これで `docker compose up` 一発で起動できる。
 
-````yaml:compose.yaml
+```yaml:compose.yaml
 version: "3.8"
 services:
   dynamodb-local:
@@ -82,9 +82,9 @@ services:
 networks:
   dynamodb-local:
     name: dynamodb-local
-````
+```
 
-````Dockerfile:setup.Dockerfile
+```Dockerfile:setup.Dockerfile
 FROM public.ecr.aws/aws-cli/aws-cli:latest
 
 ENV AWS_REGION=ap-northeast-1
@@ -94,13 +94,13 @@ ENV AWS_SECRET_ACCESS_KEY=dummy
 COPY setup.sh data.csv ./
 
 ENTRYPOINT []
-````
+```
 
-````shell:setup.sh
+```shell:setup.sh
 #!/bin/bash
 
 DIR=$(cd $(dirname $0); pwd)
 
 aws dynamodb create-table --table-name MusicCollection --attribute-definitions AttributeName=Title,AttributeType=S --key-schema AttributeName=Title,KeyType=HASH 
 aws dynamodb put-item --table-name MusicCollection --item file://items.json
-````
+```

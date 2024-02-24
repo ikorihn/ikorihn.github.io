@@ -1,10 +1,10 @@
 ---
 title: kube-prometheus-stack のCRDがToo longで作られない
-date: 2023-03-09T23:47:00+09:00
-tags:
-- 2023/03/09
-- Kubernetes
-- Prometheus
+date: "2023-03-09T23:47:00+09:00"
+tags: 
+    - 2023/03/09
+    - Kubernetes
+    - Prometheus
 ---
 
 Argo CD v2.5からは、server side applyを有効にすると `Too long: must have at most 262144 bytes` が解消される。将来的にデフォルトがserver side applyになるということらしい

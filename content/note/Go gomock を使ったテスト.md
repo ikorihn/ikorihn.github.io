@@ -1,12 +1,12 @@
 ---
 title: Go gomock を使ったテスト
-date: 2022-11-17T13:50:00+09:00
+date: "2022-11-17T13:50:00+09:00"
 tags:
-- Go
-lastmod: 2022-11-17T13:50:00+09:00
+  - 'Go'
+lastmod: "2022-11-17T13:50:00+09:00"
 ---
 
-\#Go
+#Go
 
 https://github.com/golang/mock
 
@@ -14,28 +14,29 @@ Goのinterfaceからmockを生成するツール + 生成したコードをテ�
 
 `s3api.go`
 
-````go
+```go
 type S3Api interface {
 	DeleteObject(ctx context.Context, params *s3.DeleteObjectInput, optFns ...func(*s3.Options)) (*s3.DeleteObjectOutput, error)
 	GetObject(ctx context.Context, params *s3.GetObjectInput, optFns ...func(*s3.Options)) (*s3.GetObjectOutput, error)
 	ListObjectsV2(ctx context.Context, params *s3.ListObjectsV2Input, optFns ...func(*s3.Options)) (*s3.ListObjectsV2Output, error)
 }
-````
+```
 
-````shell
+
+```shell
 $ go install github.com/golang/mock/mockgen@latest
 $ mockgen -source=repository/s3api.go -destination=repository/mock/s3api.go
-````
+```
 
 ソースファイル内にgo:generateディレクティブを書くことで、 `go generate` コマンドで生成されるようになる
 
-````go
+```go
 //go:generate mockgen -source=$GOFILE -destination=../$GOPACKAGE/mock/$GOFILE
-````
+```
 
 ### テストコード内での使い方
 
-````go
+```go
 import (
 	"context"
 	"testing"
@@ -68,15 +69,16 @@ func TestService(t *testing.T) {
 		t.Errorf("期待: %v, 実際: %v", true, ok)
 	}
 }
-````
+```
 
 ## gomockhandler
 
 [Goで大量のモックをより統一的に管理し、もっと高速に生成したい！そうだ！！gomockhandlerを使おう！！ | メルカリエンジニアリング](https://engineering.mercari.com/blog/entry/20210406-gomockhandler/)
 
-````shell
+```shell
 go install github.com/sanposhiho/gomockhandler@latest
-````
+```
+
 
 ## testify、mockery
 
@@ -91,11 +93,12 @@ https://vektra.github.io/mockery/#why-use-mockery-over-gomock
 以下のコマンドで、dir配下のすべてのinterfaceに対してmockが作成される。
 `--inpackage` をつけることでinterfaceと同じパッケージに `mock_<interface名>.go` で作成される。
 
-````
+```
 $ mockery --all --dir=src --inpackage
-````
+```
+
 
 ## 参考
 
-* [gomockを完全に理解する](https://zenn.dev/sanpo_shiho/articles/01da627ead98f5)
-* [go generateでモックを生成する - Carpe Diem](https://christina04.hatenablog.com/entry/use-go-generate-when-generating-mock)
+- [gomockを完全に理解する](https://zenn.dev/sanpo_shiho/articles/01da627ead98f5)
+- [go generateでモックを生成する - Carpe Diem](https://christina04.hatenablog.com/entry/use-go-generate-when-generating-mock)

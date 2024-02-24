@@ -1,9 +1,10 @@
 ---
 title: spring-boot-configuration
-date: 2021-03-08T18:49:00+09:00
-lastmod: 2021-05-30T18:57:07+09:00
+date: "2021-03-08T18:49:00+09:00"
+lastmod: '2021-05-30T18:57:07+09:00'
 tags:
-- spring
+  - 'spring'
+
 ---
 
 # spring-boot-configuration
@@ -12,8 +13,8 @@ Spring Boot で application.yml を Kotlin でバインディングできるよ�
 
 ## 環境
 
-* Spring Boot 2.4.0
-* Kotlin 1.4.10
+-   Spring Boot 2.4.0
+-   Kotlin 1.4.10
 
 ## きっかけ
 
@@ -22,33 +23,29 @@ application.ymlにカスタムプロパティを書きたい。
 
 読み込む方法は主に2つ
 
-* `@Value`
-* `@ConfigurationProperties`
+-   `@Value`
+-   `@ConfigurationProperties`
 
 ### `@Value` の場合
 
 ApiConfiguration.kt
 
-````
-@Configuration
-class ApiConfiguration(
-    @Value("\${api.url}") url: String,
-){
+    @Configuration
+    class ApiConfiguration(
+        @Value("\${api.url}") url: String,
+    ){
 
-    @Bean
-    fun apiClient(): RestOperations = RestTemplateBuilder()
-            .rootUri(url)
-            .build()
+        @Bean
+        fun apiClient(): RestOperations = RestTemplateBuilder()
+                .rootUri(url)
+                .build()
 
-}
-````
+    }
 
 application.yml
 
-````
-api:
-    url: "http://api.example.com"
-````
+    api:
+        url: "http://api.example.com"
 
 これで設定できるが、application.ymlで以下の警告がでる。
 
@@ -64,7 +61,7 @@ api:
 
 ApiConfiguration.kt
 
-````kotlin
+```kotlin
 @ConstructorBinding
 @ConfigurationProperties("api")
 data class ApiConfiguration(
@@ -78,11 +75,11 @@ data class ApiConfiguration(
         val timeout: Int,
     )
 }
-````
+```
 
 これだけだとバインドされないので、機能を有効化する必要がある
 
-````kotlin
+```kotlin
 @SpringBootApplication
 @ConfigurationPropertiesScan
 class MyApplication
@@ -90,16 +87,16 @@ class MyApplication
 fun main(args: Array<String>) {
     runApplication<MyApplication>(*args)
 }
-````
+```
 
 もしくは `@Configuration` クラスに個別に指定する
 
-````kotlin
+```kotlin
 @Configuration
 @EnableConfigurationProperties(ApiConfiguration::class)
 class MyConfiguration {
 }
-````
+```
 
 ### 補完が効くようにする
 
@@ -109,11 +106,9 @@ class MyConfiguration {
 
 build.gradle.kts
 
-````
-dependencies {
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-}
-````
+    dependencies {
+        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    }
 
 Intellijでは、 `Preferences | Build, Execution, Deployment | Compiler | Annotation Processors` で `Enable annotation processing` を有効にするとビルド時に生成されるようになるとあるが、自分の環境では生成されなかった。
 
@@ -122,22 +117,20 @@ Intellijでは、 `Preferences | Build, Execution, Deployment | Compiler | Annot
 
 build.gradle.kts
 
-````
-plugins {
-  ...
-  kotlin("kapt") version "1.4.10"
-}
+    plugins {
+      ...
+      kotlin("kapt") version "1.4.10"
+    }
 
-dependencies {
-  ...
-  kapt("org.springframework.boot:spring-boot-configuration-processor")
-}
-````
+    dependencies {
+      ...
+      kapt("org.springframework.boot:spring-boot-configuration-processor")
+    }
 
 kaptタスクを実行
 
-````sh
+```sh
 ./gradlew kaptKotlin
-````
+```
 
 自分の環境では `build/tmp/kapt3/classes/main/META-INF/spring-configuration-metadata.json` に作成された

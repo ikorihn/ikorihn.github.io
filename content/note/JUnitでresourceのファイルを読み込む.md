@@ -1,9 +1,9 @@
 ---
 title: JUnitでresourceのファイルを読み込む
-date: 2021-06-08T17:50:00+09:00
-lastmod: 2021-06-08T17:51:19+09:00
+date: "2021-06-08T17:50:00+09:00"
+lastmod: '2021-06-08T17:51:19+09:00'
 tags:
-- Java
+  - 'Java'
 ---
 
 ユニットテスト時に、
@@ -13,19 +13,19 @@ tags:
 
 Hoge.class.getResourceを使うとよい
 
-````java
+```java
 public class FooTest {
   @Test public void readXMLToString() throws Exception {
         java.net.URL url = MyClass.class.getResource("test/resources/abc.xml");
         java.nio.file.Path resPath = java.nio.file.Paths.get(url.toURI());
         String xml = new String(java.nio.file.Files.readAllBytes(resPath), "UTF8"); 
   }
-````
+```
 
 Java 9+ではこう
 
-````java
+```java
 new String(getClass().getClassLoader().getResourceAsStream(resourceName).readAllBytes());
-````
+```
 
 ClassLoader.getSystemResource() でもロードできるが、ときどきNullPointerExceptionでおちる

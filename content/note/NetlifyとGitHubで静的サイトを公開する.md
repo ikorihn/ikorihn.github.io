@@ -1,14 +1,12 @@
 ---
 title: NetlifyとGitHubで静的サイトを公開する
-date: 2021-05-03T23:28:00+09:00
-tags:
-- blog
-- frontend
+date: "2021-05-03T23:28:00+09:00"
+tags: ['blog', 'frontend']
 ---
 
 ## Netlifyの初期設定とデプロイ
 
-[Netlify](note/Netlify.md) にアカウント作成、ログイン(特に難しい手順はないので割愛)
+[[Netlify]] にアカウント作成、ログイン(特に難しい手順はないので割愛)
 
 ### GitHubとの連携
 

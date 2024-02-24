@@ -1,16 +1,16 @@
 ---
 title: Mac立ち上げ時にアプリが自動起動するのを防ぐ
-date: 2021-10-07T14:24:00+09:00
-tags: null
+date: "2021-10-07T14:24:00+09:00"
+tags: 
 ---
 
-\#Mac 
+#Mac 
 
 EAA Clientが自動起動して、オフにする設定もないのでこまった。
 
 launchctlに登録されているようなので、それを削除することにした。
 
-````shell
+```shell
 $ launchctl list | grep eaa
 -       78      net.eaacloop.uninstall
 -       0       net.eaacloop.eaaclient
@@ -49,13 +49,13 @@ $ ls /Library/LaunchAgents/net.eaacloop.eaaclient.plist
 $ launchctl list | grep eaa
 -       78      net.eaacloop.uninstall
 28947   0       application.com.akamai-access.go.eaacloop.1207957.1208116
-````
+```
 
 => これではPC再起動するともとに戻ってしまう。
 
 plistファイルを `sudo vim /Library/LaunchAgents/net.eaacloop.eaaclient.plist` で開いて、 `RunAtLoad` をfalseにする。
 
-````plist
+```plist
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
@@ -77,4 +77,5 @@ plistファイルを `sudo vim /Library/LaunchAgents/net.eaacloop.eaaclient.plis
     <string>/tmp/eaacTraystdout.log</string>
   </dict>
 </plist>
-````
+```
+

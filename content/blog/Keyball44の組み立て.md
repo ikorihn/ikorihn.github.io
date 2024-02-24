@@ -1,9 +1,9 @@
 ---
 title: Keyball44の組み立て
-date: 2023-07-29T18:18:00+09:00
+date: "2023-07-29T18:18:00+09:00"
 tags:
-- keyboard
-lastmod: 2023-07-29T18:23:23+09:00
+  - keyboard
+lastmod: '2023-07-29T18:23:23+09:00'
 ---
 
 トラックボールがついている左右分離型のキーボードです。
@@ -15,35 +15,35 @@ https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_jp.md
 
 参考にしたビルドログ
 
-* [自作キーボード超初心者が Keyball46 を組み立てるまでのメモ](https://zenn.dev/mtsmfm/scraps/080306469692b7)
-* [はじめての自作キーボード：Keyball61 - チラシのすきま](https://monoworks.co.jp/post/2023-04-10-first-self-made-keyboard-keyball61/)
-* [自作キーボードキット Keyball46 を組み立てた - SIDACONFIG.COM](https://sidaconfig.com/selfmade-keyboard/2022-01-05/build-keyball46-report/#%E8%A3%8F%E9%9D%A2%E3%81%B8%E3%81%AE%E3%83%80%E3%82%A4%E3%82%AA%E3%83%BC%E3%83%89%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)
-* [Keyball61ユーザーがKeyball44も作ってみた │ wonwon eater](https://wonwon-eater.com/keyball44/)
+- [自作キーボード超初心者が Keyball46 を組み立てるまでのメモ](https://zenn.dev/mtsmfm/scraps/080306469692b7)
+- [はじめての自作キーボード：Keyball61 - チラシのすきま](https://monoworks.co.jp/post/2023-04-10-first-self-made-keyboard-keyball61/)
+- [自作キーボードキット Keyball46 を組み立てた - SIDACONFIG.COM](https://sidaconfig.com/selfmade-keyboard/2022-01-05/build-keyball46-report/#%E8%A3%8F%E9%9D%A2%E3%81%B8%E3%81%AE%E3%83%80%E3%82%A4%E3%82%AA%E3%83%BC%E3%83%89%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)
+- [Keyball61ユーザーがKeyball44も作ってみた │ wonwon eater](https://wonwon-eater.com/keyball44/)
 
 この動画に大変お世話になりました。
 [分離式＆トラックボール搭載 自作キーボード Keyball39 制作工程 まとめ](https://youtu.be/MsvfFNaBjTs)
 
 ## 購入品
 
-|アイテム|個数|単価|購入元|
-|------------|------|------|---------|
-|[Keyball44キット](https://shirogane-lab.net/items/64b7a006eb6dbe00346cd0c5)|1|24800|白銀ラボ|
-|[Kailh Choc V1 Red ロープロファイル キースイッチ（リニア/50g/5ピン/5個）](https://talpkeyboard.net/items/6365b66df3de5c668a24204a)|1|300|TALPKEYBOARD|
-|[Chocfox CFX Choc用ロープロファイルキーキャップ（1U/ホワイト/2個）](https://talpkeyboard.net/items/6365b67b4aed190854e4ec2f)|3|110|TALPKEYBOARD|
-|[XDA PBT ブランク キーキャップ （グレー/2個）](https://talpkeyboard.net/items/5b6e593d5f78663893000482)|14|110|TALPKEYBOARD|
-|[XDA PBT ブランク キーキャップ（クリーム/2個）](https://talpkeyboard.net/items/5e05d3a85b120c2ad04ccf99)|10|110|TALPKEYBOARD|
-|[Pro Micro ATmega32U4-MU 5V/16MHz/USB-C(互換品/青)](https://talpkeyboard.net/items/62e24e6f8a0bd07fe2d38137)|2|900|TALPKEYBOARD|
-|[Kailh Box V2 Switch / Red / Linear](https://shop.yushakobo.jp/products/4264)|39|90 (計2447)|遊舎工房|
-|[キートップ引抜工具](https://www.amazon.co.jp/gp/product/B0BFL6VW9Q/)|1|449|Amazon|
-|[Anker PowerLine III USB-C](https://www.amazon.co.jp/gp/product/B083446WKR)|1|990|Amazon|
-|[TRRSケーブル](https://www.amazon.co.jp/gp/product/B01MXCKHAM)|1|820|Amazon|
-|[ペリックス トラックボール](https://www.amazon.co.jp/gp/product/B071F52MZG)|1|1559|Amazon|
-|[白光 FX600-02 ](https://www.yodobashi.com/product-detail/100000001001987047/)|1|4420|ヨドバシ|
-|[白光 T18-C2 こて先 2C型](https://www.yodobashi.com/product-detail/100000001001986779/)|1|561|ヨドバシ|
-|[goot はんだごて台](https://www.yodobashi.com/product-detail/100000001000594278/)|1|771|ヨドバシ|
-|[はんだ吸い取り線](https://www.yodobashi.com/product-detail/100000001001987586/)|1|260|ヨドバシ|
-|[グット 精密プリント基板用はんだ](https://www.yodobashi.com/product-detail/100000001004303216/)|1|239|ヨドバシ|
-|[HOZAN フラックス](https://www.yodobashi.com/product-detail/100000001001885214/)|1|345|ヨドバシ|
+| アイテム                                                                                                                           | 個数 | 単価        | 購入元       |
+| ----                                                                                                                               | ---- | ----        | ----         |
+| [Keyball44キット](https://shirogane-lab.net/items/64b7a006eb6dbe00346cd0c5)                                                        | 1    | 24800       | 白銀ラボ     |
+| [Kailh Choc V1 Red ロープロファイル キースイッチ（リニア/50g/5ピン/5個）](https://talpkeyboard.net/items/6365b66df3de5c668a24204a) | 1    | 300         | TALPKEYBOARD |
+| [Chocfox CFX Choc用ロープロファイルキーキャップ（1U/ホワイト/2個）](https://talpkeyboard.net/items/6365b67b4aed190854e4ec2f)       | 3    | 110         | TALPKEYBOARD |
+| [XDA PBT ブランク キーキャップ （グレー/2個）](https://talpkeyboard.net/items/5b6e593d5f78663893000482)                            | 14   | 110         | TALPKEYBOARD |
+| [XDA PBT ブランク キーキャップ（クリーム/2個）](https://talpkeyboard.net/items/5e05d3a85b120c2ad04ccf99)                           | 10   | 110         | TALPKEYBOARD |
+| [Pro Micro ATmega32U4-MU 5V/16MHz/USB-C(互換品/青)](https://talpkeyboard.net/items/62e24e6f8a0bd07fe2d38137)                       | 2    | 900         | TALPKEYBOARD |
+| [Kailh Box V2 Switch / Red / Linear](https://shop.yushakobo.jp/products/4264)                                                      | 39   | 90 (計2447) | 遊舎工房     |
+| [キートップ引抜工具](https://www.amazon.co.jp/gp/product/B0BFL6VW9Q/)                                                              | 1    | 449         | Amazon       |
+| [Anker PowerLine III USB-C](https://www.amazon.co.jp/gp/product/B083446WKR)                                                        | 1    | 990         | Amazon       |
+| [TRRSケーブル](https://www.amazon.co.jp/gp/product/B01MXCKHAM)                                                                     | 1    | 820         | Amazon       |
+| [ペリックス トラックボール](https://www.amazon.co.jp/gp/product/B071F52MZG)                                                        | 1    | 1559        | Amazon       |
+| [白光 FX600-02 ](https://www.yodobashi.com/product-detail/100000001001987047/)                                                     | 1    | 4420        | ヨドバシ     |
+| [白光 T18-C2 こて先 2C型](https://www.yodobashi.com/product-detail/100000001001986779/)                                            | 1    | 561         | ヨドバシ     |
+| [goot はんだごて台](https://www.yodobashi.com/product-detail/100000001000594278/)                                                  | 1    | 771         | ヨドバシ     |
+| [はんだ吸い取り線](https://www.yodobashi.com/product-detail/100000001001987586/)                                                   | 1    | 260         | ヨドバシ     |
+| [グット 精密プリント基板用はんだ](https://www.yodobashi.com/product-detail/100000001004303216/)                                    | 1    | 239         | ヨドバシ     |
+| [HOZAN フラックス](https://www.yodobashi.com/product-detail/100000001001885214/)                                                   | 1    | 345         | ヨドバシ     |
 
 ### Keyball44キット
 
@@ -63,7 +63,7 @@ https://shop.yushakobo.jp/products/4264
 
 親指5個をロープロファイルにする場合は、 choc互換ロープロファイルキー
 
-### トラックボール
+### トラックボール 
 
 34mm
 いま使ってないトラックボールがハマればよかったけど微妙に大きさ違った
@@ -88,8 +88,8 @@ https://talpkeyboard.net/items/6229e8c130344b271f290c3c
 
 ### その他
 
-* TRRSケーブル: 左右接続のため
-* USBケーブル: PCとの接続のため
+- TRRSケーブル: 左右接続のため
+- USBケーブル: PCとの接続のため
 
 ## 工具
 
@@ -138,22 +138,16 @@ C型という形が扱いやすいらしい
 
 ### はんだごての準備
 
-* はんだごて
+- はんだごて
+- はんだ
+- コテ台
+- フラックス
+- シリコンマット
 
-* はんだ
-
-* コテ台
-
-* フラックス
-
-* シリコンマット
-
-* コテ先をデフォルトのB型から2C型のものに変える
-  
-  * 最初手でボルト回そうとしてびくともせず、ペンチで回すものと知った
-* コテ台のスポンジがぺらっぺらで不安になるが、水分を吸わせたら膨らむ
-  
-  * スポンジは切り込みが入っているもののほうが、コテ先の汚れを落としやすいみたいだが自分のはそうなっていなかった
+- コテ先をデフォルトのB型から2C型のものに変える
+    - 最初手でボルト回そうとしてびくともせず、ペンチで回すものと知った
+- コテ台のスポンジがぺらっぺらで不安になるが、水分を吸わせたら膨らむ
+    - スポンジは切り込みが入っているもののほうが、コテ先の汚れを落としやすいみたいだが自分のはそうなっていなかった
 
 ### ダイオードはんだ付け
 
@@ -170,9 +164,9 @@ C型という形が扱いやすいらしい
 温度は340度で行った。
 
 1. まず予備ハンダを盛る
-1. ダイオードが浮かないよう、はんだの上から乗せるんじゃなくて横からスライドさせて、予備ハンダに熱を加えてくっつける
-1. 基盤を180度回転してもう片方をつける
-1. 予備ハンダ側が足りなくて不安な場合付け足す
+2. ダイオードが浮かないよう、はんだの上から乗せるんじゃなくて横からスライドさせて、予備ハンダに熱を加えてくっつける
+3. 基盤を180度回転してもう片方をつける
+4. 予備ハンダ側が足りなくて不安な場合付け足す
 
 ### キーソケットはんだ付け
 
@@ -254,21 +248,21 @@ LEDは後付できるので、気が向いたらLEDもつけてみようかな�
 
 https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_jp.md
 
-* `0x5DA7` CPI_I100 CPIを100増加させます(最大:12000)
-* `0x5DA8` CPI_D100 CPIを100減少させます(最小:100)
-* `0x5DA9` CPI_I1K  CPIを1000増加させます(最大:12000)
-* `0x5DAA` CPI_D1K  CPIを1000減少させます(最小:100)
+- `0x5DA7` CPI_I100 CPIを100増加させます(最大:12000)
+- `0x5DA8` CPI_D100 CPIを100減少させます(最小:100)
+- `0x5DA9` CPI_I1K  CPIを1000増加させます(最大:12000)
+- `0x5DAA` CPI_D1K  CPIを1000減少させます(最小:100)
 
 実際のキー
-
-* `0x5DAB` CPI_D1K 
-* `0x5DA9` CPI_D100
-* `0x5DA8` CPI_I100 
-* `0x5DAA` CPI_I1K
-* `0x5DA7` 保存
+- `0x5DAB` CPI_D1K 
+- `0x5DA9` CPI_D100
+- `0x5DA8` CPI_I100 
+- `0x5DAA` CPI_I1K
+- `0x5DA7` 保存
 
 ## キーマッピング
 
 これは沼だ 😇
 
-[Keyball44 QMKをカスタマイズする](../note/Keyball44%20QMK%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%99%E3%82%8B.md)
+[[Keyball44 QMKをカスタマイズする]]
+

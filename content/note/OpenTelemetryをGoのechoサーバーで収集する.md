@@ -6,7 +6,7 @@ date: 2023-12-21T14:36:00+09:00
 https://github.com/open-telemetry/opentelemetry-go-contrib/tree/main/instrumentation/github.com/labstack/echo/otelecho/example
 こちらを参考にすすめる
 
-````go
+```go
 // Copyright The OpenTelemetry Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,6 +90,6 @@ func getUser(ctx context.Context, id string) string {
 	}
 	return "unknown"
 }
-````
+```
 
-[OpenTelemetry CollectorとJeagerでテレメトリを収集・可視化してみる](note/OpenTelemetry%20CollectorとJeagerでテレメトリを収集・可視化してみる.md) でcollector, jeagerを立てて可視化する
+[[OpenTelemetry CollectorとJeagerでテレメトリを収集・可視化してみる]] でcollector, jeagerを立てて可視化する

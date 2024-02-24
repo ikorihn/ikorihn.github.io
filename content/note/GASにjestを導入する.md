@@ -1,31 +1,31 @@
 ---
 title: GASにjestを導入する
-date: 2021-06-06T16:23:00+09:00
-lastmod: 2021-06-06T18:47:06+09:00
+date: "2021-06-06T16:23:00+09:00"
+lastmod: '2021-06-06T18:47:06+09:00'
 tags:
-- GAS
-- TypeScript
-- unittest
+  - 'GAS'
+  - 'TypeScript'
+  - 'unittest'
 ---
 
 clasp + TypeScriptであることが前提
 
-* [GASをclaspでローカルで書く](GASをclaspでローカルで書く.md)
-* [GASをTSで書けるようにする](GASをTSで書けるようにする.md)
+-   [[GASをclaspでローカルで書く]]
+-   [[GASをTSで書けるようにする]]
 
-````shell
+```shell
 $ npm install -D @types/jest jest ts-jest
-````
+```
 
 `jest.config.js`
 
-````javascript
+```javascript
 module.exports = {
     preset: 'ts-jest',
     testMatch: ['**/__tests__/**/*.+(ts|tsx|js)'],
     globals: { SpreadsheetApp: {}, UrlFetchApp: {}, Utilities: {} },
 }
-````
+```
 
 ### globalsとは
 
@@ -37,7 +37,7 @@ GAS上ではSpreadsheetAppが使えたりするが、ローカルで実行する
 <https://github.com/marchaos/jest-mock-extended>
 などを使う
 
-````javascript
+```javascript
 import { mock } from 'jest-mock-extended'
 
 describe('test', () => {
@@ -82,4 +82,4 @@ export function doFormat() {
     return formatted
 }
 
-````
+```

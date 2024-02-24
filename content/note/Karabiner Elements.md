@@ -1,8 +1,8 @@
 ---
 title: Karabiner Elements
-date: 2023-08-25T16:01:00+09:00
+date: "2023-08-25T16:01:00+09:00"
 tags:
-- karabiner
+  - karabiner
 ---
 
 {{< card-link "https://karabiner-elements.pqrs.org" >}}
