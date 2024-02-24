@@ -1,12 +1,11 @@
 ---
 title: xcode-selectのバージョンが古いとエラーがでる
-date: 2022-09-14T23:36:00+09:00
+date: '2022-09-14T23:36:00+09:00'
 tags:
-- Mac
+  - 'Mac'
 ---
 
-
-````shell
+```shell
 $ /usr/bin/git
 2022-09-14 19:57:46.548 xcodebuild[4220:18896] [MT] DVTPlugInLoading: Failed to load code for plug-in com.apple.dt.IDESimulatorAvailability (/Applications/Xcode.app/Contents/PlugIns/IDESimulatorAvailability.ideplugin), error = Error Domain=NSCocoaErrorDomain Code=3588 "dlopen(/Applications/Xcode.app/Contents/PlugIns/IDESimulatorAvailability.ideplugin/Contents/MacOS/IDESimulatorAvailability, 0x0109): Symbol not found: (_OBJC_CLASS_$_SimDiskImage)
   Referenced from: '/Applications/Xcode.app/Contents/PlugIns/IDESimulatorAvailability.ideplugin/Contents/MacOS/IDESimulatorAvailability'
@@ -50,7 +49,7 @@ Backtrace:
 sh: line 1:  4240 Abort trap: 6           /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -find git 2> /dev/null
 git: error: sh -c '/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -find git 2> /dev/null' failed with exit code 34304: (null) (errno=Invalid argument)
 xcode-select: Failed to locate 'git', requesting installation of command line developer tools.
-````
+```
 
 xcodeとCommandLineToolsをアップデートした。
 → アップデートが成功しない…
@@ -59,7 +58,7 @@ xcodeとCLTをアンインストールしてから再インストールするこ
 
 以下を削除
 
-* /Applications/Xcode.app
-* /Library/Developer/CommandLineTools
-* ~/Library/Developer
-* ~/Library/Caches/com.apple.dt.Xcode
+- /Applications/Xcode.app
+- /Library/Developer/CommandLineTools
+- ~/Library/Developer
+- ~/Library/Caches/com.apple.dt.Xcode

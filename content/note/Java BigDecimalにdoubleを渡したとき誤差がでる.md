@@ -1,10 +1,10 @@
 ---
 title: Java BigDecimalにdoubleを渡したとき誤差がでる
-date: 2023-03-30T16:23:00+09:00
+date: "2023-03-30T16:23:00+09:00"
 tags:
-- 2023/03/30
-- Java
-lastmod: 2023-03-30T16:23:00+09:00
+  - '2023/03/30'
+  - 'Java'
+lastmod: "2023-03-30T16:23:00+09:00"
 ---
 
 Javaで正確な数値計算を行うため BigDecimal を使っていたが、BigDecimalをdoubleで初期化したあと、小数点以下で四捨五入したところ誤差が出てしまった。
@@ -15,16 +15,16 @@ Javaで正確な数値計算を行うため BigDecimal を使っていたが、B
 
 `BigDecimal`を初期化する際には、`String`型の値や`BigInteger`型の値を利用してください。例えば：
 
-````java
+```java
 BigDecimal bd = new BigDecimal("123.456");
 
-````
+```
 
 この方法で初期化すると、`BigDecimal`は正確な10進数値を保持します。
 
 小数点以下で四捨五入を行う場合は、`setScale`メソッドを使用し、`RoundingMode`を指定します。
 
-````java
+```java
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -35,6 +35,6 @@ public class Main {
         System.out.println(rounded);
     }
 }
-````
+```
 
 この例では、小数点以下2桁で四捨五入された結果が得られます。正確な数値計算を行うためには、`BigDecimal`の初期化と四捨五入の両方で適切な方法を使用してください。

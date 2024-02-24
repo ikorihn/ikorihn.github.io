@@ -1,45 +1,45 @@
 ---
 title: Alacritty
-date: 2022-01-16T14:26:00+09:00
-lastmod: 2022-01-16T15:40:00+09:00
+date: "2022-01-16T14:26:00+09:00"
+lastmod: "2022-01-16T15:40:00+09:00"
 tags:
-- terminal
+  - 'terminal'
 ---
 
 [Alacritty](https://github.com/alacritty/alacritty) はRust製の高速なターミナルエミュレータ。
 
-* OpenGLでGPUレンダリングを用いて描画するためとても高速
-* クロスプラットフォームに対応している
-* 設定がすべて[YAML](note/YAML.md) (`~/.config/alacritty/alacritty.yml`) なため管理がしやすい
-  * GUIがないため初心者には難しい
-* スクロールバー、タブなどもない。[tmux](note/tmux.md) と組み合わせて使うのが前提となっていそう。
+- OpenGLでGPUレンダリングを用いて描画するためとても高速
+- クロスプラットフォームに対応している
+- 設定がすべて[[YAML]] (`~/.config/alacritty/alacritty.yml`) なため管理がしやすい
+  - GUIがないため初心者には難しい
+- スクロールバー、タブなどもない。[[tmux]] と組み合わせて使うのが前提となっていそう。
 
 ## インストール
 
 <https://github.com/alacritty/alacritty/blob/master/INSTALL.md>
 
-* [cargo](note/cargo.md) でインストールする
-* macの場合 `brew install --cask alacritty`
-* ソースコードからビルドする
+- [[cargo]] でインストールする
+- macの場合 `brew install --cask alacritty`
+- ソースコードからビルドする
 
-[Homebrew](note/Homebrew.md) や [cargo](note/cargo.md) でインストールする場合、 terminfo やdesktop entry、manual page、シェル補完が利用できないが、
+[[Homebrew]] や [[cargo]] でインストールする場合、 terminfo やdesktop entry、manual page、シェル補完が利用できないが、
 Rustの環境を構築せず（cargoを利用する場合は必要）、簡単にAlacrittyをインストールできる。
 
-最新を使いたいので、ソースコードからビルドする([Rust](note/Rust.md) を事前にインストールしておく)
+最新を使いたいので、ソースコードからビルドする([[Rust]] を事前にインストールしておく)
 
-````bash
+```bash
 git clone https://github.com/jwilm/alacritty.git
 cd alacritty
 make app
 cp -r target/release/osx/Alacritty.app /Applications/
-````
+```
 
 ## 日本語のインライン入力ができない
 
 日本語入力に難点がある
 
-* 変換確定前の段階だとターミナル上に字が出てこない
-* 変換の際に矢印キーで選択したりbackspaceを押すと、ターミナル側の操作(ヒストリーバック、文字削除など)になってしまう
+- 変換確定前の段階だとターミナル上に字が出てこない
+- 変換の際に矢印キーで選択したりbackspaceを押すと、ターミナル側の操作(ヒストリーバック、文字削除など)になってしまう
 
 こちらの方が直してくれて、マージされているのでおそらく0.10.0で解消されている。
 [Alacrittyが日本語入力がおかしいのを直した](https://komi.dev/post/2021-07-20-enabling-ime-in-alacritty/)
@@ -55,19 +55,19 @@ cp -r target/release/osx/Alacritty.app /Applications/
 
 `git clone https://github.com/eendroroy/alacritty-theme.git` して、 `alacritty.yml` に以下を設定する
 
-````yml
+```yml
 import:
   - /path/to/alacritty-theme/themes/<テーマ>.yml
-````
+```
 
-### [True color](note/True%20color.md) を有効にする
+### [[True color]] を有効にする
 
 有効になっているか確認
 [iTerm2のテスト用コード](https://github.com/gnachman/iTerm2/blob/master/tests/24-bit-color.sh) で確認できる
 
-````bash
+```bash
 curl -s https://github.com/gnachman/iTerm2/blob/master/tests/24-bit-color.sh
-````
+```
 
 色がなめらかにグラデーション表示されていればOK。
 段差が明らかに見て取れる場合は対応されていない。
@@ -76,23 +76,23 @@ Alacrittyでtmux, NeovimのTrue colorを有効にするためには、それぞ�
 
 <https://github.com/alacritty/alacritty/issues/109>
 
-````yml:$HOME/.config/alacritty/alacritty.yml
+```yml:$HOME/.config/alacritty/alacritty.yml
 env:
   TERM: alacritty
-````
+```
 
-````conf:$HOME/.tmux.conf
+```conf:$HOME/.tmux.conf
 set -g default-terminal "screen-256color"
 set-option -sa terminal-overrides ',alacritty:RGB'
-````
+```
 
-````vim:$HOME/.config/nvim/init.vim
+```vim:$HOME/.config/nvim/init.vim
 set termguicolors
-````
+```
 
-### 
+###
 
-````yml:$HOME/.config/alacritty/alacritty.yml
+```yml:$HOME/.config/alacritty/alacritty.yml
 # テーマ
 import:
   - ~/.config/alacritty/alacritty-theme/themes/gruvbox_material.yml
@@ -160,4 +160,4 @@ key_bindings:
   - { key: Y, mods: Alt, chars: "\x1by" }
   - { key: Z, mods: Alt, chars: "\x1bz" }
 
-````
+```

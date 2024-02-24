@@ -1,20 +1,20 @@
 ---
 title: Vue TypeScriptでGoogleMapを使う
-date: 2021-01-31T00:11:00+09:00
+date: '2021-01-31T00:11:00+09:00'
 tags:
-- Vuejs
-- TypeScript
+  - 'Vuejs'
+  - 'TypeScript'
 ---
 
 # Vue.js+TypeScriptでGoogleMapを使う
 
 ## Vue.js公式のcookbookにexampleが乗ってる
 
-* <https://jp.vuejs.org/v2/cookbook/practical-use-of-scoped-slots.html>
-* slotを使ってGoogle Mapをロードする用のコンポーネントを作成
-* scoped slotでgoogle, map propertyを公開する
-* 親コンポーネントで、slotのpropertyを使ってmarkerやpolylineを描画するのに使う
-* markerコンポーネントを作ってpropsにgoogleやmapを渡すことで使うことができる
+- <https://jp.vuejs.org/v2/cookbook/practical-use-of-scoped-slots.html>
+- slotを使ってGoogle Mapをロードする用のコンポーネントを作成
+- scoped slotでgoogle, map propertyを公開する
+- 親コンポーネントで、slotのpropertyを使ってmarkerやpolylineを描画するのに使う
+- markerコンポーネントを作ってpropsにgoogleやmapを渡すことで使うことができる
 
 ## TypeScript
 
@@ -25,13 +25,13 @@ DefinitelyTypedにあるものを使う
 
 ## Vue.js
 
-* <https://jp.vuejs.org/v2/cookbook/practical-use-of-scoped-slots.html> に則って実装
-* [@googlemaps/js-api-loader](https://www.npmjs.com/package/@googlemaps/js-api-loader) でロード
-* [@types/googlemaps](https://www.npmjs.com/package/@types/googlemaps) で型付け
+- <https://jp.vuejs.org/v2/cookbook/practical-use-of-scoped-slots.html> に則って実装
+- [@googlemaps/js-api-loader](https://www.npmjs.com/package/@googlemaps/js-api-loader) でロード
+- [@types/googlemaps](https://www.npmjs.com/package/@types/googlemaps) で型付け
 
 GoogleMapLoader.vue
 
-````typescript
+```typescript
 <template>
   <div>
     <div ref="googleMap" class="google-map h-full"></div>
@@ -96,11 +96,11 @@ export default class GoogleMapLoader extends Vue {
 }
 </script>
 
-````
+```
 
 GoogleMapMarker.vue
 
-````typescript
+```typescript
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
@@ -131,46 +131,46 @@ export default class GoogleMapMarker extends Vue {
   }
 }
 </script>
-````
+```
 
 ### 困ったこと
 
 #### `@types/googlemaps`の定義がnamespaceになっているのでそのままだとgoogle型が使えない
 
-````
+```
 declare namespace google.maps {
 	...
 }
-````
+```
 
 ##### 解決策
 
 `typeof google` で型宣言する
 
-````
+```
   // eslint-disable-next-line no-undef
   let google: typeof google | null = null
-````
+```
 
 #### VeturでNull-safety operatorが怒られる(バグ？)
 
-````
+```
   initializeMap() {
     const mapContainer = this.$refs.googleMap
     this.map = new this.google?.maps.Map(mapContainer, this.mapConfig)
   }
-````
+```
 
-````
+```
 This expression is not constructable.  
 Type 'typeof google' has no construct signatures.Vetur(2351)
-````
+```
 
 ##### 解決策
 
 あらかじめnull判定をしておく
 
-````
+```
   initializeMap() {
     const mapContainer = this.$refs.googleMap
     if (!this.google) {
@@ -178,7 +178,7 @@ Type 'typeof google' has no construct signatures.Vetur(2351)
     }
     this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
   }
-````
+```
 
 ## その他ドキュメント
 

@@ -1,12 +1,12 @@
 ---
 title: Alpineにglibcをインストールする
-date: 2022-08-22T12:53:00+09:00
+date: "2022-08-22T12:53:00+09:00"
 tags:
-- Docker
-lastmod: 2022-08-22T12:53:00+09:00
+  - 'Docker'
+lastmod: "2022-08-22T12:53:00+09:00"
 ---
 
-\#Docker
+#Docker
 
 Alpine Linuxにインストールされているのは glibc ではなくて musl-libc なので、適当にソフトウェアをインストールしても動かないということがたびたび発生する。
 例: AWS CLI v2、Androidのビルド
@@ -25,13 +25,15 @@ alpineにglibcをインストールしたdockerイメージがあるので、そ
 解決していなさそうなので、2.34 にバージョンを下げることで対処。
 [2.35-r0: glibc compatibility regression due to removal of /lib64 · Issue #181 · sgerrand/alpine-pkg-glibc · GitHub](https://github.com/sgerrand/alpine-pkg-glibc/issues/181)
 
+
 ### AlpineでAndroidビルドする
 
 [GitHub - alvr/alpine-android: 🐋 Small docker image for building & testing Android applications.](https://github.com/alvr/alpine-android)
 
 https://github.com/bell-sw/Liberica/blob/master/docker/repos/liberica-openjdk-alpine/11/Dockerfile
 
-````Dockerfile
+
+```Dockerfile
 ARG JDK_VERSION=8
 FROM amazoncorretto:${JDK_VERSION}-alpine-jdk as jdk
 
@@ -82,7 +84,8 @@ RUN FILE=commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip && \
     mkdir -p ~/.android && \ touch ~/.android/repositories.cfg && \
     (yes || true) | sdkmanager --licenses
     
-````
+```
+
 
 ## 参考
 

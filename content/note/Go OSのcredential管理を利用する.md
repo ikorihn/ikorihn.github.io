@@ -1,9 +1,9 @@
 ---
 title: Go OSのcredential管理を利用する
-date: 2023-04-26T12:06:00+09:00
+date: '2023-04-26T12:06:00+09:00'
 tags:
-- 2023/04/26
-- Go
+  - '2023/04/26'
+  - 'Go'
 ---
 
 パスワードを使用するツールを作っていて、設定ファイルにパスワードを書きたくなかったため、GoでOSの管理ツールに保存、取得する方法を調べた。
@@ -23,9 +23,9 @@ Linux含め各OSに対応していて、OS Xは `/usr/bin/security` (OS X keycha
 credentialを取得して、未指定であれば入力を促すようにした。
 
 パスワードの入力はこちらを使用する
-[Go ターミナルのプロンプトでpasswordを入力する](note/Go%20ターミナルのプロンプトでpasswordを入力する.md)
+[[Go ターミナルのプロンプトでpasswordを入力する]]
 
-````go
+```go
 func getPassword(service, username string) (string, error) {
 	// get password
 	secret, err := keyring.Get(service, username)
@@ -55,4 +55,4 @@ func getPassword(service, username string) (string, error) {
 
 	return secret, nil
 }
-````
+```

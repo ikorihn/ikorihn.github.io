@@ -2,11 +2,11 @@
 title: vegetaをライブラリとして使用して負荷試験をする
 date: 2023-10-31T17:26:00+09:00
 tags:
-- Go
-- loadtest
+  - Go
+  - loadtest
 ---
 
-[Vegeta](note/Vegeta.md) をライブラリとして利用することで、Goで負荷試験シナリオを柔軟に作ることもできる。
+[[Vegeta]] をライブラリとして利用することで、Goで負荷試験シナリオを柔軟に作ることもできる。
 
 ## 公式ドキュメント
 
@@ -14,11 +14,11 @@ tags:
 
 ## サンプル
 
-````go
+```go
 package main
 
 import (
-	"fmt"[]()
+	"fmt"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -58,13 +58,13 @@ func main() {
 
 	fmt.Printf("result: %+v\n", metrics)
 }
-````
+```
 
 ## 複雑な例
 
 負荷リクエストのパラメータを可変にしたい場合次のように書ける。
 
-````go
+```go
 package main
 
 import (
@@ -131,4 +131,4 @@ func NewCustomTargeter(tgts ...vegeta.Target) vegeta.Targeter {
 		return nil
 	}
 }
-````
+```

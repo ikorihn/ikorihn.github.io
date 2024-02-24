@@ -1,9 +1,10 @@
 ---
 title: JenkinsにBlueOcean入れる
-date: 2021-06-01T11:25:00+09:00
-lastmod: 2021-06-01T11:26:33+09:00
+date: "2021-06-01T11:25:00+09:00"
+lastmod: '2021-06-01T11:26:33+09:00'
 tags:
-- Jenkins
+  - 'Jenkins'
+
 ---
 
 <https://cloudbees.techmatrix.jp/blog/first-time-blue-ocean/>

@@ -1,9 +1,9 @@
 ---
 title: Go GORMでPrepareStmt trueにしたときにメモリリークが発生した
-date: 2023-06-08T10:35:00+09:00
+date: "2023-06-08T10:35:00+09:00"
 tags:
-- 2023/06/08
-- Go
+  - '2023/06/08'
+  - Go
 ---
 
 パフォーマンス向上のため、PrepareStmtをtrueにした。
@@ -20,7 +20,7 @@ https://github.com/go-gorm/gorm/blob/206613868439c5ee7e62e116a46503eddf55a548/pr
 
 以下のようなSQLを実行していた。
 
-````go
+```go
 gormDb, err := gorm.Open("mydb", &gorm.Config{
     PrepareStmt: true,
 })
@@ -30,7 +30,7 @@ if err != nil {
 
 // weightは関数の引数と想定。ほぼ被ることのないバラバラの値とする
 gormDb.Order(fmt.Sprintf("(ranking * %s) asc", weight)).First(&result)
-````
+```
 
 これの問題点は、 `weight` の値ごとに異なるSQLが発行されることだった。
 PrepareStmt: true のとき、GORMの実装では発行されたSQL文をキーにmap型の値にキャッシュされるため、 `weight` の値がばらつくほどキャッシュされる量も増える。
@@ -40,7 +40,7 @@ PrepareStmt: true のとき、GORMの実装では発行されたSQL文をキー�
 
 解決方法は、ちゃんとprepared statementにすることだ。
 
-````go
+```go
 gormDb.Clauses(clause.OrderBy{
 	Expression: clause.Expr{
 		SQL: "(ranking * ?) asc",
@@ -49,7 +49,7 @@ gormDb.Clauses(clause.OrderBy{
 		},
 	},
 }).Limit(1).Find(&tpoint)
-````
+```
 
-* 単純なOrderには指定ができなかったので、clauseを使って生SQLを書く
-* `First` を指定すると `ORDER BY <primary key>` で上書きされてしまったため、 `Limit(1).Find` にした
+- 単純なOrderには指定ができなかったので、clauseを使って生SQLを書く
+- `First` を指定すると `ORDER BY <primary key>` で上書きされてしまったため、 `Limit(1).Find` にした

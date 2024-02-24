@@ -1,40 +1,40 @@
 ---
 title: aws-sdk-go-v2を使う
-date: 2021-08-18T12:13:00+09:00
-lastmod: 2021-08-18T12:15:07+09:00
+date: "2021-08-18T12:13:00+09:00"
+lastmod: '2021-08-18T12:15:07+09:00'
 tags:
-- Go
-- AWS
+  - 'Go'
+  - 'AWS'
 ---
 
-[AWS](note/AWS.md) を [Go](note/Go.md) で操作するライブラリ
+[[AWS]] を [[Go]] で操作するライブラリ
 
 aws-sdk-go-v2が2021-01-19にリリースされた。
 [AWS SDK for Go のバージョン 2 が一般公開されました](https://aws.amazon.com/jp/about-aws/whats-new/2021/01/aws-sdk-for-go-version-2-now-generally-available/)
 
 <https://aws.amazon.com/jp/sdk-for-go/>
 
- > 
- > AWS SDK for Go を使用すると、AWS の使用を迅速に開始できます。この SDK を使用して、Amazon S3、Amazon DynamoDB、Amazon SQS などの AWS の各種サービスと Go アプリケーションを簡単に統合できます。
+> AWS SDK for Go を使用すると、AWS の使用を迅速に開始できます。この SDK を使用して、Amazon S3、Amazon DynamoDB、Amazon SQS などの AWS の各種サービスと Go アプリケーションを簡単に統合できます。
 
-* モジュール化により使用するサービスごとにgo getでインストールして不要なサービスは除外できる
-* CPU およびメモリの使用率における顕著な改善
-* APIが簡潔になった
-* エラーハンドリングが強化された
-* pagination, waitが改善された
-* middlewareを使ってリクエスト時のカスタマイズが可能になった
+
+- モジュール化により使用するサービスごとにgo getでインストールして不要なサービスは除外できる
+- CPU およびメモリの使用率における顕著な改善
+- APIが簡潔になった
+- エラーハンドリングが強化された
+- pagination, waitが改善された
+- middlewareを使ってリクエスト時のカスタマイズが可能になった
 
 ## インストール
 
 <https://github.com/aws/aws-sdk-go-v2>
 
-````shell
+```shell
 $ go get github.com/aws/aws-sdk-go-v2/aws
 $ go get github.com/aws/aws-sdk-go-v2/config
 
 # 使うサービスのみインストールする
 $ go get github.com/aws/aws-sdk-go-v2/service/s3
-````
+```
 
 ## リファレンス
 
@@ -42,7 +42,7 @@ $ go get github.com/aws/aws-sdk-go-v2/service/s3
 
 ## 使い方
 
-````go
+```go
 import (
 	"context"
 	"fmt"
@@ -82,7 +82,7 @@ func RetrieveFile(ctx context.Context) ([]byte, error) {
 
 	return b, nil
 }
-````
+```
 
 ## ユニットテスト
 

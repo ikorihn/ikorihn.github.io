@@ -2,13 +2,13 @@
 title: AppleScriptでNotification Centerの通知をクリアする
 date: 2023-09-28T23:25:00+09:00
 tags:
-- Productivity
-- Applescript
+  - Productivity
+  - Applescript
 ---
 
 溜まった通知を全部きれいにする方法を調べた。
 
-````applescript
+```applescript
 #!/usr/bin/osascript
 
 on run
@@ -55,13 +55,13 @@ on run
       end repeat
   end tell
 end run
-````
+```
 
-* 通知を開く部分
-* Close Allする部分
+- 通知を開く部分
+- Close Allする部分
 
 ## 参考
 
-* [AppleScript to close all notifications on macOS Big Sur, Monterey, and Ventura](https://gist.github.com/lancethomps/a5ac103f334b171f70ce2ff983220b4f)
-* [macos - How to get notification subtitle/body using AppleScript? - Stack Overflow](https://stackoverflow.com/questions/60971590/how-to-get-notification-subtitle-body-using-applescript)
-* [Turn Do Not Disturb on or off in an Applescript app (macOS Catalina) - Ask Different](https://apple.stackexchange.com/questions/419207/turn-do-not-disturb-on-or-off-in-an-applescript-app-macos-catalina)
+- [AppleScript to close all notifications on macOS Big Sur, Monterey, and Ventura](https://gist.github.com/lancethomps/a5ac103f334b171f70ce2ff983220b4f)
+- [macos - How to get notification subtitle/body using AppleScript? - Stack Overflow](https://stackoverflow.com/questions/60971590/how-to-get-notification-subtitle-body-using-applescript)
+- [Turn Do Not Disturb on or off in an Applescript app (macOS Catalina) - Ask Different](https://apple.stackexchange.com/questions/419207/turn-do-not-disturb-on-or-off-in-an-applescript-app-macos-catalina)

@@ -1,8 +1,8 @@
 ---
 title: etcd
-date: 2023-07-19T17:08:00+09:00
-tags:
-- 2023/07/19
+date: "2023-07-19T17:08:00+09:00"
+tags: 
+    - '2023/07/19'
 ---
 
 {{< card-link "https://etcd.io" >}}
@@ -11,11 +11,12 @@ tags:
 Go言語製
 複数台で実行してクラスターを構築することで負荷分散を行う
 
-[etcdctl](note/etcdctl.md) で操作できる。
+[[etcdctl]] で操作できる。
 
 ## docker composeでクラスターを構築する
 
 ## etcdのバックアップを取る
+
 
 ## リソース使用量チューニング
 
@@ -35,9 +36,11 @@ compactionすることで、圧縮することができる。
 https://juicefs.com/docs/community/etcd_best_practices/
 https://etcd.io/docs/v3.5/op-guide/maintenance/#auto-compaction
 
-````
+```
 ETCD_AUTO_COMPACTION_MODE=revision
 ETCD_AUTO_COMPACTION_RETENTION=1000
-````
+```
 
 これだと、5分おきに最新から1000リビジョン以前の履歴をcompactionする。
+
+

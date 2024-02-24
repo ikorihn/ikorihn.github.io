@@ -1,16 +1,18 @@
 ---
 title: go カスタムエラー
-date: 2023-05-05T19:06:00+09:00
+date: "2023-05-05T19:06:00+09:00"
 tags:
-- Go
+  - Go
 ---
 
-[Go](note/Go.md) でカスタムエラーを作る
+ 
+[[Go]] でカスタムエラーを作る
 
-[aws-sdk-go-v2 でのエラーハンドリング](note/aws-sdk-go-v2%20でのエラーハンドリング.md)
+[[aws-sdk-go-v2 でのエラーハンドリング]]
 https://github.com/aws/aws-sdk-go-v2/issues/1110
 
-````go
+
+```go
 if err != nil {
     var myerr *MyError
     if errors.As(err, &myerr) {
@@ -18,4 +20,4 @@ if err != nil {
     }
     return nil, err
 }
-````
+```

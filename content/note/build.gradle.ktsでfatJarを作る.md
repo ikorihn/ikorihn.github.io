@@ -1,12 +1,12 @@
 ---
 title: build.gradle.ktsでfatJarを作る
-date: 2021-11-12T13:43:00+09:00
-tags: null
+date: "2021-11-12T13:43:00+09:00"
+tags: 
 ---
 
 https://stackoverflow.com/questions/41794914/how-to-create-the-fat-jar-with-gradle-kotlin-script
 
-````kts
+```kts
 val projectName = "my-projet"
 
 application {
@@ -32,11 +32,15 @@ task("fatJar", Jar::class) {
 
 }
 
-````
+```
+
+
+
+
 
 gradle installDist したときのディレクトリ名と実行ファイル名の設定
 
-````shell
+```shell
 my-project$ ./gradlew installDist
 
 # すると以下のツリーができる
@@ -44,4 +48,4 @@ my-project$ ./gradlew installDist
 # my-project/build/install/my-project/lib/...
 # my-project/build/install/my-project/bin
 # my-project/build/install/my-project/bin/my-project (executable)
-````
+```

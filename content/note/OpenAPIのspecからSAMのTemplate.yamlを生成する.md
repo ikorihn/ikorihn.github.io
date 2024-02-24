@@ -1,14 +1,14 @@
 ---
 title: OpenAPIのspecからSAMのTemplate.yamlを生成する
-date: 2023-05-05T21:25:00+09:00
+date: "2023-05-05T21:25:00+09:00"
 tags:
-- OpenAPI
-- Lambda
+  - OpenAPI
+  - Lambda
 ---
+ 
+[[SAM]] と [[OpenAPI]] を組み合わせて使うときに両方を編集するのが大変&漏れやすいので合わせられる仕組みが欲しかった
 
-[SAM](note/SAM.md) と [OpenAPI](note/OpenAPI.md) を組み合わせて使うときに両方を編集するのが大変&漏れやすいので合わせられる仕組みが欲しかった
-
-````yaml
+```yaml
 openapi: 3.0.0
 info:
   title: OpenAPI sam-app
@@ -82,9 +82,9 @@ components:
       required:
         - message
 
-````
+```
 
-````go
+```go
 package main
 
 import (
@@ -231,4 +231,4 @@ func main() {
 	fmt.Println(writer.String())
 
 }
-````
+```

@@ -2,12 +2,12 @@
 title: vhsコマンド
 date: 2023-12-25T17:51:00+09:00
 tags:
-- terminal
+  - terminal
 ---
 
 {{< card-link "https://github.com/charmbracelet/vhs" >}}
 
-*ターミナル* の操作を録画して、Gifを作成してくれる [Go](note/Go.md) 製のツール。
+[[ターミナル]] の操作を録画して、Gifを作成してくれる [[Go]] 製のツール。
 一連の操作を `.tape` ファイルに記述してvhsコマンドに読み込ませることで、いつでも再現することができるのが特徴。
 これにより撮り直しするのが容易になる。
 
@@ -18,7 +18,7 @@ vhsは brewや `go install` でインストールできる
 
 ## チュートリアル
 
-````sh
+```sh
 ❯ vhs new demo.tape
 Created demo.tape
 
@@ -51,21 +51,21 @@ Enter 1
 Sleep 5s
 Creating demo.gif...
 
-````
+```
 
-![](note/20231225180236.gif)
+![[note/20231225180236.gif|]]
 
 ## 使い方
 
-* `Type@.2` や `Tab@200ms` といった書き方で、キー入力のあとに遅延を入れる
-* `Enter 3` のようにすると、3回コマンドを実行できる
-* エディタを開いて入力して閉じるといったことも可能
+- `Type@.2` や `Tab@200ms` といった書き方で、キー入力のあとに遅延を入れる
+- `Enter 3` のようにすると、3回コマンドを実行できる
+- エディタを開いて入力して閉じるといったことも可能
 
-````shell
+```shell
 Type "vim"
 Enter
 Type@.2 "ihello, world"
 Escape
 Type ":wq"
 Enter
-````
+```

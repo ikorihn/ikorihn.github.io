@@ -1,20 +1,22 @@
 ---
 title: M1Macでdockerのvolumeはどこにあるの
-date: 2022-07-12T11:33:00+09:00
-tags: null
+date: "2022-07-12T11:33:00+09:00"
+tags: 
 ---
 
-\#Docker 
+#Docker 
 
 ほぼこれの通り
 
 [Docker Desktop for MacのHyperKit VMに入る](https://uzimihsr.github.io/post/2020-12-15-docker-desktop-for-mac-hyperkit-vm/)
 
-````shell
-$ docker run -it --rm --name volume-test-container -v test-volume:/volume_dir alpine:latest /bin/ash
-````
 
-````shell
+```shell
+$ docker run -it --rm --name volume-test-container -v test-volume:/volume_dir alpine:latest /bin/ash
+```
+
+
+```shell
 $ docker inspect volume-test-container
 
 [
@@ -35,8 +37,11 @@ $ docker inspect volume-test-container
     }
 ]
 
-````
+```
+
 
 `/var/lib/docker/volumes/test-volume/_data` にあるのね、とlsしてみても、そんなディレクトリはないよと怒られる。
 じゃあどこにあるのかというと、Docker Desktop for Macを使っている場合、Docker環境はHyperKitというVM(バーチャルマシン)上で実行されているためMacからは参照できない。
 nsenter1というコマンドでVMに入って確認することができる。
+
+

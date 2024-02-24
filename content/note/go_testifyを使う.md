@@ -1,10 +1,11 @@
 ---
 title: go_testifyを使う
-date: 2021-07-14T19:07:00+09:00
-lastmod: 2021-07-14T21:12:32+09:00
+date: "2021-07-14T19:07:00+09:00"
+lastmod: '2021-07-14T21:12:32+09:00'
+
 ---
 
-\#Go
+#Go
 
 ## testify
 
@@ -19,16 +20,16 @@ Goには標準で `testing` ライブラリが備わっていて、標準で十�
 
 ライブラリをimportする
 
-````go
+```go
 import (
     "testing"
     "github.com/stretchr/testify/assert"
 )
-````
+```
 
 `assert.<アサーション関数>(testing.T, 期待値, 実際の値)`
 
-````go
+```go
 func TestSomething(t *testing.T) {
   assert.Equal(t, 123, 123, "等しい")
   assert.NotEqual(t, 123, 456, "等しくない")
@@ -47,7 +48,7 @@ func TestSomething(t *testing.T) {
   assert.ErrorIs(t, expectedError, err)
 
 }
-````
+```
 
 ## mock
 
@@ -57,13 +58,13 @@ func TestSomething(t *testing.T) {
 
 例として以下のインターフェースをmockする
 
-````go
+```go
 type ItemRepository interface {
     Get(id int) (string, error)
 }
-````
+```
 
-````go
+```go
 type Item struct {
     repo ItemRepository
 }
@@ -75,15 +76,15 @@ func (i *Item) Name(id int) (string, error) {
     }
     return name, nil
 }
-````
+```
 
 ### モック作成
 
-* メソッド内でCalledメソッドを実行し、retを取得
-* ret.Get(戻り値のindex)をメソッドの戻り値とする
-  * 戻り値がエラーの場合はret.Error(戻り値のindex)
+-   メソッド内でCalledメソッドを実行し、retを取得
+-   ret.Get(戻り値のindex)をメソッドの戻り値とする
+    -   戻り値がエラーの場合はret.Error(戻り値のindex)
 
-````go
+```go
 import mock "github.com/stretchr/testify/mock"
 
 // mock.Mockを埋め込む
@@ -97,18 +98,18 @@ func (_m *MockUserInterface) Get(id int) (string, error) {
     return ret.Get(0).(string), ret.Error(1)
 }
 
-````
+```
 
-mockを毎回手で書くのは大変なので、mockeryを使うと便利 [go_mockery](note/go_mockery.md)
+mockを毎回手で書くのは大変なので、mockeryを使うと便利 [[go_mockery]]
 
 ### テスト実行
 
-1. モックの期待引数、戻り値を設定
-1. テスト対象にモックを注入
-1. テスト実行(内部でモック実行)
-1. mockの実行回数をassert
+1.  モックの期待引数、戻り値を設定
+2.  テスト対象にモックを注入
+3.  テスト実行(内部でモック実行)
+4.  mockの実行回数をassert
 
-````go
+```go
 func TestItem(t *testing.T) {
     expected := "みかん"
 
@@ -134,13 +135,13 @@ func TestItem(t *testing.T) {
     // 一回も呼び出されていないことを確認する場合
     // mockRepo.AssertNotCalled(suite.T(), "Get", 1)
 }
-````
+```
 
 ## suite
 
 各test前後に
 
-````go
+```go
 package main
 
 import (
@@ -177,12 +178,12 @@ func (suite *MyTestSuiteStruct) TestHello() {
 func TestMyTestSuite(t *testing.T) {
     suite.Run(t, new(MyTestSuiteStruct))
 }
-````
+```
 
 各テスト前後にそれぞれ、 `SetupTest()` と `TearDownTest()` が実行される。
 下記のインターフェースをそれぞれ実装することで実行される仕組みとなっている。
 
-````go
+```go
 type SetupTestSuite interface {
     SetupTest()
 }
@@ -190,7 +191,7 @@ type SetupTestSuite interface {
 type TearDownTestSuite interface {
     TearDownTest()
 }
-````
+```
 
 他にもテスト全体の前後に一回実行される処理も定義することができる。
 [こちらを参照](https://pkg.go.dev/github.com/stretchr/testify/suite)

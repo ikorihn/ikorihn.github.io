@@ -1,16 +1,16 @@
 ---
 title: GoのメトリクスをPrometheusで収集する
-date: 2022-11-22T16:48:00+09:00
+date: "2022-11-22T16:48:00+09:00"
 tags:
-- Go
-- Prometheus
+  - 'Go'
+  - 'Prometheus'
 ---
 
 ## http.ServerのメトリクスをPrometheusで出力する
 
 https://prometheus.io/docs/tutorials/instrumenting_http_server_in_go/
 
-````go
+```go
 package main
 
 import (
@@ -40,11 +40,11 @@ func main() {
    http.Handle("/metrics", promhttp.Handler())
    http.ListenAndServe(":8090", nil)
 }
-````
+```
 
 ### Echoの場合
 
-````go
+```go
 package main
 
 import (
@@ -67,7 +67,7 @@ func main() {
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
-````
+```
 
 ## 自作のExporterを作る
 
@@ -77,7 +77,7 @@ func main() {
 
 https://github.com/dgraph-io/ristretto (キャッシュライブラリ)でメトリクスをとってみる
 
-````go
+```go
 package main
 
 import (
@@ -183,9 +183,9 @@ func main() {
 	http.ListenAndServe(":2112", nil)
 }
 
-````
+```
 
-````shell
+```shell
 $ curl 'localhost:2112/set?key=foo&value=bar'
 
 $ curl localhost:2112/metrics
@@ -206,4 +206,4 @@ ristretto_misses_total{name="ristretto"} 1
 # HELP ristretto_ratio The hit ratio of the cache.
 # TYPE ristretto_ratio counter
 ristretto_ratio{name="ristretto"} 0.5
-````
+```

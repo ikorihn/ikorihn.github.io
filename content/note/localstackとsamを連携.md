@@ -1,17 +1,18 @@
 ---
 title: localstackとsamを連携
-date: 2021-08-19T23:18:00+09:00
-lastmod: 2021-08-22T11:38:07+09:00
+date: "2021-08-19T23:18:00+09:00"
+lastmod: '2021-08-22T11:38:07+09:00'
 tags:
-- AWS
-- sam
+  - 'AWS'
+  - 'sam'
+
 ---
 
-\#AWS #sam
+#AWS #sam
 
 ## 事象
 
-[SAM](note/SAM.md) コマンドで実行したLambdaから、 [LocalStack](note/LocalStack.md) で立てたS3にアクセスできない
+[[SAM]] コマンドで実行したLambdaから、 [[LocalStack]] で立てたS3にアクセスできない
 
 ## TL;DR
 
@@ -21,7 +22,7 @@ macの場合、Lambdaから接続するhostを `localstack` ではなく `host.d
 
 ## 実装
 
-````yml:docker-compose.yml
+```yml:docker-compose.yml
 version: "3.8"
 
 services:
@@ -44,9 +45,9 @@ services:
     volumes:
       - "./work:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-````
+```
 
-````go:main.go
+```go:main.go
 package main
 
 import (
@@ -97,7 +98,7 @@ func handler(event events.CloudWatchEvent) (string, error) {
 func main() {
 	lambda.Start(handler)
 }
-````
+```
 
 ## 参考
 

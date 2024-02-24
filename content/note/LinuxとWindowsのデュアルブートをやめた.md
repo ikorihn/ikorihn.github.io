@@ -1,21 +1,19 @@
 ---
 title: LinuxとWindowsのデュアルブートをやめた
-date: 2021-05-05T15:02:00+09:00
-tags:
-- Windows
-- Ubuntu
+date: "2021-05-05T15:02:00+09:00"
+tags: ['Windows', 'Ubuntu']
 ---
 
-[Windows10とUbuntu16.04のデュアルブート解除](note/Windows10とUbuntu16.04のデュアルブート解除.md)
+[[Windows10とUbuntu16.04のデュアルブート解除]]
 
 [LinuxとWindowsをデュアルブートするのは止めたほうが良い | SlackNote](https://slacknotebook.com/os-dual-boot-is-a-bad-idea/)
 
 デュアルブートは不都合が起こりやすいのでやめた。
 以下があげられていた。
 
-* パーティションテーブルのカオス化
-* ブートローダーの複雑化
-* 復旧作業の面倒さ
+- パーティションテーブルのカオス化
+- ブートローダーの複雑化
+- 復旧作業の面倒さ
 
 実際、WindowsアップデートしたときにGrub画面が表示されなくなったことがあるのでこれは身にしみている
 

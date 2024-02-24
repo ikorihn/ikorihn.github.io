@@ -1,12 +1,12 @@
 ---
 title: Go Sentryに送信する
-date: 2022-12-27T10:12:00+09:00
-lastmod: 2022-12-27T10:12:00+09:00
+date: "2022-12-27T10:12:00+09:00"
+lastmod: "2022-12-27T10:12:00+09:00"
 tags:
-- Go
+  - 'Go'
 ---
 
-\#Go
+#Go
 
 GoのコードでSentryにメッセージを送信するやり方
 
@@ -19,7 +19,7 @@ Webフレームワーク等を使わないプレーンなGoのコードの場合
 
 [Go | Sentry Documentation](https://docs.sentry.io/platforms/go/)
 
-````go
+```go
 package main
 
 import (
@@ -45,7 +45,7 @@ func main() {
 
     sentry.CaptureMessage("It works!")
 }
-````
+```
 
 ### Scope, Hub
 
@@ -59,7 +59,7 @@ scope は、Sentryにイベント送信時に `context` と `breadcrumbs` とい
 
 ### Stacktraceを表示したい
 
-[\[Go\]Sentryに対応したcustom errorの作り方](https://zenn.dev/tomtwinkle/articles/18447cca3232d07c9f12)
+[[Go]Sentryに対応したcustom errorの作り方](https://zenn.dev/tomtwinkle/articles/18447cca3232d07c9f12)
 
 ## httpサーバーにSentryを組み込む
 
@@ -72,7 +72,7 @@ middlewareに設定することで、handlerでpanic発生時にイベントを�
 
 `net/http` の例
 
-````go
+```go
 import (
 	"fmt"
 	"net/http"
@@ -133,13 +133,13 @@ func main() {
     	panic(err)
     }
 }
-````
+```
 
 middlewareで `sentry.GetHubFromContext(r.Context())` を呼ぶことで、リクエストスコープでhubの設定をして他のリクエストと混ざらないようになっている。
 
 `sentryhttp.New` の中では次のような処理をしている
 
-````go
+```go
 func (h *Handler) handle(handler http.Handler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -172,13 +172,13 @@ func (h *Handler) handle(handler http.Handler) http.HandlerFunc {
 		handler.ServeHTTP(w, r)
 	}
 }
-````
+```
 
-* http.RequestのContextからhubを取得
-  * なければ生成してContextにセット
-* scopeにhttp.RequestをSetRequest
-* handlerでpanicが発生したときにrecoverする
-  * `Repanic: true` なら再度panicを発生させる
+- http.RequestのContextからhubを取得
+    - なければ生成してContextにセット
+- scopeにhttp.RequestをSetRequest
+- handlerでpanicが発生したときにrecoverする
+    - `Repanic: true` なら再度panicを発生させる
 
 ### 停止時の処理
 
@@ -194,13 +194,13 @@ Hostのみが送信される。
 
 `sentry.Init` 時に `SendDefaultPII: true` をつけることで、headerも送信されるようになる。
 
-````
+```
 	if err := sentry.Init(sentry.ClientOptions{
 		Dsn:            conf.Sentry.Dsn,
 		SendDefaultPII: true,
 	}); err != nil {
 		log.Fatalf("Sentry initialization failed: %v\n", err)
 	}
-````
+```
 
 `0.16.0` で、プライベートな情報以外のヘッダーは送信されるよう修正した(変更者:私)

@@ -1,11 +1,11 @@
 ---
 title: zshの起動が遅いのを解消した
-date: 2022-07-21T15:13:00+09:00
+date: "2022-07-21T15:13:00+09:00"
 tags:
-- zsh
+  - 'zsh'
 ---
 
-[zsh Zinitに変える](note/zsh%20Zinitに変える.md) をしたけど遅くなってきたので調査した
+[[zsh Zinitに変える]] をしたけど遅くなってきたので調査した
 
 ## 調査方法
 
@@ -13,15 +13,15 @@ tags:
 
 起動速度の計測
 
-````shell
+```shell
 time (zsh -i -c exit)
-````
+```
 
 [zshとNeovimの簡単な起動速度の測定方法](https://zenn.dev/yutakatay/articles/zsh-neovim-speedcheck)
 
 zprofを使ってどの処理に時間かかっているかを測定
 
-````shell:.zshrc
+```shell:.zshrc
 if [ "$ZSHRC_PROFILE" != "" ]; then
   zmodload zsh/zprof && zprof > /dev/null
 fi
@@ -29,7 +29,7 @@ fi
 function zsh-profiler() {
   ZSHRC_PROFILE=1 zsh -i -c zprof
 }
-````
+```
 
 [zshの起動を高速化した - memo/note/blog](https://note.youyo.io/post/speed-up-zsh-startup/)
 
@@ -45,7 +45,7 @@ function zsh-profiler() {
 
 brewで入れたコマンドにpathを通すために、毎回 `$(brew --prefix)` でbrewのディレクトリを取得していたが、これが結構時間がかかっていた。
 
-````shell
+```shell
 path=(
     $(brew --prefix)/opt/coreutils/libexec/gnubin(N-/) # coreutils
     $(brew --prefix)/opt/ed/libexec/gnubin(N-/) # ed
@@ -64,11 +64,11 @@ manpath=(
     $(brew --prefix)/opt/grep/libexec/gnuman(N-/) # grep
     ${manpath}
 )
-````
+```
 
 ↓
 
-````shell
+```shell
 export BREW_PREFIX=$(brew --prefix)
 path=(
     $BREW_PREFIX/opt/coreutils/libexec/gnubin(N-/) # coreutils
@@ -89,7 +89,7 @@ manpath=(
     $BREW_PREFIX/opt/grep/libexec/gnuman(N-/) # grep
     ${manpath}
 )
-````
+```
 
 ### zinit -> sheldon に移行した
 
@@ -98,14 +98,14 @@ manpath=(
 
 `.zshrc`
 
-````shell
+```shell
 # zshrcにはこれだけ
 eval "$(sheldon source)"
-````
+```
 
 `~/.config/sheldon/plugins.toml`
 
-````toml
+```toml
 shell = "zsh"
 
 # zsh-deferを使って、デフォルトで遅延読み込みする
@@ -141,11 +141,11 @@ use = ["{functions}.zsh"]
 local = "~/.config/zsh"
 use = ["{options,plugins}.zsh"]
 apply = ["source"]
-````
+```
 
 これにより、ほとんどの設定やプラグインを非同期で読み込むようになり起動時には時間があまりかからなくなった。
 
 ## 結果
 
-* もともと1.4sかかっていたのが、`brew --prefix` の改善で500msまで早くなった
-* zinit -> sheldon移行で200msまで早くなった
+- もともと1.4sかかっていたのが、`brew --prefix` の改善で500msまで早くなった
+- zinit -> sheldon移行で200msまで早くなった

@@ -1,15 +1,16 @@
 ---
 title: go_contextのタイムアウトとキャンセル
-date: 2021-07-06T21:24:00+09:00
-tags: null
+date: "2021-07-06T21:24:00+09:00"
+tags: 
 ---
 
-\#Go 
+#Go 
+
 
 [Goのcontextによるキャンセルやタイムアウト - oinume journal](https://journal.lampetty.net/entry/cancel-and-timeout-with-context-in-go)
 [context.WithCancel, WithTimeout で知っておいた方が良いこと - Carpe Diem](https://christina04.hatenablog.com/entry/tips-for-context-with-cancel_1)
 
-````go
+```go
 package main
 
 import (
@@ -79,15 +80,15 @@ func communicate(ctx context.Context) (string, error) {
 	}
 	return "handshake", nil
 }
-````
+```
 
-* `communicate` を5秒(タイムアウト値より長い)にする → タイムアウトして `cannot print greeting: deadline exceeded`
-* `communicate` を3秒(helloのタイムアウト値より短い、goodbyeのタイムアウト値より長い)にする → helloは完了するがgoodbyeはタイムアウトする
-* `communicate` を1秒(タイムアウト値より短い)にする → 両方完了する
+- `communicate` を5秒(タイムアウト値より長い)にする → タイムアウトして `cannot print greeting: deadline exceeded`
+- `communicate` を3秒(helloのタイムアウト値より短い、goodbyeのタイムアウト値より長い)にする → helloは完了するがgoodbyeはタイムアウトする
+- `communicate` を1秒(タイムアウト値より短い)にする → 両方完了する
 
 ## 親のcontextをキャンセルすると、子のcontextもキャンセルされる
 
-````go
+```go
 package main
 
 import (
@@ -158,11 +159,11 @@ func communicate(ctx context.Context) (string, error) {
 	}
 	return "handshake", nil
 }
-````
+```
 
 => printHelloがタイムアウト → 親の `cancel()` を実行 → 子の `ctx.Done()` が実行されてprintGoodbyeも終了する
 
-````
+```
 cannot print greeting: context deadline exceeded
 cannot print goodbye: context canceled
-````
+```

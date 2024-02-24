@@ -1,17 +1,17 @@
 ---
 title: jenkins JobDSLでclosure内からfunctionを呼ぶ
-date: 2022-03-30T16:29:00+09:00
+date: "2022-03-30T16:29:00+09:00"
 tags:
-- Groovy
-- Jenkins
-lastmod: 2022-03-30T16:29:00+09:00
+  - 'Groovy'
+  - 'Jenkins'
+lastmod: "2022-03-30T16:29:00+09:00"
 ---
 
-[Jenkins Job DSL Plugin](note/Jenkins%20Job%20DSL%20Plugin.md) でいい感じに書くためのテクニック
+[[Jenkins Job DSL Plugin]] でいい感じに書くためのテクニック
 
 素直に書いた場合は以下のようにそれぞれにジョブの定義を書くことになるが、共通化したい部分が出てくることがある。
 
-````groovy
+```groovy
 CREDENTIAL_ID = 'secret_key'
 REPO_URL = 'https://example.com/repo.git'
 
@@ -66,13 +66,14 @@ pipelineJob("build-B") {
   }
 }
 
-````
+```
+
 
 ### 最初にやったこと
 
 単純にメソッドに抜き出した
 
-````groovy
+```groovy
 CREDENTIAL_ID = 'secret_key'
 REPO_URL = 'https://example.com/repo.git'
 
@@ -113,7 +114,7 @@ pipelineJob("build-B") {
 }
 
 
-````
+```
 
 これで実行すると、以下のエラーが出てジョブが作られない
 
@@ -126,7 +127,7 @@ https://stackoverflow.com/questions/6305910/how-do-i-create-and-access-the-globa
 
 ### 動くようにしたもの
 
-````groovy
+```groovy
 CREDENTIAL_ID = 'secret_key'
 REPO_URL = 'https://example.com/repo.git'
 
@@ -166,7 +167,7 @@ pipelineJob("build-B") {
   }
   pipelineTemplate(delegate, 'B/Jenkinsfile')
 }
-````
+```
 
 methodの引数にcontext(名前は何でもいい)を追加して、呼び出し元でclosureのdelegateプロパティを渡すことでclosure内のメソッドにアクセスできるようにした。
 delegateはGroovyのclosureの中で使えるプロパティでthisのようなもの

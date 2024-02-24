@@ -1,14 +1,14 @@
 ---
 title: vim 使っているplugin
-date: 2020-09-19T17:36:00+09:00
+date: '2020-09-19T17:36:00+09:00'
 tags:
-- vim
+  - vim
 ---
 
-2020年版 [vim](Vim.md) プラグイン
+2020年版 [[vim]] プラグイン
 
 <https://engineering.mercari.com/blog/entry/mercari_codecast_1/>
-これをみて真面目に [vim](Vim.md) で書こうと思った
+これをみて真面目に [[vim]] で書こうと思った
 小さいやつなら十分
 
 ## vim-gitgutter
@@ -21,8 +21,8 @@ Git操作
 
 ### 注意
 
-* `Gstatus` を実行するとshellを起動するっぽいので、zshなどでpluginもりもりだったりすると遅くて使い物にならない
-* `set shell=bash\ -l` としておくと解消される
+- `Gstatus` を実行するとshellを起動するっぽいので、zshなどでpluginもりもりだったりすると遅くて使い物にならない
+- `set shell=bash\ -l` としておくと解消される
 
 ## defx
 
@@ -34,17 +34,17 @@ Git操作
 
 囲める
 
-* `sa` で追加、`sr` で置き換え、`sb` で削除
-* `saiwt` でtagを追加
-* `sritt` でtagを変更
-  * emmet ライクに、`div.main` などとすると `<div class="main"></div>` に展開される
+- `sa` で追加、`sr` で置き換え、`sb` で削除
+- `saiwt` でtagを追加
+- `sritt` でtagを変更
+  - emmet ライクに、`div.main` などとすると `<div class="main"></div>` に展開される
 
 ## junegunn/vim-easy-align
 
 alignment
 
-* `gaip*|` テーブルを整形
-* `gaip<Right>*,` カンマ区切り
+- `gaip*|` テーブルを整形
+- `gaip<Right>*,` カンマ区切り
 
 ## terryma/vim-multiple-cursors
 

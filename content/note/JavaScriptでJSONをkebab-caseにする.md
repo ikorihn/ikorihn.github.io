@@ -1,14 +1,15 @@
 ---
 title: JavaScriptでJSONをkebab-caseにする
-date: 2021-09-16T12:16:00+09:00
+date: "2021-09-16T12:16:00+09:00"
 tags:
-- JavaScript
-lastmod: 2021-09-16T12:16:27+09:00
+  - 'JavaScript'
+lastmod: '2021-09-16T12:16:27+09:00'
+
 ---
 
-\#JavaScript
+#JavaScript
 
-````javascript
+```javascript
 export const stringifyRoutePoint = (point?: QueryRoutePoint) =>
   point != null
     ? JSON.stringify(point, (key: string, value: any) => {
@@ -39,4 +40,4 @@ const kebabize = (str: string) => {
     .join('')
 }
 
-````
+```

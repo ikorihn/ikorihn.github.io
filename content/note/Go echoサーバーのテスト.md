@@ -1,12 +1,12 @@
 ---
 title: Go echoサーバーのテスト
-date: 2022-11-22T16:42:00+09:00
+date: "2022-11-22T16:42:00+09:00"
 tags:
-- Go
-lastmod: 2022-11-22T16:42:00+09:00
+  - 'Go'
+lastmod: "2022-11-22T16:42:00+09:00"
 ---
 
-\#Go
+#Go
 
 echoのHandlerのテストは基本公式ドキュメントの通りにやればできる
 https://echo.labstack.com/guide/testing/
@@ -15,7 +15,7 @@ https://echo.labstack.com/guide/testing/
 
 <https://stackoverflow.com/questions/7223616/http-post-file-multipart>
 
-````go
+```go
 import (
 	"bytes"
 	"image"
@@ -119,4 +119,4 @@ func createImage() *image.RGBA {
 }
 
 
-````
+```

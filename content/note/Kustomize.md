@@ -1,8 +1,8 @@
 ---
 title: Kustomize
-date: 2023-05-04T22:36:00+09:00
+date: "2023-05-04T22:36:00+09:00"
 tags:
-- Kubernetes
+  - Kubernetes
 ---
 
 https://kustomize.io

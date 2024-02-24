@@ -1,17 +1,17 @@
 ---
 title: localstackでS3をmockする
-date: 2021-08-22T11:57:00+09:00
+date: "2021-08-22T11:57:00+09:00"
 tags:
-- AWS
-- unittest
-lastmod: 2021-08-22T11:57:54+09:00
+  - 'AWS'
+  - 'unittest'
+lastmod: '2021-08-22T11:57:54+09:00'
 ---
 
-[LocalStack](note/LocalStack.md) を使って [S3](note/S3.md) をモックできる
+[[LocalStack]] を使って [[S3]] をモックできる
 
 ## 構築
 
-````yml:docker-compose.yml
+```yml:docker-compose.yml
 version: "3.8"
 
 services:
@@ -34,24 +34,24 @@ services:
     volumes:
       - "./work:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-````
+```
 
-````shell
+```shell
 docker-compose up -d
-````
+```
 
 ## localstack用のプロファイルを作成する
 
-````shell
+```shell
 $ aws configure --profile localstack-push
 AWS Access Key ID [****************ummy]: dummy
 AWS Secret Access Key [****************ummy]: dummy
 Default region name [ap-northeast-1]: ap-northeast-1
 Default output format [json]: json
-````
+```
 
 ## localstackのS3にバケットを作成する
 
-````shell
+```shell
 $ aws --profile localstack-push --endpoint-url=http://localhost:4566 s3 mb s3://sample-bucket
-````
+```

@@ -1,14 +1,14 @@
 ---
 title: Windows デュアルブートしているubuntuを削除
-date: 2023-05-05T20:34:00+09:00
+date: "2023-05-05T20:34:00+09:00"
 tags:
-- Linux
-- Windows
+  - Linux
+  - Windows
 ---
+ 
+[[LinuxとWindowsのデュアルブートをやめた]]
 
-[LinuxとWindowsのデュアルブートをやめた](note/LinuxとWindowsのデュアルブートをやめた.md)
-
-````sh
+```sh
 C:\>bcdedit /enum firmware
 
 ファームウェアのブート マネージャー
@@ -46,11 +46,11 @@ identifier              {7760eed9-aced-11eb-9c79-806e6f6e6963}
 device                  partition=\Device\HarddiskVolume1
 path                    \EFI\Ubuntu\grubx64.efi
 description             ubuntu
-````
+```
 
 削除
 
-````
+```
 C:\>bcdedit /delete {7760eed9-aced-11eb-9c79-806e6f6e6963}
 この操作を正しく終了しました。
 
@@ -109,9 +109,9 @@ displayorder            {current}
 toolsdisplayorder       {memdiag}
 timeout                 30
 
-````
+```
 
-````sh
+```sh
 C:\>diskpart
 
 Microsoft DiskPart バージョン 10.0.17763.1
@@ -155,9 +155,10 @@ DiskPart はドライブ文字またはマウント ポイントを正常に割�
 DISKPART> exit
 
 DiskPart を終了しています...
-````
+```
 
-````
+
+```
 C:\>cd /d Z:\
 
 Z:\>dir
@@ -201,4 +202,4 @@ Z:\EFI>dir
 2021/05/04  23:45    <DIR>          Boot
                0 個のファイル                   0 バイト
                4 個のディレクトリ      71,808,000 バイトの空き領域
-````
+```

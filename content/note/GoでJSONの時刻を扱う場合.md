@@ -1,12 +1,13 @@
 ---
 title: GoでJSONの時刻を扱う場合
-date: 2021-07-05T10:59:00+09:00
-lastmod: 2021-07-05T11:16:41+09:00
+date: "2021-07-05T10:59:00+09:00"
+lastmod: '2021-07-05T11:16:41+09:00'
 tags:
-- Go
+  - 'Go'
+
 ---
 
-\#Go
+#Go
 
 ## JSONのmarshal/unmarshalで日時フォーマットを指定する
 
@@ -14,7 +15,7 @@ tags:
 
 [Marshaler](https://golang.org/pkg/encoding/json/#Marshaler), [Unmarshaler](https://golang.org/pkg/encoding/json/#Unmarshaler) インターフェースを実装することで、任意のフォーマットを指定することができる
 
-````go
+```go
 package main
 
 import (
@@ -79,7 +80,7 @@ func main() {
 	}
 	fmt.Printf("Marshalled: %s\n", b)
 }
-````
+```
 
 ## タイムゾーンを扱う場合
 
@@ -89,15 +90,15 @@ func main() {
 
 ### `time.Parse` でタイムインジケータを含めてパースする
 
-````go
+```go
 // タイムインジケータを指定すると、そのタイムゾーンで解釈される
 // タイムインジケータを認識させたい場合はformatに含める
 t, _ := time.Parse("2006-01-02 15:04:05 (MST)", "2021-07-02 08:30:00 (JST)")
-````
+```
 
 ## `time.ParseInLocation` でロケーションを指定する
 
-````go
+```go
 // 第3引数でtime.Locationを指定することで、タイムインジケータなしでタイムゾーンを指定できる
 jst, _ := time.LoadLocation("Asia/Tokyo")
 t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2021-07-02 08:30:00", jst)
@@ -106,4 +107,4 @@ t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2021-07-02 08:30:00", jst)
 // タイムインジケータの設定が有効になる
 // => 2021-07-02 08:30:00 UTC
 t2, _ := time.ParseInLocation("2006-01-02 15:04:05 (MST)", "2021-07-02 08:30:00 (UTC)", jst)
-````
+```

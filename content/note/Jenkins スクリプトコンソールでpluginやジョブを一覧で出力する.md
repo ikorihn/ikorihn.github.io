@@ -1,13 +1,13 @@
 ---
 title: Jenkins スクリプトコンソールでpluginやジョブを一覧で出力する
-date: 2022-07-20T15:22:00+09:00
+date: "2022-07-20T15:22:00+09:00"
 tags:
-- Jenkins
+  - 'Jenkins'
 ---
-
+ 
 ## plugin一覧を出力する
 
-````groovy
+```groovy
 def pluginList = new ArrayList(Jenkins.instance.pluginManager.plugins)
 pluginList.sort { it.getShortName() }.each{
   plugin -> 
@@ -33,9 +33,9 @@ plugins.toSorted { l,r -> l.shortName < r.shortName ? -1 : 1 }.collect{ plugin -
 }
 
 println ""
-````
+```
 
-````groovy
+```groovy
 def plugins = Jenkins.get().pluginManager.plugins
 plugins.each {
     println "${it.shortName} (${it.version}) => ${it.dependencies}"
@@ -55,4 +55,4 @@ plugins.each {
 } 
 println "}"
 
-````
+```

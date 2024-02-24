@@ -1,29 +1,28 @@
 ---
-title: zplugをzinitに移行する
-date: 2021-06-21T19:00:00+09:00
-updated-date: 2021-06-21T19:00:00+09:00
-description: zplugをzinitに移行する
-tags:
-- zsh
+title: "zplugをzinitに移行する"
+date: "2021-06-21T19:00:00+09:00"
+updated-date: "2021-06-21T19:00:00+09:00"
+description: "zplugをzinitに移行する"
+tags: 
+    - "zsh"
 ---
 
-
-````toc
+```toc
 # This code block gets replaced with the TOC
-````
+```
 
 ## 移行理由
 
 自分がターミナルで使用しているシェルの変遷
 
-* 2016 ~ 2020/04 zsh zplug
-* 2020/04 ~ 2021/04 fishに移行した
-* 2021/04 ~ zshに戻った
+- 2016 ~ 2020/04 zsh zplug
+- 2020/04 ~ 2021/04 fishに移行した
+- 2021/04 ~ zshに戻った
 
 zshのカスタマイズが面倒なのと、シェルの起動が遅かったので、カスタマイズが簡単なfishに移行したが、以下の理由でまたzshに戻ってきた
 
-* fishはPOSIX非互換なのでコマンドを調べるのが手間
-* bash/zshで作ったスクリプトを書き換える必要がある
+- fishはPOSIX非互換なのでコマンドを調べるのが手間
+- bash/zshで作ったスクリプトを書き換える必要がある
 
 zinitは起動が早いと聞いたので、zplugからzinitに移行する
 
@@ -31,23 +30,23 @@ zinitは起動が早いと聞いたので、zplugからzinitに移行する
 
 [公式の推奨手順](https://github.com/zdharma/zinit#automatic-installation-recommended)
 
-````shell
+```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-````
+```
 
 `~/.zinit` (`$ZDOTDIR` が設定されていれば `$ZDOTDIR/.zinit`) にインストールされる。
 また、 `~/.zshrc` にzinitの設定が追記されるので、リロードし、Zinitをコンパイルする。
 
-````shell
+```shell
 source ~/.zshrc
 zinit self-update
-````
+```
 
 ## プラグインの設定
 
 完全な例
 
-````shell
+```shell
 ### Added by Zinit's installer
 if [[ ! -f $ZDOTDIR/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
@@ -104,25 +103,25 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
-````
+```
 
 `End of Zinit's installer chunk` までは、インストーラが追記した部分。
 
 ### プラグインのダウンロード、有効化
 
-````shell
+```shell
 zinit ice wait'1' lucid
 zinit light "zdharma/fast-syntax-highlighting"
 
 zinit load "zdharma/history-search-multi-word"
-````
+```
 
 zinitには2つのプラグインロード方法がある
 
-* `zinit load`
-  * トラッキング機能を有効にする。zinit report で一覧表示ができたり、zinit unload でプラグインを無効化できるなどの利点があるが、ロードは遅くなる
-* `zinit light`
-  * トラッキング機能が無効になる。一覧等の機能が使えない代わりに高速
+- `zinit load`
+    - トラッキング機能を有効にする。zinit report で一覧表示ができたり、zinit unload でプラグインを無効化できるなどの利点があるが、ロードは遅くなる
+- `zinit light`
+    - トラッキング機能が無効になる。一覧等の機能が使えない代わりに高速
 
 めったにトラッキング機能を使わないため、基本的に `zinit light` でロードすることにした
 
@@ -130,18 +129,18 @@ zinitには2つのプラグインロード方法がある
 
 後続の `zinit load`, `zinit light` の挙動を制御する
 
-````shell
+```shell
 zinit ice wait'1' lucid pick'init.sh'
 zinit light "b4b4r07/enhancd"
 # zinit ice wait'1' lucid pick'init.sh'; zinit light "b4b4r07/enhancd" と同義
-````
+```
 
-* wait
-  * zshが起動したあとにプラグインを遅延ロードする秒数を指定する
-* lucid
-  * 遅延ロードしたときに、コンソールにロード情報が出力されるのを抑制する
-* pick
-  * sourceするファイルを指定する。pluginが `*.plugin.zsh` ファイルを起点にしていない場合、明示的に指定する
+- wait
+    - zshが起動したあとにプラグインを遅延ロードする秒数を指定する
+- lucid
+    - 遅延ロードしたときに、コンソールにロード情報が出力されるのを抑制する
+- pick
+    - sourceするファイルを指定する。pluginが `*.plugin.zsh` ファイルを起点にしていない場合、明示的に指定する
 
 ## 結果
 

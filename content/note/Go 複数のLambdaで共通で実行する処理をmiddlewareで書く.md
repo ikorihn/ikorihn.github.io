@@ -1,17 +1,17 @@
 ---
 title: Go 複数のLambdaで共通で実行する処理をmiddlewareで書く
-date: 2023-06-17T23:33:00+09:00
+date: "2023-06-17T23:33:00+09:00"
 tags:
-- 2023/06/13
-- Go
-- Lambda
+  - '2023/06/13'
+  - Go
+  - Lambda
 ---
 
-API Gateway向けの [AWS Lambda](note/AWS%20Lambda.md) のハンドラーをGoで作成する場合、普通に書くとこのように、main関数から特定のシグネチャの関数を lambda.Start で呼び出す。
+API Gateway向けの [[AWS Lambda]] のハンドラーをGoで作成する場合、普通に書くとこのように、main関数から特定のシグネチャの関数を lambda.Start で呼び出す。
 
 https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/golang-handler.html
 
-````go
+```go
 package main
 
 import (
@@ -31,16 +31,16 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 func main() {
         lambda.Start(handler)
 }
-````
+```
 
 API GatewayのパスごとにFunctionを紐づけている場合に、ヘッダーからトレース用の情報を取得したり、ユーザー情報を取得したりといった各ハンドラー共通で実行する処理を書きたい。
 
 API Gateway -----> /hello HelloFunction
-└------->  /bye ByeFunction
+      └------->  /bye ByeFunction
 
 `hello/main.go`
 
-````go
+```go
 package main
 
 import (
@@ -64,11 +64,11 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 func main() {
 	lambda.Start(handler)
 }
-````
+```
 
 `bye/main.go`
 
-````go
+```go
 package main
 
 import (
@@ -92,7 +92,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 func main() {
 	lambda.Start(handler)
 }
-````
+```
 
 各ハンドラーのコードに同じ処理を書くのは、数が増えたときに間違えやすくなるので、なんとかしたい。
 
@@ -104,18 +104,18 @@ net/httpでwebサーバーを作るときに、各http handlerに共通で実行
 
 これは引数に `http.Handler` をとって `http.Handler` を返す関数で、ハンドラーの前後に処理を挟み込むのと、ミドルウェア自身をミドルウェアでラップすることができる。
 
-````go
+```go
 func logging(next http.Handler) http.Handler {
   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     fmt.Printf("Request: %v\n", r.URL.String())
     next.ServeHTTP(w, r)
   })
 }
-````
+```
 
 これをさらにwrapして、設定値を渡すような書き方もできる。echoのミドルウェアはこのような実装になっている。
 
-````go
+```go
 type HttpMiddlewareFunc func(next http.Handler) http.Handler
 
 func LoggingMiddleware(debug bool) HttpMiddlewareFunc {
@@ -128,13 +128,14 @@ func LoggingMiddleware(debug bool) HttpMiddlewareFunc {
         })
     }
 }
-````
+```
+
 
 ## lambda handlerのミドルウェアに応用する
 
 同様の方法でミドルウェアを書くとこんな感じになる。
 
-````go
+```go
 type LambdaHandlerFunc func(context.Context, events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error)
 type LambdaMiddlewareFunc func(next LambdaHandlerFunc) LambdaHandlerFunc
 
@@ -149,11 +150,11 @@ func LoggingMiddleware(debug bool) HttpMiddlewareFunc {
         })
     }
 }
-````
+```
 
 実用的な例としては以下のようになる。
 
-````go
+```go
 package middleware
 
 import (
@@ -243,11 +244,11 @@ func UserFromContext(ctx context.Context) *User {
 	return nil
 }
 
-````
+```
 
 `hello/main.go`
 
-````go
+```go
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	// ...Handlerの処理
 }
@@ -255,4 +256,4 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 func main() {
 	lambda.Start(ApplyMiddlewares(handler))
 }
-````
+```

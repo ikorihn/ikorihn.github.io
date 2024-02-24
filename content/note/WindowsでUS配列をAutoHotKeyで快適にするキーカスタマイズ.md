@@ -1,10 +1,10 @@
 ---
 title: WindowsでUS配列をAutoHotKeyで快適にするキーカスタマイズ
-date: 2021-05-09T12:21:00+09:00
+date: "2021-05-09T12:21:00+09:00"
 tags:
-- Windows
-- AutoHotKey
-- Keyboard
+  - 'Windows'
+  - 'AutoHotKey'
+  - 'Keyboard'
 ---
 
 ## Sands
@@ -16,7 +16,7 @@ tags:
 
 [AutoHotKey で SandS - by edvakf in hatena](https://edvakf.hatenadiary.org/entry/20101027/1288168554)
 
-````ahk
+```ahk
 *Space::
   SendInput {RShift Down}
   If SandS_SpaceDown = 1
@@ -45,7 +45,7 @@ Return
     Send {RShift}
   }
 Return
-````
+```
 
 ↑こちらのスクリプトも、Alt+Spaceが効かなくなる問題があったため、記事で紹介されていた <http://lukewarm.s101.xrea.com/up/> の 089 を使用した。
 
@@ -66,19 +66,19 @@ alt-ime-ahkをクリックするとAHKが起動する。
 
 新規ファイルでバイナリ値を作成、`Scancode Map`と名前をつけて保存。
 
-````txt
+```txt
 00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
-````
+```
 
 regファイルでワンクリックでやるなら
 caps2ctrl.reg
 
-````reg
+```reg
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
 "Scancode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
-````
+```
 
 ### 入れ替えるなら
 
@@ -89,18 +89,18 @@ Windows Registry Editor Version 5.00
 regファイルでやる場合
 caps2ctrl_swap.reg
 
-````reg
+```reg
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
 "Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,1d,00,3a,00,3a,00,1d,00,00,00,00,00
-````
+```
 
 ## CapsLockModifier
 
 [US配列で悠々自適AutoHotkeyScripts](https://blog.phoshigaki.net/2018/10/usautohotkeyscripts.html)
 
-````ahk
+```ahk
 #InstallKeybdHook
 ;CapsLockの押し下げを検知
 \*CapsLock::
@@ -152,4 +152,4 @@ p::Esc
 ;  | F2| F5| < | v | > |
 ;   | F3| F6| F7| F8| F9|F10|
 #If		;以下のスクリプトは文脈に依存しない
-````
+```

@@ -1,19 +1,21 @@
 ---
 title: zsh fzf-tabをつかっているときにfzfでdouble starでの補完が効かない
-date: 2023-05-06T15:30:00+09:00
+date: '2023-05-06T15:30:00+09:00'
 tags:
-- 2023/05/06
-- zsh
-- terminal
+  - '2023/05/06'
+  - zsh
+  - terminal
 ---
 
-[fzf-tab](https://github.com/Aloxaf/fzf-tab) を入れていると、 [fzf](note/fzf.md) の `**<TAB>` によってディレクトリ配下のファイルを再帰的に表示するキーバインドが実行されなくてこまった。
+[fzf-tab](https://github.com/Aloxaf/fzf-tab) を入れていると、 [[fzf]] の `**<TAB>` によってディレクトリ配下のファイルを再帰的に表示するキーバインドが実行されなくてこまった。
+
+
 
 ## 対応方法
 
 https://github.com/Aloxaf/fzf-tab/issues/65#issuecomment-1344970328
 
-````shell
+```shell
 # fzf-tabを入れいているとFZF_COMPLETION_TRIGGERによるトリガーが効かなくなるため、ワークアラウンドとしてTAB2回で発動するようにする
 fzf-completion-notrigger() {
     # disable trigger just this once
@@ -33,4 +35,5 @@ zle -N fzf-completion-notrigger
 KEYTIMEOUT=20
 # Bind double <Tab>
 bindkey '\t\t' fzf-completion-notrigger
-````
+```
+ 

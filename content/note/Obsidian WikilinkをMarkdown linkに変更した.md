@@ -1,19 +1,19 @@
 ---
 title: Obsidian WikilinkをMarkdown linkに変更した
-date: 2023-05-05T17:44:00+09:00
+date: "2023-05-05T17:44:00+09:00"
 tags:
-- 2023/05/05
-- obsidian
+  - '2023/05/05'
+  - obsidian
 ---
 
-[Obsidianを公開する](blog/Quartzを使ってObsidianを無料で公開してみた.md) にあたって、Wikilinkのままだとうまくリンクが貼られなかったりして不都合だったので、通常のmarkdown linkに変更した。
-公開するためだけじゃなく、 [Obsidian](note/Obsidianとは.md) からもし移行するとなってもいいように変更したかった。
+[[Quartzを使ってObsidianを無料で公開してみた|Obsidianを公開する]] にあたって、Wikilinkのままだとうまくリンクが貼られなかったりして不都合だったので、通常のmarkdown linkに変更した。
+公開するためだけじゃなく、 [[Obsidianとは|Obsidian]] からもし移行するとなってもいいように変更したかった。
 
 ## 設定
 
 まず今後作成するときにmarkdown linkが使われるようにObsidianの設定を変更する
 
-![](note/Pasted-image-20230505054503.png)
+![[note/Pasted-image-20230505054503.png|]]
 
 ## 既存のリンクを変更する
 
@@ -23,16 +23,16 @@ tags:
 
 しかし以下の問題があった。
 
-* 日本語のファイル名がURLエンコードされる
-  * `[ノート](note/ノート.md)` と記述されてほしいが、エンコードされて `[ノート](note/%E3%83%8E%E3%83%BC%E3%83%88.md)` となる
-* 正規表現で `[[` を変換するので、ファイルが存在しなくても変換されてしまう
+- 日本語のファイル名がURLエンコードされる
+    - `[ノート](note/ノート.md)` と記述されてほしいが、エンコードされて `[ノート](note/%E3%83%8E%E3%83%BC%E3%83%88.md)` となる
+- 正規表現で `[[` を変換するので、ファイルが存在しなくても変換されてしまう
 
 ### 正しく変換されるよう、パッチをあてる
 
-* 日本語がエンコードされないようにする
-  * ただしスペースはエンコードされていてほしい `[ノート](note/my ノート.md)` -> `[ノート](note/my%20ノート.md)`
+- 日本語がエンコードされないようにする
+    - ただしスペースはエンコードされていてほしい `[ノート](note/my ノート.md)` -> `[ノート](note/my%20ノート.md)`
 
-````diff
+```diff
 --- a/src/converter.ts
 +++ b/src/converter.ts
 @@ -293,7 +303,9 @@ const createLink = (dest: LinkType, originalLink: string, altOrBlockRef: string,
@@ -55,12 +55,12 @@ tags:
      }
 
      return '';
-````
+```
 
-* 存在しないリンクは変換しないようにする
-  * ファイルが存在するかどうかをチェックして、なければなにもしない
+- 存在しないリンクは変換しないようにする
+    - ファイルが存在するかどうかをチェックして、なければなにもしない
 
-````diff
+```diff
 --- a/src/converter.ts
 +++ b/src/converter.ts
 @@ -193,6 +193,9 @@ export const convertWikiLinksToMarkdown = async (md: string, sourceFile: TFile,
@@ -83,4 +83,4 @@ tags:
 +    }
 +
      let fileLink = decodeURI(finalLink);
-````
+```

@@ -1,7 +1,7 @@
 ---
 title: Confluence REST APIでページをまとめて移動
-date: 2022-10-20T16:03:00+09:00
-tags: null
+date: "2022-10-20T16:03:00+09:00"
+tags: 
 ---
 
 2022-10-20現在、Confluenceのページを一括で移動するような機能はないみたい
@@ -10,7 +10,7 @@ https://community.atlassian.com/t5/Confluence-questions/How-do-I-bulk-delete-or-
 
 なので作った
 
-````shell
+```shell
 parent_page_id=$1
 target_page_id=$2
 child_pages=$(curl -u ${user_email}:${password} "${CONFLUENCE_BASE_URL}/content/${parent_page_id}/child/page")
@@ -19,7 +19,7 @@ echo $child_pages | jq -c '.results[]' | while read -r arr; do
   curl -u ${user_email}:${password} -XPUT "${CONFLUENCE_BASE_URL}/content/${page_id}/move/append/${target_page_id}"
 done
 
-````
+```
 
 ページのコピーはこちら
-[Confluence REST APIでページをコピー](note/Confluence%20REST%20APIでページをコピー.md)
+[[Confluence REST APIでページをコピー]]

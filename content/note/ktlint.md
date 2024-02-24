@@ -1,15 +1,16 @@
 ---
 title: ktlint
-date: 2020-12-27T21:56:00+09:00
+date: "2020-12-27T21:56:00+09:00"
 tags:
-- Kotlin
-- linter
-lastmod: 2021-05-30T18:44:41+09:00
+  - Kotlin
+  - linter
+lastmod: '2021-05-30T18:44:41+09:00'
+
 ---
 
 # ktlint
 
-[Kotlin](note/Kotlin.md) でlintを設定する
+[[Kotlin]] でlintを設定する
 
 <https://github.com/pinterest/ktlint>
 
@@ -27,30 +28,30 @@ lastmod: 2021-05-30T18:44:41+09:00
 
 build.gradle.kts
 
-````kts
+```kts
 plugins {
   id "org.jlleitschuh.gradle.ktlint" version "<current_version>"
 }
-````
+```
 
-````sh
+```sh
 $ ./gradlew ktlintCheck
 => linterを実行
 
 $ ./gradlew ktlintFormat
 => フォーマットをかけて保存
-````
+```
 
 ### Intellij IDEAの場合
 
 IDEAにKotlinのcode style等を設定するタスクを追加してくれる。素敵
 
-````kts
+```kts
 plugins {
   id("org.jlleitschuh.gradle.ktlint-idea") version "<current_version>"
 }
-````
+```
 
-````sh
+```sh
 ./gradlew ktlintApplyToIdea
-````
+```

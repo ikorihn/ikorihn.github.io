@@ -1,26 +1,27 @@
 ---
 title: Go http.ClientのConnection設定値について調査
-date: 2022-12-20T18:17:00+09:00
+date: "2022-12-20T18:17:00+09:00"
 tags:
-- Go
-lastmod: 2022-12-20T18:17:00+09:00
+  - 'Go'
+lastmod: "2022-12-20T18:17:00+09:00"
 ---
 
-\#Go
+#Go
+
 
 [Go言語: http.Client のコネクション管理 (HTTP/1.x) - Qiita](https://qiita.com/nozmiz/items/b4e8a48c75bf01ccc9f0)
-[\[Go\] 前方互換性を保ちながらhttp.DefaultTransportからチューニングしたhttp.Transportをつくる - My External Storage](https://budougumi0617.github.io/2021/09/13/how_to_copy_default_transport/)
+[[Go] 前方互換性を保ちながらhttp.DefaultTransportからチューニングしたhttp.Transportをつくる - My External Storage](https://budougumi0617.github.io/2021/09/13/how_to_copy_default_transport/)
 
 `http.Client` の `Transport` にコネクションプール関連のパラメータが設定できる。
 
-* `MaxIdleConns` Transport 全体で保持できる空きコネクション総数。デフォルトは100
-* `MaxIdleConnsPerHost` 接続先ごとに保持できる空きコネクション総数。デフォルトは2
-* `MaxConnsPerHost` 接続先ごとのコネクション総数(使用中・空き・接続中のものを含む)。デフォルトは0(無制限)
-* `IdleConnTimeout` 空きコネクションを保持できる最長時間。デフォルトは90秒
+- `MaxIdleConns` Transport 全体で保持できる空きコネクション総数。デフォルトは100
+- `MaxIdleConnsPerHost` 接続先ごとに保持できる空きコネクション総数。デフォルトは2
+- `MaxConnsPerHost` 接続先ごとのコネクション総数(使用中・空き・接続中のものを含む)。デフォルトは0(無制限)
+- `IdleConnTimeout` 空きコネクションを保持できる最長時間。デフォルトは90秒
 
 ## 調査用コード
 
-````go
+```go
 package main
 
 import (
@@ -121,21 +122,21 @@ func send(url string) {
 
 	log.Printf("GET %s: Proto %s, TCPConnection %v, ConnectionInfo %+v\n", url, resp.Proto, connDuration, conninfo)
 }
-````
+```
 
 ### `net/http/httptrace` を使う
 
 Go 1.7 から入ったhttptraceパッケージで、`http events` をトレースすることができる
 
-* Connection creation
-* Connection reuse
-* DNS lookups
-* Writing the request to the wire
-* Reading the response
+-   Connection creation
+-   Connection reuse
+-   DNS lookups
+-   Writing the request to the wire
+-   Reading the response
 
 `httptrace.ClientTrace` で、各フェーズにfuncを設定することでログを仕込んだり時間を計測したりできる
 
-````go
+```go
 	var connStart time.Time
 	var connDuration time.Duration
 	trace := &httptrace.ClientTrace{
@@ -162,7 +163,7 @@ Go 1.7 から入ったhttptraceパッケージで、`http events` をトレー�
 
 	req = req.WithContext(httptrace.WithClientTrace(req.Context(), trace))
 
-````
+```
 
 ## 結果
 
@@ -172,7 +173,7 @@ Go 1.7 から入ったhttptraceパッケージで、`http events` をトレー�
 
 同一ホストに対して2つのコネクションは再利用された
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 0, MaxIdleConns: 100, MaxIdleConnsPerHost: 0, IdleConnTimeout: 1m30s
 2022/12/20 18:58:25 GET http://example.com: Proto HTTP/1.1, TCPConnection 21.032458ms, ConnectionInfo {Conn:0x14000010048 Reused:false WasIdle:false IdleTime:0s}
@@ -185,14 +186,14 @@ $ go run *.go
 2022/12/20 18:58:34 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 10.771792ms, ConnectionInfo {Conn:0x14000010068 Reused:false WasIdle:false IdleTime:0s}
 2022/12/20 18:58:35 GET http://httpbin.org/delay/3: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000010050 Reused:true WasIdle:true IdleTime:3.087510208s}
 elapsed: 10.291201167s
-````
+```
 
 ### MaxIdleConns=1
 
 全体で保持できるIdle中のコネクション数を1にする
 => 全体で1つだけ再利用された
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 0, MaxIdleConns: 1, MaxIdleConnsPerHost: 0, IdleConnTimeout: 1m30s
 2022/12/20 19:01:56 GET http://example.com: Proto HTTP/1.1, TCPConnection 19.573917ms, ConnectionInfo {Conn:0x14000220018 Reused:false WasIdle:false IdleTime:0s}
@@ -205,14 +206,14 @@ $ go run *.go
 2022/12/20 19:02:05 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000010040 Reused:true WasIdle:true IdleTime:3.001381s}
 2022/12/20 19:02:06 GET http://httpbin.org/delay/3: Proto HTTP/1.1, TCPConnection 20.229334ms, ConnectionInfo {Conn:0x14000120038 Reused:false WasIdle:false IdleTime:0s}
 elapsed: 10.021672791s
-````
+```
 
 ### MaxIdleConnsPerHost=1
 
 接続先ごとに保持できるIdle中のコネクション数を1にする
 => 接続先ごとに1つずつ再利用された
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 0, MaxIdleConns: 100, MaxIdleConnsPerHost: 1, IdleConnTimeout: 1m30s
 2022/12/20 19:03:05 GET http://example.com: Proto HTTP/1.1, TCPConnection 19.162375ms, ConnectionInfo {Conn:0x1400012c048 Reused:false WasIdle:false IdleTime:0s}
@@ -225,14 +226,14 @@ $ go run *.go
 2022/12/20 19:03:15 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000010038 Reused:true WasIdle:true IdleTime:5.231218708s}
 2022/12/20 19:03:15 GET http://httpbin.org/delay/3: Proto HTTP/1.1, TCPConnection 16.294916ms, ConnectionInfo {Conn:0x1400009e050 Reused:false WasIdle:false IdleTime:0s}
 elapsed: 10.556359875s
-````
+```
 
 ### MaxIdleConnsPerHost=3
 
 接続先ごとに保持できるIdle中のコネクション数を3にする
 => 接続先ごとに3つずつ再利用された
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 0, MaxIdleConns: 100, MaxIdleConnsPerHost: 3, IdleConnTimeout: 1m30s
 2022/12/20 19:03:35 GET http://example.com: Proto HTTP/1.1, TCPConnection 22.971458ms, ConnectionInfo {Conn:0x14000010028 Reused:false WasIdle:false IdleTime:0s}
@@ -245,14 +246,14 @@ $ go run *.go
 2022/12/20 19:03:45 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x1400032c008 Reused:true WasIdle:true IdleTime:3.001350125s}
 2022/12/20 19:03:46 GET http://httpbin.org/delay/3: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x1400032c010 Reused:true WasIdle:true IdleTime:5.766263584s}
 elapsed: 10.564832208s
-````
+```
 
 ### MaxConnsPerHost=1
 
 接続先ごとのコネクション数を1にする
 => 接続先ごとに一つだけコネクションが作成され、それが再利用された
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 1, MaxIdleConns: 100, MaxIdleConnsPerHost: 0, IdleConnTimeout: 1m30s
 2022/12/20 19:03:59 GET http://example.com: Proto HTTP/1.1, TCPConnection 10.686958ms, ConnectionInfo {Conn:0x140000aa050 Reused:false WasIdle:false IdleTime:0s}
@@ -265,14 +266,14 @@ $ go run *.go
 2022/12/20 19:04:14 GET http://httpbin.org/delay/1: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000120030 Reused:true WasIdle:false IdleTime:0s
 2022/12/20 19:04:18 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000120030 Reused:true WasIdle:false IdleTime:0s}
 elapsed: 19.207177666s
-````
+```
 
 ### IdleConnTimeout=2s
 
 コネクションがIdleで待機できる時間を2秒にする
 => 2秒経過でコネクションが切断され、再利用されなかった
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 0, MaxIdleConns: 100, MaxIdleConnsPerHost: 0, IdleConnTimeout: 2s
 2022/12/20 19:04:56 GET http://example.com: Proto HTTP/1.1, TCPConnection 18.289333ms, ConnectionInfo {Conn:0x14000218030 Reused:false WasIdle:false IdleTime:0s}
@@ -285,14 +286,14 @@ $ go run *.go
 2022/12/20 19:05:06 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 27.599459ms, ConnectionInfo {Conn:0x14000010050 Reused:false WasIdle:false IdleTime:0s}
 2022/12/20 19:05:07 GET http://httpbin.org/delay/3: Proto HTTP/1.1, TCPConnection 26.6985ms, ConnectionInfo {Conn:0x1400012c080 Reused:false WasIdle:false IdleTime:0s}
 elapsed: 10.808737583s
-````
+```
 
-### MaxIdleConns \< MaxIdleConnsPerHost
+### MaxIdleConns < MaxIdleConnsPerHost
 
 全体のIdleコネクション数を、接続先ごとのIdleコネクション数より少なくする
 => 全体のIdleコネクション数が上限となる
 
-````
+```
 $ go run *.go
 --- send start ---- MaxConnsPerHost: 0, MaxIdleConns: 2, MaxIdleConnsPerHost: 3, IdleConnTimeout: 1m30s
 2022/12/20 19:05:33 GET http://example.com: Proto HTTP/1.1, TCPConnection 9.587334ms, ConnectionInfo {Conn:0x14000010040 Reused:false WasIdle:false IdleTime:0s}
@@ -305,17 +306,19 @@ $ go run *.go
 2022/12/20 19:05:42 GET http://httpbin.org/delay/2: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000218018 Reused:true WasIdle:true IdleTime:3.001382958s}
 2022/12/20 19:05:43 GET http://httpbin.org/delay/3: Proto HTTP/1.1, TCPConnection 0s, ConnectionInfo {Conn:0x14000218020 Reused:true WasIdle:true IdleTime:3.001510458s}
 elapsed: 9.904582917s
-````
+```
 
-|MaxConnsPerHost|MaxIdleConns|MaxIdleConnsPerHost|IdleConnTimeout|コネクション|
-|---------------|------------|-------------------|---------------|------------------|
-|0|100|2|1m30s|接続先ごとに2つまで再利用された|
-|0|1|2|1m30s|全体で1つだけ再利用された|
-|0|100|1|1m30s|接続先ごとに1つずつ再利用された|
-|0|100|3|1m30s|接続先ごとに3つずつ再利用された|
-|1|100|2|1m30s|接続先ごとに一つだけコネクションが作成され、それが再利用された|
-|0|100|2|2s|2秒経過でコネクションが切断され、再利用されなかった|
-|0|2|3|1m30s|MaxIdleConnsが上限となる|
+
+| MaxConnsPerHost | MaxIdleConns | MaxIdleConnsPerHost | IdleConnTimeout | コネクション                                                   |
+| ----            | ----         | ----                | ----            | ----                                                           |
+| 0               | 100          | 2                   | 1m30s           | 接続先ごとに2つまで再利用された                                |
+| 0               | 1            | 2                   | 1m30s           | 全体で1つだけ再利用された                                      |
+| 0               | 100          | 1                   | 1m30s           | 接続先ごとに1つずつ再利用された                                |
+| 0               | 100          | 3                   | 1m30s           | 接続先ごとに3つずつ再利用された                                |
+| 1               | 100          | 2                   | 1m30s           | 接続先ごとに一つだけコネクションが作成され、それが再利用された |
+| 0               | 100          | 2                   | 2s              | 2秒経過でコネクションが切断され、再利用されなかった            |
+| 0               | 2            | 3                   | 1m30s           | MaxIdleConnsが上限となる                                       |
+
 
 ### HTTP/2.0 の場合
 
@@ -324,7 +327,7 @@ elapsed: 9.904582917s
 https://knowledge.sakura.ad.jp/7734/
 あまり詳しくないのだが、ストリームによって1つのコネクション内で同時に並行して複数のリクエスト/レスポンスを処理できるということだろうか
 
-````
+```
 --- send start ---- MaxConnsPerHost: 1, MaxIdleConns: 100, MaxIdleConnsPerHost: 0, IdleConnTimeout: 1m30s
 2022/12/21 10:50:15 GET https://example.com: Proto HTTP/2.0, TCPConnection 117.219375ms, ConnectionInfo {Conn:0x1400030a000 Reused:false WasIdle:false IdleTime:0s}
 2022/12/21 10:50:16 GET https://httpbin.org/delay/1: Proto HTTP/2.0, TCPConnection 0s, ConnectionInfo {Conn:0x1400030a380 Reused:true WasIdle:false IdleTime:0s}
@@ -336,4 +339,4 @@ https://knowledge.sakura.ad.jp/7734/
 2022/12/21 10:50:24 GET https://httpbin.org/delay/2: Proto HTTP/2.0, TCPConnection 0s, ConnectionInfo {Conn:0x1400030a380 Reused:true WasIdle:false IdleTime:0s}
 2022/12/21 10:50:25 GET https://httpbin.org/delay/3: Proto HTTP/2.0, TCPConnection 0s, ConnectionInfo {Conn:0x1400030a380 Reused:true WasIdle:true IdleTime:3.001423166s}
 elapsed: 9.895872041s
-````
+```

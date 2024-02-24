@@ -1,12 +1,12 @@
 ---
 title: jenkinsの見た目をカスタマイズ
-date: 2021-08-25T16:51:00+09:00
-lastmod: 2021-08-25T17:01:20+09:00
+date: "2021-08-25T16:51:00+09:00"
+lastmod: '2021-08-25T17:01:20+09:00'
 tags:
-- Jenkins
+  - 'Jenkins'
 ---
 
-[note/Jenkins](Jenkins.md) のデフォルトの見た目は古臭いので、好きなテーマに変更する。
+[[note/Jenkins]] のデフォルトの見た目は古臭いので、好きなテーマに変更する。
 また、環境ごとの違いをひと目でわかりやすくすることで事故を防ぐ。
 
 ## jenkins-material-theme をダウンロード
@@ -16,12 +16,12 @@ tags:
 
 ## プラグインを設定
 
-\[Jenkinsの管理\] -> \[プラグインの管理\] -> \[利用可能\] -> [Simple Theme Plugin](https://plugins.jenkins.io/simple-theme-plugin/) をインストール
+[Jenkinsの管理] -> [プラグインの管理] -> [利用可能] -> [Simple Theme Plugin](https://plugins.jenkins.io/simple-theme-plugin/) をインストール
 
 ダウンロードしたスタイルシートのファイル（jenkins-material-theme.css）を Jenkins フォルダの userContent フォルダへ配置する
 
-* Jenkinsを置いてあるサーバにSSHログイン
-* /ドキュメントルート/userContent/jenkins-material-theme.css
+- Jenkinsを置いてあるサーバにSSHログイン
+- /ドキュメントルート/userContent/jenkins-material-theme.css
 
 Jenkinsの管理のシステムの設定でダウンロードしたテーマを指定する。
 
@@ -36,7 +36,7 @@ URL of theme CSS: `/userContent/jenkins-material-theme.css`
 等幅フォントを設定してあげればよい。
 自分でカスタマイズできるのが利点
 
-````css:jenkins-material-theme.css
+```css:jenkins-material-theme.css
 #main-panel>pre *,
 .ace_editor .ace_scroller .ace_content * {
   font-family: Roboto Mono, monospace !important;
@@ -46,7 +46,7 @@ div.ace_editor.ace-tomorrow,
 div.ace_editor.ace-tomorrow * {
   font: 12px/normal Roboto Mono, monospace !important;
 }
-````
+```
 
 ## 参考
 

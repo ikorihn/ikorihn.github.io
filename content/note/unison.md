@@ -1,6 +1,6 @@
 ---
 title: unison
-lastmod: 2021-05-30T18:10:18+09:00
+lastmod: '2021-05-30T18:10:18+09:00'
 ---
 
 # unison

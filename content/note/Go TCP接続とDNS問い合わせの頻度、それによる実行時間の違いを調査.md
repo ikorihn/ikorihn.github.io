@@ -2,10 +2,12 @@
 title: Go TCP接続とDNS問い合わせの頻度、それによる実行時間の違いを調査
 date: 2023-12-08T15:18:00+09:00
 tags:
-- Go
+  - Go
 ---
 
-[Go http.ClientのConnection設定値について調査](note/Go%20http.ClientのConnection設定値について調査.md) も参照
+
+[[Go http.ClientのConnection設定値について調査]] も参照
+
 
 ## 調査
 
@@ -13,7 +15,7 @@ tags:
 
 https://github.com/tcnksm/go-httpstat を使用する
 
-````go
+```go
 package main
 
 import (
@@ -65,9 +67,9 @@ func main() {
 		time.Sleep(5 * time.Second)
 	}
 }
-````
+```
 
-````
+```
 2022/12/19 12:56:00 GET https://httpbin.org/delay/5
 2022/12/19 12:56:06 result
 DNS lookup:          28 ms
@@ -95,7 +97,7 @@ Connect:           0 ms
 Pre Transfer:      0 ms
 Start Transfer:  168 ms
 Total:           168 ms
-````
+```
 
 **=> keep-aliveされていて、DNS問い合わせも行われない**
 
@@ -103,7 +105,7 @@ Total:           168 ms
 
 `tr.IdleConnTimeout` のコメントアウトを外して、2秒でkeep-aliveが切れるように設定する
 
-````
+```
 2022/12/19 12:51:56 GET https://httpbin.org/delay/5
 2022/12/19 12:52:02 result
 DNS lookup:          41 ms
@@ -131,7 +133,7 @@ Connect:         190 ms
 Pre Transfer:    540 ms
 Start Transfer:  718 ms
 Total:           719 ms
-````
+```
 
 **=> 設定した時間でコネクションが切断されて、再度DNS lookupとTCP connectionが実行されている**
 
@@ -141,8 +143,8 @@ Macで実行したため、OSでキャッシュされているのか2回目の�
 
 ### 対策
 
-* keep-aliveの時間を適切に設定する
-* DNS問い合わせ結果をキャッシュする
+- keep-aliveの時間を適切に設定する
+- DNS問い合わせ結果をキャッシュする
 
 ## DNS問い合わせ結果をキャッシュする
 
@@ -160,13 +162,13 @@ yum でインストールして、設定ファイルを書き換える
 dnsmasqをインストールすると、 `/etc/dnsmasq.conf` という設定ファイルが生成されるので、コメントアウトを外す  
 とりあえず以下を設定する
 
-````
+```
 domain-needed #ドメインの無いホスト名のみ問い合わせの場合、上位DNSサーバに転送しない
 bogus-priv #プライベートIPアドレスの逆引きを上位DNSサーバに転送しない
 resolv-file #上位DNSサーバの設定
-````
+```
 
-````Dockerfile
+```Dockerfile
 # ビルド用
 FROM golang:latest as build-env
 
@@ -194,18 +196,18 @@ COPY conf conf
 
 EXPOSE 1323
 ENTRYPOINT ["/sbin/init"]
-````
+```
 
 実行時は `--privileged` と、 `--dns=127.0.0.1` で `/etc/resolv.conf` に `nameserver 127.0.0.1` が書かれるようにする
 
-````
+```
 $ docker build -t dnsmasq-test .
 $ docker run --privileged --dns=127.0.0.1 --name=dnsmasq-test dnsmasq-test
-````
+ ```
 
 別のターミナルからexecでログインして実行
 
-````shell
+```shell
 $ docker exec -it dnsmasq-test bash
 
 bash-4.2# ./main
@@ -237,7 +239,7 @@ Connect:         162 ms
 Pre Transfer:    507 ms
 Start Transfer: 5844 ms
 Total:          5845 ms
-````
+```
 
 **=> 2回目の実行時はDNS問い合わせ時間が短くなっている**
 

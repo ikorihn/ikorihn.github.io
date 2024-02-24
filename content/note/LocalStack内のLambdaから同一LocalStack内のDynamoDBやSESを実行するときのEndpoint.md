@@ -2,11 +2,11 @@
 title: LocalStack内のLambdaからDynamoDBやSESを実行するときのEndpoint
 date: 2023-11-20T18:53:00+09:00
 tags:
-- AWS
-- Go
+  - AWS
+  - Go
 ---
 
-[LocalStack](note/LocalStack.md)内で動作している [AWS Lambda](note/AWS%20Lambda.md) から、他のリソースにアクセスするときのエンドポイントに `localhost:4566` を設定してみたら、アクセスできなかったので調べた。
+[[LocalStack]]内で動作している [[AWS Lambda]] から、他のリソースにアクセスするときのエンドポイントに `localhost:4566` を設定してみたら、アクセスできなかったので調べた。
 
 ## 結論
 
@@ -15,11 +15,12 @@ tags:
 
 ## 例
 
-````go
+```go
 awsConf := &aws.Config{}
 if localStack, ok := os.LookupEnv("LOCALSTACK_HOSTNAME"); ok {
     awsConf.Endpoint = aws.String(fmt.Sprintf("http://%s:4566", localStack))
 }
 sess := session.Must(session.NewSession(awsConf))
 dc := dynamodb.New(sess)
-````
+```
+

@@ -1,11 +1,11 @@
 ---
 title: 自宅と職場でproxy設定を切り替えたい
-date: 2021-10-08T10:47:00+09:00
+date: "2021-10-08T10:47:00+09:00"
 tags:
-- Mac
-- Network
-- shell
-lastmod: 2021-10-08T12:54:16+09:00
+  - 'Mac'
+  - 'Network'
+  - 'shell'
+lastmod: '2021-10-08T12:54:16+09:00'
 ---
 
 出社時と在宅時で、プロキシの接続情報を変更する必要がある。
@@ -13,16 +13,16 @@ lastmod: 2021-10-08T12:54:16+09:00
 
 ## 切り替えたい対象
 
-* プロキシ設定
-* git proxyの設定を環境に応じて変更
+- プロキシ設定
+- git proxyの設定を環境に応じて変更
 
 ## 実現方法
 
-* proxy.pac をローカルのhttpサーバーで配布
-* Macのネットワーク設定 > Location で自宅と職場でproxy.pacのURLをそれぞれ設定
-* git proxyをset,unsetするコマンドを実行
-* wifiのSSIDが家か職場を判定して分岐する
-* トリガーはスリープからの復帰時
+- proxy.pac をローカルのhttpサーバーで配布
+- Macのネットワーク設定 > Location で自宅と職場でproxy.pacのURLをそれぞれ設定
+- git proxyをset,unsetするコマンドを実行
+- wifiのSSIDが家か職場を判定して分岐する
+- トリガーはスリープからの復帰時
 
 ### プロキシ設定について
 
@@ -34,10 +34,9 @@ lastmod: 2021-10-08T12:54:16+09:00
 
 [macOS 10.14 Mojave 以降で pac ファイルを使って proxy の設定を行いたいけど出来なかった話 - Qiita](https://qiita.com/orange634nty/items/9ef5cadd039592e8344a)
 
- > 
- > #### Deprecations
- > 
- > The `ftp://` and `file://` URL schemes for Proxy Automatic Configuration (PAC) are deprecated. HTTP and HTTPS are the only supported URL schemes for PAC. This affects all PAC configurations including, but not limited to, configurations set via Settings, System Preferences, profiles, and [`URLSession`](https://developer.apple.com/documentation/foundation/urlsession) APIs such as [`connectionProxyDictionary`](https://developer.apple.com/documentation/foundation/urlsessionconfiguration/1411499-connectionproxydictionary), and [`CFNetworkExecuteProxyAutoConfigurationURL(_:_:_:_:)`](https://developer.apple.com/documentation/cfnetwork/1426392-cfnetworkexecuteproxyautoconfigu). (37811761)
+> #### Deprecations
+>
+> The `ftp://` and `file://` URL schemes for Proxy Automatic Configuration (PAC) are deprecated. HTTP and HTTPS are the only supported URL schemes for PAC. This affects all PAC configurations including, but not limited to, configurations set via Settings, System Preferences, profiles, and [`URLSession`](https://developer.apple.com/documentation/foundation/urlsession) APIs such as [`connectionProxyDictionary`](https://developer.apple.com/documentation/foundation/urlsessionconfiguration/1411499-connectionproxydictionary), and [`CFNetworkExecuteProxyAutoConfigurationURL(_:_:_:_:)`](https://developer.apple.com/documentation/cfnetwork/1426392-cfnetworkexecuteproxyautoconfigu). (37811761)
 
 そのため、ローカルにhttpサーバーを立てて `http://localhost` を設定する方法をとる
 
@@ -45,7 +44,7 @@ lastmod: 2021-10-08T12:54:16+09:00
 
 ### httpdをインストール、自動起動
 
-````shell
+```shell
 $ brew install httpd
 
 # M1 Macの場合 /opt/homebrew/etc に設定ファイルがある
@@ -80,7 +79,7 @@ $ cat ~/Library/LaunchAgents/homebrew.mxcl.httpd.plist
         <true/>
 </dict>
 </plist>
-````
+```
 
 ### proxy.pacを配置
 
@@ -90,35 +89,35 @@ $ cat ~/Library/LaunchAgents/homebrew.mxcl.httpd.plist
 
 ## Macのネットワーク設定 > Location で自宅と職場でproxy.pacのURLをそれぞれ設定
 
-![Pasted-image-20211008123230](blog/Pasted-image-20211008123230.png)
+![[blog/Pasted-image-20211008123230.png|Pasted-image-20211008123230]]
 
 それぞれのLocationで、proxy.pacのURLを入力する
 
 自宅: `http://localhost/proxy.pac`
 職場: `社内のproxy.pacのURL`
-![Pasted-image-20211008124722](blog/Pasted-image-20211008124722.png)
+![[blog/Pasted-image-20211008124722.png|Pasted-image-20211008124722]]
 
 ## ネットワーク切り替え時に実行するスクリプトを作成
 
-[ネットワークに応じて処理を振り分けるスクリプト](blog/ネットワークに応じて処理を振り分けるスクリプト.md)
+[[ネットワークに応じて処理を振り分けるスクリプト]]
 
 ## sleep復帰時にスクリプトを実行する
 
 ### sleepwatcherをインストール
 
-[Macスリープ時・復帰時に処理を動かす](blog/Macスリープ時・復帰時に処理を動かす.md)
+[[Macスリープ時・復帰時に処理を動かす]]
 
 スリープ前や復帰時にスクリプトを実行できるようになる
 
-````shell
+```shell
 brew install sleepwatcher
-````
+```
 
 ### plistファイルを作成する
 
 `~/Library/LaunchAgents` 以下にファイルを作成
 
-````xml:~/Library/LaunchAgents/sleepwatcher.plist
+```xml:~/Library/LaunchAgents/sleepwatcher.plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -137,16 +136,16 @@ brew install sleepwatcher
     <true/>
 </dict>
 </plist>
-````
+```
 
-* `-w` スリープ復帰（Wake Up）時に実行するコマンド
-* `-s` スリープ（Sleep）時に実行するコマンド
+- `-w` スリープ復帰（Wake Up）時に実行するコマンド
+- `-s` スリープ（Sleep）時に実行するコマンド
 
 ### launchdに登録
 
-````shell
+```shell
 $ launchctl load ~/Library/LaunchAgents/sleepwatcher.plist
-````
+```
 
 ## 参考
 

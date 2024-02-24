@@ -1,13 +1,13 @@
 ---
 title: Hugo 外部リンクをカードで表示する
-date: 2023-05-07T16:19:00+09:00
+date: "2023-05-07T16:19:00+09:00"
 tags:
-- 2023/05/07
-- Hugo
-- Go
+  - '2023/05/07'
+  - Hugo
+  - Go
 ---
 
-[Hugo](note/Hugo.md) で、ブログでよく見るリンクをカードで表示するやつをやりたい
+[[Hugo]] で、ブログでよく見るリンクをカードで表示するやつをやりたい
 
 [resources.GetRemote](https://gohugo.io/hugo-pipes/introduction/#get-resource-with-resourcesget-and-resourcesgetremote) を利用することで、ビルドのタイミングで指定したURLへアクセスしてリソースを取得できる
 
@@ -19,9 +19,9 @@ tags:
 
 ### 外部リソースを取得
 
-````go-html-template
+```go-html-template
 {{ $remote := resources.GetRemote "https://www.example.com/styles.scss" }}
-````
+```
 
 ### スタイル
 
@@ -29,6 +29,6 @@ tags:
 
 ## 使い方
 
-````
+```
 {{< card-link "https://example.com" >}}
-````
+```

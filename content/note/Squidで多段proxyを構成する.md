@@ -1,7 +1,7 @@
 ---
 title: Squidで多段proxyを構成する
-date: 2022-12-12T18:45:00+09:00
-tags: null
+date: "2022-12-12T18:45:00+09:00"
+tags: 
 ---
 
 dockerコンテナ内からproxyを経由して接続したい場合、 `HTTP_PROXY` や `HTTPS_PROXY` を設定すると思う。
@@ -15,12 +15,12 @@ host.docker.internalでもアクセスできない場所にいる。
 
 ## 環境
 
-* M1 Macbook
+- M1 Macbook
 
 1. ホストマシンにプロキシサーバーを立てる(ここではsquidをbrewでインストール `brew install squid`)
-1. `/opt/homebrew/etc/squid.conf` を変更
+2.  `/opt/homebrew/etc/squid.conf` を変更
 
-````
+```
 #
 # INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
 #
@@ -31,13 +31,13 @@ visible_hostname unknown
 ...
 # Squid normally listens to port 3128
 http_port 3129
-````
+```
 
 3. squidをスタート `brew services run squid`  
-   4. `/opt/homebrew/var/logs/cache.log` を見て起動したことを確認
-   5. `docker run` で適当なコンテナに入った後、proxy経由でないと接続できないホストにアクセスできることを確認
+4. `/opt/homebrew/var/logs/cache.log` を見て起動したことを確認
+5. `docker run` で適当なコンテナに入った後、proxy経由でないと接続できないホストにアクセスできることを確認
 
-````shell
+```shell
 $ curl -x http://host.docker.internal:3129 <リソース>
 => 接続できることを確認
-````
+```

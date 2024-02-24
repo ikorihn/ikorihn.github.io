@@ -1,10 +1,10 @@
 ---
 title: spotlessでコードフォーマットする
-date: 2021-06-17T14:49:00+09:00
-lastmod: 2021-06-18T22:50:20+09:00
+date: "2021-06-17T14:49:00+09:00"
+lastmod: '2021-06-18T22:50:20+09:00'
 tags:
-- Java
-- Kotlin
+  - 'Java'
+  - 'Kotlin'
 ---
 
 <https://github.com/diffplug/spotless/tree/main/plugin-maven>
@@ -13,7 +13,7 @@ Java,Kotlinのプロジェクトにフォーマッタとしてspotlessを導入�
 
 ## Java
 
-link: [JavaのFormatter](note/JavaのFormatter.md)
+link: [[JavaのFormatter]]
 
 以下のフォーマッタが利用可能
 
@@ -25,7 +25,7 @@ link: [JavaのFormatter](note/JavaのFormatter.md)
 
 <https://github.com/diffplug/spotless/tree/main/plugin-maven#java>
 
-````xml
+```xml
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
@@ -65,7 +65,7 @@ link: [JavaのFormatter](note/JavaのFormatter.md)
                 </configuration>
             </plugin>
         </plugins>
-````
+```
 
 ### Google Java Formatのインデントサイズ変更
 

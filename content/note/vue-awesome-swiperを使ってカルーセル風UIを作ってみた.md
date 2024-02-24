@@ -1,10 +1,10 @@
 ---
 title: vue-awesome-swiperを使ってカルーセル風UIを作ってみた
-date: 2021-01-31T00:18:00+09:00
-lastmod: 2021-05-30T18:49:28+09:00
+date: "2021-01-31T00:18:00+09:00"
+lastmod: '2021-05-30T18:49:28+09:00'
 tags:
-- Vuejs
-- TypeScript
+  - 'Vuejs'
+  - 'TypeScript'
 ---
 
 # vue-awesome-swiperを使ってカルーセル風UIを作ってみた
@@ -16,30 +16,28 @@ tags:
 <https://mykii.blog/nuxt-vue-awesome-swiper/>
 <https://webrandum.net/js-library-swiper/>
 
-````sh
+```sh
 yarn add swiper vue-awesome-swiper
-````
+```
 
 ### globalに定義する
 
-````
-import Vue from 'vue'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+    import Vue from 'vue'
+    import VueAwesomeSwiper from 'vue-awesome-swiper'
 
-// import style (>= Swiper 6.x)
-import 'swiper/swiper-bundle.css'
+    // import style (>= Swiper 6.x)
+    import 'swiper/swiper-bundle.css'
 
-// import style (<= Swiper 5.x)
-import 'swiper/css/swiper.css'
+    // import style (<= Swiper 5.x)
+    import 'swiper/css/swiper.css'
 
-Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
-````
+    Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 
 ### Vueコンポーネントに定義する
 
 slide.js
 
-````js
+```js
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 
 // import style (>= Swiper 6.x)
@@ -57,13 +55,13 @@ export default {
     swiper: directive
   }
 }
-````
+```
 
 ### 実践例
 
 TypeScript で vue-property-decorator を使ってコンポーネントを作成
 
-````ts
+```ts
 <template>
   <swiper
     ref="swiperSection"
@@ -135,20 +133,18 @@ export default class Slide extends Vue {
   background-color: #aebeff;
 }
 </style>
-````
+```
 
 ### Swiper6.x系を入れると、NavigationとPaginationが機能しない
 
 <https://github.com/surmon-china/vue-awesome-swiper/issues/680>
 
-````
-import Vue from 'vue'
-import { Swiper as SwiperClass, Pagination, Navigation } from 'swiper/swiper.esm'
-import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+    import Vue from 'vue'
+    import { Swiper as SwiperClass, Pagination, Navigation } from 'swiper/swiper.esm'
+    import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 
-// import style
-import 'swiper/swiper-bundle.min.css'
+    // import style
+    import 'swiper/swiper-bundle.min.css'
 
-SwiperClass.use([Pagination, Navigation])
-Vue.use(getAwesomeSwiper(SwiperClass))
-````
+    SwiperClass.use([Pagination, Navigation])
+    Vue.use(getAwesomeSwiper(SwiperClass))

@@ -1,9 +1,9 @@
 ---
 title: vue-tsc
-date: 2022-04-26T23:43:00+09:00
+date: '2022-04-26T23:43:00+09:00'
 tags:
-- TypeScript
-- Vuejs
+  - 'TypeScript'
+  - 'Vuejs'
 ---
 
 [ViteでVue3のTypescript環境を構築する | miyauci.me](https://miyauchi.dev/ja/posts/vite-vue3-typescript/)

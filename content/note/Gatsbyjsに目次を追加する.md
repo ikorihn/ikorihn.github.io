@@ -1,8 +1,7 @@
 ---
 title: Gatsbyjsに目次を追加する
-date: 2021-05-03T11:11:00+09:00
-tags:
-- Gatsbyjs
+date: "2021-05-03T11:11:00+09:00"
+tags: ['Gatsbyjs']
 ---
 
 各ページに目次を追加したい
@@ -29,6 +28,6 @@ tags:
 
 [gatsby-remark-table-of-contents](https://www.gatsbyjs.com/plugins/gatsby-remark-table-of-contents/)
 
-````sh
+```sh
 yarn add gatsby-remark-table-of-contents
-````
+```

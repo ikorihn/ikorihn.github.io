@@ -1,13 +1,12 @@
 ---
 title: JavaScript xpathで要素を取得する
-date: 2023-04-27T12:21:00+09:00
+date: '2023-04-27T12:21:00+09:00'
 tags:
-- 2023/04/27
-- JavaScript
+  - '2023/04/27'
+  - 'JavaScript'
 ---
 
-
-````javascript
+```javascript
 function getElementByXpath(path) {
   return document.evaluate(
     path,
@@ -19,4 +18,4 @@ function getElementByXpath(path) {
 }
 
 getElementByXpath('(//div[@class="font-bold btn"])[1]')
-````
+```

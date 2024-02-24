@@ -1,16 +1,16 @@
 ---
 title: aws cliでIAM情報を取得する
-date: 2022-12-26T19:11:00+09:00
-lastmod: 2022-12-26T19:11:00+09:00
+date: "2022-12-26T19:11:00+09:00"
+lastmod: "2022-12-26T19:11:00+09:00"
 tags:
-- AWS
+  - 'AWS'
 ---
 
-\#AWS
+#AWS
 
 [【AWS CLI】IAM関連の情報取得編 - サーバーワークスエンジニアブログ](https://blog.serverworks.co.jp/aws-cli-iam)
 
-````shell
+```shell
 function describe_role() {
   local role=$1
 
@@ -40,4 +40,4 @@ function describe_role() {
     aws iam get-role-policy --role-name $role --policy-name $policy --query "PolicyDocument"
   done
 }
-````
+```

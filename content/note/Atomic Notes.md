@@ -1,14 +1,12 @@
 ---
 title: Atomic Notes
-date: 2021-05-02T21:14:00+09:00
-tags:
-- memo
+date: "2021-05-02T21:14:00+09:00"
+tags: ['memo']
 ---
 
 https://jmatsuzaki.com/archives/26915
 
- > 
- > Atomic Notesとは何かを端的に説明すると、**1枚のノートをこれ以上不可分な単位と考えられる極小のサイズまで削り、原子性（Atomic）を保つこと**です。
+> Atomic Notesとは何かを端的に説明すると、**1枚のノートをこれ以上不可分な単位と考えられる極小のサイズまで削り、原子性（Atomic）を保つこと**です。
 
 Atomic Designぽくて好き
 

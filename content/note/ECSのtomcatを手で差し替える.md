@@ -1,21 +1,21 @@
 ---
 title: ECSのtomcatを手で差し替える
-date: 2023-05-04T17:45:00+09:00
+date: "2023-05-04T17:45:00+09:00"
 tags:
-- 2023/04/30
-- AWS
+  - '2023/04/30'
+  - AWS
 ---
 
 ## やりたいこと
 
-[Elastic Container Service](note/Elastic%20Container%20Service.md) に対して、検証環境のリリースの際に通常通りtomcatコンテナビルド〜Rolling updateすると5分くらいはかかってしまう。
+[[Elastic Container Service]] に対して、検証環境のリリースの際に通常通りtomcatコンテナビルド〜Rolling updateすると5分くらいはかかってしまう。
 ちょっと設定を変えたいだけのときに時間がかかりすぎるので、オンプレのように手動でアップロードして手軽に変更したい。
 
 ## 手順
 
 事前にECSタスクが実行されているEC2インスタンスを調べる
 
-````shell
+```shell
 # warをローカルビルド
 $ mvn package
 # scp
@@ -30,8 +30,9 @@ $ ssh <EC2インスタンス>
 bash-4.2$ cp /tmp/app.war $TOMCAT_HOME/webapps/
 # => デプロイされるのを待つ
 
-````
+```
 
 #### 注意
 
 `conf/server.xml` に `autoDeploy="true"` の設定が入っていないと、再読み込みされない
+

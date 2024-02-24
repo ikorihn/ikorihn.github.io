@@ -2,7 +2,7 @@
 title: Go DynamoDBのコンソールからダウンロードしたCSVをBatchでputする
 date: 2023-09-06T19:25:00+09:00
 tags:
-- Go
+  - Go
 ---
 
 DynamoDB Localを使ってローカルでテストしようとしたとき、データセットをDynamoDBから落としてきて突っ込もうとした。
@@ -11,14 +11,14 @@ DynamoDB Localを使ってローカルでテストしようとしたとき、デ
 これはAPIのクウォータなのでaws cliでも同じ。
 分割して実行すればいいのだが、サボって guregu/dynamo を使った。guregu/dynamo も中で分割して実行している。
 
-````csv
+```csv
 "name","props"
 "駒場","[{""M"":{""available"":{""BOOL"":true},""color"":{""S"":""blue""},""distance"":{""N"":12345}}]"
 "三田","[{""M"":{""available"":{""BOOL"":false},""color"":{""S"":""green""},""distance"":{""N"":9999}}]"
 ...
-````
+```
 
-````go
+```go
 package main
 
 import (
@@ -127,4 +127,5 @@ func createRecords() ([]record, error) {
 	return dynamoRec, nil
 }
 
-````
+```
+

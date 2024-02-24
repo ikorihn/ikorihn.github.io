@@ -1,14 +1,14 @@
 ---
 title: Jenkins pipelineで他のジョブを停止する
-date: 2022-07-05T18:16:00+09:00
+date: "2022-07-05T18:16:00+09:00"
 tags:
-- Jenkins
-lastmod: 2022-07-05T18:16:00+09:00
+  - 'Jenkins'
+lastmod: "2022-07-05T18:16:00+09:00"
 ---
 
-[Jenkins Pipeline](note/Jenkins%20Pipeline.md) 
+[[Jenkins Pipeline]] 
 
-````groovy
+```groovy
 pipeline {
   stages {
     stage('abort jobs') {
@@ -30,16 +30,17 @@ pipeline {
     }
   }
 }
-````
+```
 
-* groovyの記法で、`.getXXX()` は `.XXX` でプロパティアクセスできる
+- groovyの記法で、`.getXXX()` は `.XXX` でプロパティアクセスできる
 
 ## reference
 
-* [Groovy スクリプトで Jenkins 上のすべての Job を制御する | まくまくいろいろノート](https://maku77.github.io/memo/jenkins/handle-jobs.html)
-* [Mirantis Documentation: Abort a hung build in Jenkins](https://docs.mirantis.com/mcp/q4-18/mcp-operations-guide/drive-train-operations/jenkins-abort-hung-build.html)
-* [jenkinsでジョブがチェックアウトするブランチを一括設定する · GitHub](https://gist.github.com/tckz/2835544)
-* https://javadoc.jenkins-ci.org/jenkins/model/Jenkins.html
-* https://javadoc.jenkins.io/hudson/model/Job.html#getBuilds()
-* https://javadoc.jenkins.io/hudson/model/Run.html#isBuilding()
-* https://javadoc.jenkins.io/hudson/model/AbstractBuild.html#doStop()
+- [Groovy スクリプトで Jenkins 上のすべての Job を制御する | まくまくいろいろノート](https://maku77.github.io/memo/jenkins/handle-jobs.html)
+- [Mirantis Documentation: Abort a hung build in Jenkins](https://docs.mirantis.com/mcp/q4-18/mcp-operations-guide/drive-train-operations/jenkins-abort-hung-build.html)
+- [jenkinsでジョブがチェックアウトするブランチを一括設定する · GitHub](https://gist.github.com/tckz/2835544)
+- https://javadoc.jenkins-ci.org/jenkins/model/Jenkins.html
+- https://javadoc.jenkins.io/hudson/model/Job.html#getBuilds()
+- https://javadoc.jenkins.io/hudson/model/Run.html#isBuilding()
+- https://javadoc.jenkins.io/hudson/model/AbstractBuild.html#doStop()
+

@@ -1,16 +1,16 @@
 ---
 title: Jenkinsfileをリロードする
-date: 2022-01-27T17:01:00+09:00
+date: "2022-01-27T17:01:00+09:00"
 tags:
-- Jenkins
+  - 'Jenkins'
 ---
 
-[Jenkinsfile](note/Jenkinsfile.md) 内でパラメータを `parameters` ブロックで定義しても、一度実行しないと反映されない。
+[[Jenkinsfile]] 内でパラメータを `parameters` ブロックで定義しても、一度実行しないと反映されない。
 
 https://stackoverflow.com/questions/44422691/how-to-force-jenkins-to-reload-a-jenkinsfile
 refresh用のパラメータを定義しておくのが常套手段
 
-````groovy
+```groovy
 pipeline {
     agent any
     parameters {
@@ -51,11 +51,12 @@ pipeline {
         }
     }
 }
-````
+```
+
 
 ### Job DSLを使用している場合
 
-````groovy
+```groovy
 pipelineJob('myJobName') {
     // sets RELOAD=true for when the job is 'queued' below
     parameters {
@@ -72,11 +73,11 @@ pipelineJob('myJobName') {
     // queue the job to run so it re-downloads its Jenkinsfile
     queue('myJobName')
 }
-````
+```
 
 errorを使ってジョブを止めてしまえば、 `RELOAD==false` で囲う必要がなくなる
-
-````groovy
+ 
+```groovy
 pipeline {
     agent any
     stages {
@@ -102,4 +103,4 @@ pipeline {
             }
         }
 }
-````
+```

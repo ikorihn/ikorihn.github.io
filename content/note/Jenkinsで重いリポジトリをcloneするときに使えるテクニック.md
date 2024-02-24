@@ -1,18 +1,18 @@
 ---
 title: Jenkinsで重いリポジトリをcloneするときに使えるテクニック
-date: 2022-05-26T14:45:00+09:00
+date: "2022-05-26T14:45:00+09:00"
 tags:
-- Jenkins
-lastmod: 2022-05-26T14:45:00+09:00
+  - 'Jenkins'
+lastmod: "2022-05-26T14:45:00+09:00"
 ---
 
 shallow clone, sparse checkoutを使うことで、容量を軽くしてローカルに落とすことができる
 
-![Pasted-image-20220705174631](note/Pasted-image-20220705174631.png)
+![[note/Pasted-image-20220705174631.png|Pasted-image-20220705174631]]
 
 Job DSLの場合
 
-````groovy
+```groovy
 pipelineJob('myJob') {
     definition {
         cpsScm {
@@ -45,4 +45,4 @@ pipelineJob('myJob') {
         }
     }
 }
-````
+```

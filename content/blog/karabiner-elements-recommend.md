@@ -1,17 +1,14 @@
 ---
-title: Karabiner-Elementsで個人的におすすめのキーバインド
-date: 2021-08-15T19:00:00+09:00
-updated-date: 2021-08-15T19:00:00+09:00
-description: Macのキーバインドをカスタマイズする
-tags:
-- Mac
-- keyboard
+title: "Karabiner-Elementsで個人的におすすめのキーバインド"
+date: "2021-08-15T19:00:00+09:00"
+updated-date: "2021-08-15T19:00:00+09:00"
+description: "Macのキーバインドをカスタマイズする"
+tags: ["Mac", "keyboard"]
 ---
 
-
-````toc
+```toc
 # This code block gets replaced with the TOC
-````
+```
 
 ## Karabiner-Elements とは
 
@@ -24,7 +21,7 @@ Macのキーボードをカスタマイズするためのツールです。
 ルールについては <https://ke-complex-modifications.pqrs.org/> から探すことができます。
 Karabiner-ElementsのPreferences -> Complex modifications -> Import more rules from the Internet から飛べます。
 
-![2021-08-15-16-28-21](blog/2021-08-15-16-28-21.png)
+![[blog/2021-08-15-16-28-21.png|2021-08-15-16-28-21]]
 
 ## Change spacebar to left_shift if pressed with other keys (Post spacebar when pressed alone)
 
@@ -86,11 +83,11 @@ Cmd+Tabでアプリを切り替えたり、Mission ControlやDockで探したり
 
 私はkarabinerの設定ファイル(`~/.config/karabiner/karabiner.json`) を書き換えて、よく使うアプリを左手のキーに登録しています。
 
-* `CapsLock+s`: Slack
-* `CapsLock+g`: Chrome
-* `CapsLock+v`: Visual Studio Code
-* `CapsLock+f`: iTerm2
-* `CapsLock+Cmd+f`: Finder
+- `CapsLock+s`: Slack
+- `CapsLock+g`: Chrome
+- `CapsLock+v`: Visual Studio Code
+- `CapsLock+f`: iTerm2
+- `CapsLock+Cmd+f`: Finder
 
 ### Functional
 

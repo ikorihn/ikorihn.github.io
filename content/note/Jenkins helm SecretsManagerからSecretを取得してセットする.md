@@ -1,11 +1,11 @@
 ---
 title: Jenkins helm SecretsManagerからSecretを取得してセットする
-date: 2022-09-13T12:39:00+09:00
+date: "2022-09-13T12:39:00+09:00"
 tags:
-- Jenkins
-- Kubernetes
+  - Jenkins
+  - Kubernetes
 ---
-
+ 
 `additionalExternalSecrets` を使うのがよさそう
 <https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#additional-secrets>
 
@@ -21,9 +21,12 @@ tags:
 `additionalSecrets` がExternalSecretsの変更に追従されるようなPRもマージされている(4.x)
 [https://github.com/jenkinsci/helm-charts/pull/645](https://github.com/jenkinsci/helm-charts/pull/645)
 
+
 ## その他
 
 <https://jenkinsci.github.io/kubernetes-credentials-provider-plugin/>
 
 [5 ways to inject secrets from AWS into Jenkins pipelines – Tom Gregory](https://tomgregory.com/inject-secrets-from-aws-into-jenkins-pipelines/)
 AWS Secrets Manager Credentials Provider plugin というのもある
+
+

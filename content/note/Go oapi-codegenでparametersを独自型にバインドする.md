@@ -1,16 +1,16 @@
 ---
 title: Go oapi-codegenでparametersを独自型にバインドする
-date: 2023-06-08T11:27:00+09:00
+date: "2023-06-08T11:27:00+09:00"
 tags:
-- 2023/06/08
-- Go
+  - '2023/06/08'
+  - Go
 ---
 
 https://github.com/deepmap/oapi-codegen#extensions
 
-こちらに書いてあるとおりだが、 [oapi-codegen](note/oapi-codegen.md) でstringやintといった基本型以外の型にバインディングするには以下のようにする
+こちらに書いてあるとおりだが、 [[oapi-codegen]] でstringやintといった基本型以外の型にバインディングするには以下のようにする
 
-````yaml
+```yaml
 components:
   schemas:
     Fruits:
@@ -23,9 +23,9 @@ components:
       x-go-type: mypackage.Fruits
       x-go-type-import:
         path: example.com/mypackage
-````
+```
 
-````go
+```go
 package mypackage
 
 type Fruits string
@@ -35,11 +35,11 @@ const (
 	Orange Fruits = "orange"
 	Banana Fruits = "banana"
 )
-````
+```
 
 生成されるコードは以下のようにtype aliasが使われる。
 
-````go
+```go
 // Fruits
 type Fruits = mypackage.Fruits
-````
+```

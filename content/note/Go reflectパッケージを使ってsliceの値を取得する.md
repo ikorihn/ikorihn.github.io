@@ -2,12 +2,11 @@
 title: Go reflectパッケージを使ってsliceの値を取得する
 date: 2023-12-27T10:54:00+09:00
 tags:
-- Go
-lastmod: 2023-12-27T10:54:36+09:00
+  - Go
+lastmod: '2023-12-27T10:54:36+09:00'
 ---
 
-
-````go
+```go
 func SliceValue(i any) any {
 	if reflect.TypeOf(i).Kind() == reflect.Slice {
 		sliceVal := reflect.ValueOf(i)
@@ -18,11 +17,11 @@ func SliceValue(i any) any {
 
 	return nil
 }
-````
+```
 
-[Go reflectパッケージを使って関数名を取得する](note/Go%20reflectパッケージを使って関数名を取得する.md) と組み合わせると、こういうこともできる
+[[Go reflectパッケージを使って関数名を取得する]] と組み合わせると、こういうこともできる
 
-````go
+```go
 func FunctionName(i any) string {
 	if reflect.TypeOf(i).Kind() == reflect.Func {
 		return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
@@ -36,4 +35,4 @@ func FunctionName(i any) string {
 
 	return ""
 }
-````
+```

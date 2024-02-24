@@ -1,27 +1,27 @@
 ---
 title: Jenkins JobDSLをCIでvalidateしたい
-date: 2022-07-07T19:17:00+09:00
+date: "2022-07-07T19:17:00+09:00"
 tags:
-- Jenkins
-lastmod: 2022-07-07T19:17:00+09:00
+  - 'Jenkins'
+lastmod: "2022-07-07T19:17:00+09:00"
 ---
 
-[Jenkins Job DSL Plugin](note/Jenkins%20Job%20DSL%20Plugin.md)
+[[Jenkins Job DSL Plugin]]
 
 [job-dsl-plugin/Testing-DSL-Scripts.md at master · jenkinsci/job-dsl-plugin · GitHub](https://github.com/jenkinsci/job-dsl-plugin/blob/master/docs/Testing-DSL-Scripts.md)
 公式でtestの方法書いてくれたのでまずはこれを試してみる
 
 ### gradle初期化
 
-````
+```
 gradle init
-````
+```
 
 サンプルはバージョン古くて動かなかったので上げてみたけど、testディレクトリが認識されない？のか実行されないで終了する
 
 build.gradle
 
-````groovy
+```groovy
 plugins {
   id 'groovy'
 }
@@ -103,7 +103,7 @@ test {
     systemProperty 'buildDirectory', project.buildDir.absolutePath
 }
 
-````
+```
 
 ### Spock
 

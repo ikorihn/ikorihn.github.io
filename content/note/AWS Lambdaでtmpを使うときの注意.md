@@ -1,13 +1,13 @@
 ---
 title: AWS Lambdaでtmpを使うときの注意
-date: 2022-11-30T19:13:00+09:00
+date: "2022-11-30T19:13:00+09:00"
 tags:
-- Go
-- Lambda
-lastmod: 2022-11-30T19:14:00+09:00
+  - 'Go'
+  - 'Lambda'
+lastmod: "2022-11-30T19:14:00+09:00"
 ---
 
-\#Go #Lambda
+#Go #Lambda
 
 <https://aws.amazon.com/jp/about-aws/whats-new/2022/03/aws-lambda-configure-ephemeral-storage/>
 <https://cloud5.jp/lambda_tmp_directory/>
@@ -17,10 +17,11 @@ Lambdaは一定期間同じインスタンスが再利用され、`/tmp` 領域�
 zipファイルを `/tmp/` に解凍するようなことをしたとき気をつける必要がある。
 前回実行時のファイルが残っている可能性があるので、
 
-* ランダムな名称で作成する
-* 処理が終わったら削除する
+- ランダムな名称で作成する
+- 処理が終わったら削除する
 
-````
+
+```
 import (
 	"log"
 	"os"
@@ -47,4 +48,4 @@ func handler() error {
 	defer os.Remove(f.Name())
 
 }
-````
+```

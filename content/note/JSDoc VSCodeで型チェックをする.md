@@ -1,24 +1,24 @@
 ---
 title: JSDoc VSCodeで型チェックをする
-date: 2023-04-05T15:56:00+09:00
+date: "2023-04-05T15:56:00+09:00"
 tags:
-- 2023/04/05
-- JavaScript
-- TypeScript
-lastmod: 2023-04-05T15:56:00+09:00
+  - '2023/04/05'
+  - 'JavaScript'
+  - 'TypeScript'
+lastmod: "2023-04-05T15:56:00+09:00"
 ---
 
 TypeScriptを使おうとするとビルドの手間がかかるので、小さいスクリプトで手軽に型チェックだけしたいときにJSDocで簡易的に型をつけたい。
 
 1行目に `@ts-check` を書くのが重要
 
-````javascript
+```javascript
 // @ts-check
-````
+```
 
 `@typedef` などを書くことで型チェックが行われてハッピーになれる
 
-````javascript
+```javascript
 /**
  * @typedef {Object} Payload
  * @property {string} channel - channelId
@@ -56,4 +56,4 @@ function send() {
   const payload = slackPayload('Cxxxxxx', 'hello');
   // payloadを送信する処理....
 }
-````
+```

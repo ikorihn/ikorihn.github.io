@@ -1,8 +1,8 @@
 ---
 title: chromedpを使ってGoでChromeを自動操作する
-date: 2023-05-28T18:29:44+09:00
+date: "2023-05-28T18:29:44+09:00"
 tags:
-- Go
+  - Go
 ---
 
 普段の業務でWebページを開いてグラフをキャプチャしたり、勤怠入力をしたりといったルーチンの作業を自動化できないかなと思いました。
@@ -26,7 +26,7 @@ https://github.com/chromedp/examples に利用例がいくつかあるので、�
 
 デフォルトではこちらで起動します。
 
-````go
+```go
 package main
 
 import (
@@ -74,7 +74,7 @@ func main() {
 	fmt.Printf("DevToolsActivePort has %d lines\n", len(lines))
 
 }
-````
+```
 
 起動したり操作をする際は、context.Contextを渡すようにします。
 
@@ -84,13 +84,13 @@ SSOや2要素認証が必要なサイトを操作したい場合に、認証を�
 
 まず、ChromeをDevTools protocolを有効にした状態で起動します。
 
-````shell
+```shell
 $ open -a 'Google Chrome' --args --remote-debugging-port=9222
-````
+```
 
 それを指定してchromedpを実行するコードを書きます。
 
-````go
+```go
 func main() {
 	devtoolsWsURL := flag.String("-ws-url", "ws://localhost:9222", "DevTools WebSocket URL")
 	flag.Parse()
@@ -120,7 +120,7 @@ func main() {
 	}
 
 }
-````
+```
 
 ### Docker上で実行する
 
@@ -132,7 +132,7 @@ https://github.com/chromedp/docker-headless-shell
 
 chromedpを使ったアプリケーションをビルドして、 `chromedp/headless-shell` 上で実行するには以下のようにします。
 
-````dockerfile
+```dockerfile
 FROM golang:1.20 as build-env
 WORKDIR /work
 COPY go.mod go.sum .
@@ -145,12 +145,13 @@ FROM chromedp/headless-shell:latest
 
 COPY --from=build-env /work/app /usr/local/bin/app
 ENTRYPOINT ["app"]
-````
+```
 
-````shell
+```shell
 $ docker build -t myimage .
 $ docker run -d -p 9222:9222 --rm --name headless-shell --shm-size 2G myimage
-````
+```
+
 
 ## サンプル
 
@@ -158,7 +159,7 @@ $ docker run -d -p 9222:9222 --rm --name headless-shell --shm-size 2G myimage
 
 未指定の場合pngで保存されます。
 
-````go
+```go
 var img []byte
 err := chromedp.Run(taskCtx,
 	chromedp.Navigate(url),
@@ -171,14 +172,14 @@ if err != nil {
 }
 defer f.Close()
 f.Write(img)
-````
+```
 
 ### formに入力する
 
-要素を選択するselectorは、 [XPath](note/XPath.md) やCSSセレクタが使用可能です。
+要素を選択するselectorは、 [[XPath]] やCSSセレクタが使用可能です。
 CSSセレクタの場合は引数に `chromedp.ByQuery` を指定してください。
 
-````go
+```go
 err := chromedp.Run(taskCtx,
 	chromedp.Navigate(url),
 
@@ -187,14 +188,14 @@ err := chromedp.Run(taskCtx,
 	chromedp.Submit(`//*[@id="signInForm"]`),
 )
 
-````
+```
 
 ### 複雑なActionを定義する
 
 `chromedp.Run` の引数のactionsには、`chromdp.Tasks` を渡すこともできます。
 なので以下のようにTasksを生成する関数を切り出すといったことが可能です。
 
-````go
+```go
 func tasks(url string) chromedp.Tasks {
 	tasks := chromedp.Tasks{
 		chromedp.Navigate(url),
@@ -205,21 +206,21 @@ func tasks(url string) chromedp.Tasks {
 
 
 err := chromedp.Run(taskCtx, tasks())
-````
+```
 
 また、`chromedp.ActionFunc` に任意の処理を記述することが可能です。
 その際は、各処理の末尾に `.Do(ctx)` を渡します。
 
-````go
+```go
 chromedp.ActionFunc(func(ctx context.Context) error {
 	chromedp.Sleep(5 * time.Second).Do(ctx)
 	return nil
 }),
-````
+```
 
 ### ある要素のロードを待つ
 
-````go
+```go
 chromedp.ActionFunc(func(ctx context.Context) error {
 	var err error
 	queryLoading := `//div[@class="loading"]`
@@ -251,11 +252,11 @@ chromedp.ActionFunc(func(ctx context.Context) error {
 	}
 
 })
-````
+```
 
 ### ある要素のtextを取得する
 
-````go
+```go
 var users []string
 chromedp.ActionFunc(func(ctx context.Context) error {
 	for i := 0; i < 10; i++ {
@@ -265,13 +266,13 @@ chromedp.ActionFunc(func(ctx context.Context) error {
 	}
 	return nil
 })
-````
+```
 
 ### JavaScriptを実行する
 
 JavaScriptを実行するには、`chromdp.Evaluate` を使います。
 
-````go
+```go
 // #users直下の要素数を出力する
 chromedp.ActionFunc(func(ctx context.Context) error {
 	var res int
@@ -279,7 +280,7 @@ chromedp.ActionFunc(func(ctx context.Context) error {
 	fmt.Printf("users count: %d\n", res)
 	return nil
 }),
-````
+```
 
 ## Tips
 
@@ -291,6 +292,8 @@ https://github.com/chromedp/chromedp/issues/1215
 
 その場合は、[--shm-size](https://docs.docker.jp/engine/reference/run.html)で `/dev/shm` (共有メモリ)のサイズを増やしてください。
 
-````shell
+```shell
 docker run --shm-size 2g chromedp
-````
+```
+
+

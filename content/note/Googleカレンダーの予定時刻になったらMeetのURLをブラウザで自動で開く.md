@@ -1,12 +1,13 @@
 ---
 title: Googleカレンダーの予定時刻になったらMeetのURLをブラウザで自動で開く
-date: 2021-08-31T20:27:00+09:00
-lastmod: 2021-08-31T20:27:36+09:00
+date: "2021-08-31T20:27:00+09:00"
+lastmod: '2021-08-31T20:27:36+09:00'
 tags:
-- GAS
+  - 'GAS'
+
 ---
 
-\#GAS
+#GAS
 
 Google Meetでミーティングするときに、時間をすぎてしまうことがある。
 時間になったらMeetの画面を強制的に開いてくれれば、遅れなくなるはず。
@@ -18,9 +19,9 @@ Chrome拡張、Calendar API
 
 ## 方針
 
-* [Google Apps Script](note/Google%20Apps%20Script.md) でカレンダーから予定を取得
-* [Google Apps Script](note/Google%20Apps%20Script.md) をWebアプリとして公開して、JSONで取得できるようにする
-* 時間を指定して `at` コマンドでmacの `open <MeetのURL>` をセットして、ブラウザを開くようにする
+- [[Google Apps Script]] でカレンダーから予定を取得
+- [[Google Apps Script]] をWebアプリとして公開して、JSONで取得できるようにする
+- 時間を指定して `at` コマンドでmacの `open <MeetのURL>` をセットして、ブラウザを開くようにする
 
 もっといいやり方ある気はするが、とりあえずこれでやりたいことは出来た
 
@@ -30,7 +31,7 @@ GASでWebアプリを作成する
 
 ### Calendar APIを有効化
 
-[Google Apps Script](note/Google%20Apps%20Script.md) 組み込みの `CalendarApp` では情報が少なくMeetのURLがとれないため、[Calendar API](https://developers.google.com/apps-script/advanced/calendar) を使用する
+[[Google Apps Script]] 組み込みの `CalendarApp` では情報が少なくMeetのURLがとれないため、[Calendar API](https://developers.google.com/apps-script/advanced/calendar) を使用する
 
 GASのエディタ > サービス > Calendar を有効化
 
@@ -52,7 +53,7 @@ https://gas.excelspeedup.com/dayjs/
 
 Webアプリとして使えるようにするため、`doGet` を実装する
 
-````javascript:code.gs
+```javascript:code.gs
 function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(getSchedule()));
 }
@@ -94,7 +95,7 @@ function getSchedule() {
 
   return todayEvent;
 }
-````
+```
 
 ### Webアプリとして公開
 
@@ -103,8 +104,10 @@ function getSchedule() {
 ## shellで予定一覧を取得して、atコマンドで設定
 
 atコマンドが使えない場合は設定する。
-参考: [macでatコマンドを使う](note/macでatコマンドを使う.md) 
+参考: [[macでatコマンドを使う]] 
 
-````shell
+```shell
 curl -H "Authorization: Bearer $TOKEN" -L "<GASのWebアプリURL>" | jq -r '.[] | .title + "," + .start + "," + .meetUrl' | awk -F ',' '{ print system("echo open " $3 " | at -t " $2 ) }'
-````
+```
+
+

@@ -1,26 +1,27 @@
 ---
 title: JUni4のparameterized testをJUnit5に
-date: 2021-05-07T21:18:00+09:00
+date: "2021-05-07T21:18:00+09:00"
 tags:
-- Java
-- Kotlin
-lastmod: 2021-05-07T21:19:13+09:00
+  - 'Java'
+  - 'Kotlin'
+lastmod: '2021-05-07T21:19:13+09:00'
+
 ---
 
-\#Java
-\#Kotlin
+#Java
+#Kotlin
 
 ## テスト対象コード
 
-````kotlin
+```kotlin
 class Calculator() {
     fun add(x: Int, y: Int) = x + y
 }
-````
+```
 
 ## JUnit4
 
-````kotlin
+```kotlin
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.Test
@@ -46,11 +47,11 @@ internal class CalculatorTest(private val x: Int, private val y: Int, private va
         )
     }
 }
-````
+```
 
 ## JUnit5
 
-````kotlin
+```kotlin
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -69,7 +70,7 @@ internal class CalculatorTest {
     }
 
 }
-````
+```
 
 companion object を使う必要がない
 簡単なテストケースであれば `@CsvSource` が使えるため、すっきりする

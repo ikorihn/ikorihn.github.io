@@ -1,12 +1,12 @@
 ---
 title: alpineでAndroidアプリをビルドするイメージを作成
-date: 2022-07-05T18:10:00+09:00
+date: "2022-07-05T18:10:00+09:00"
 tags:
-- Docker
-lastmod: 2022-07-05T18:10:00+09:00
+  - 'Docker'
+lastmod: "2022-07-05T18:10:00+09:00"
 ---
 
-\#Docker
+#Docker
 
 ## やったこと
 
@@ -16,33 +16,33 @@ lastmod: 2022-07-05T18:10:00+09:00
 [Androidアプリのビルド環境Dockerイメージ制作 - Qiita](https://qiita.com/kaihei777/items/1a94a8a329c8fb67d421)
 [DockerでAndroidアプリのビルド環境を作る - Qiita](https://qiita.com/kichinaga/items/66872432747e76d72af7)
 
-* Android SDKをインストールしたコンテナを公開してしまうとライセンス違反になるので公開はしない
-* ベースイメージはalpineをつかいサイズを小さくする
+- Android SDKをインストールしたコンテナを公開してしまうとライセンス違反になるので公開はしない
+- ベースイメージはalpineをつかいサイズを小さくする
 
 ### glibcをインストール
 
 [sgerrand/alpine-pkg-glibc: A glibc compatibility layer package for Alpine Linux](https://github.com/sgerrand/alpine-pkg-glibc)
 
-````shell
+```shell
 wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
 wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk
 apk add glibc-2.35-r0.apk
-````
+```
 
 localeの指定が必要ならglibc-i18nを入れる
 
-````shell
+```shell
 wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-bin-2.35-r0.apk
 wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-i18n-2.35-r0.apk
 apk add glibc-bin-2.35-r0.apk glibc-i18n-2.35-r0.apk
 /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
-````
+```
 
 Dockerfileは、alpineにglibcをインストールしたイメージ https://hub.docker.com/r/frolvlad/alpine-glibc/ を参考にする
 
 [docker-alpine-glibc/Dockerfile at master · Docker-Hub-frolvlad/docker-alpine-glibc](https://github.com/Docker-Hub-frolvlad/docker-alpine-glibc/blob/master/Dockerfile)
 
-````Dockerfile
+```Dockerfile
 ENV LANG=C.UTF-8
 
 # install alpine-pkg-glibc apk and set C.UTF-8 locale as default
@@ -59,14 +59,14 @@ RUN BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" &&
     rm "/root/.wget-hsts" && \
     apk del .build-dependencies && \
     rm "$BASE_FILE" "$BIN_FILE" "$I18N_FILE"
-````
+```
 
 2.35でバグがあり、/lib64にglibcではなくmuslのまま配置されるので2.34に下げた
 [2.35-r0: glibc compatibility regression due to removal of /lib64 · Issue #181 · sgerrand/alpine-pkg-glibc · GitHub](https://github.com/sgerrand/alpine-pkg-glibc/issues/181)
 
 ## 完成系
 
-````Dockerfile
+```Dockerfile
 FROM alpine:3.16
 
 ARG ANDROID_SDK_TOOLS="8512546"
@@ -107,4 +107,4 @@ RUN FILE=commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip && \
     
 RUN mkdir /workspace
 WORKDIR /workspace
-````
+```

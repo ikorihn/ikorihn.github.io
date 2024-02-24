@@ -2,11 +2,11 @@
 title: OpenTelemetry CollectorとJeagerでテレメトリを収集・可視化してみる
 date: 2023-12-20T17:59:00+09:00
 tags:
-- Go
-- OpenTelemetry
+  - Go
+  - OpenTelemetry
 ---
 
-[OpenTelemetry](note/OpenTelemetry.md) ではアプリケーションから直接トレーシングサービスにexportする以外にもCollectorを挟むことができる。
+[[OpenTelemetry]] ではアプリケーションから直接トレーシングサービスにexportする以外にもCollectorを挟むことができる。
 https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/examples/demo の図がわかりやすい。
 
 これによってアプリケーションのコードはexport先を意識しなくてすみ、データの変換やsamplingをしたり、複数のexport先を設定したりと言ったことが可能になる。
@@ -16,7 +16,7 @@ https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exam
 https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/examples/demo/docker-compose.yaml
 を参考にして最小限の構成にする
 
-````yaml:compose.yaml
+```yaml:compose.yaml
 version: "3"
 
 services:
@@ -40,7 +40,7 @@ services:
       - 4317:4317 # OTLP gRPC receiver
     depends_on:
       - jaeger
-````
+```
 
 Jaegerの各portの意味はこちらで確認する。
 https://www.jaegertracing.io/docs/1.52/getting-started/
@@ -50,7 +50,7 @@ https://www.jaegertracing.io/docs/1.52/getting-started/
 https://opentelemetry.io/docs/collector/configuration/
 を参考に `otel-collector-config.yaml` を作成する
 
-````yaml:otel-collector-config.yaml
+```yaml:otel-collector-config.yaml
 receivers:
   otlp:
     protocols:
@@ -81,9 +81,9 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [otlp]
-````
+```
 
-[Jaeger](note/Jaeger.md) がOTLPをサポートしたことに伴い、
+[[Jaeger]] がOTLPをサポートしたことに伴い、
 [opentelemetry-collector v0.86.0](https://github.com/open-telemetry/opentelemetry-collector-contrib/releases/tag/v0.86.0) で
 [jaeger exporter は削除され](https://github.com/open-telemetry/opentelemetry-specification/pull/2858)、otlp exporterでexportできるようになっている。
 
@@ -95,7 +95,7 @@ service:
 [Getting Started](https://opentelemetry.io/docs/instrumentation/go/getting-started/) のHTTP serverのコードをベースにする。
 こちらのコードをコピペしてhttp serverを作ったら、`otel.go` のtraceExporterを次のように書き換え、Collectorに送信されるようにする
 
-````go
+```go
 func newTraceProvider(ctx context.Context, res *resource.Resource) (*trace.TracerProvider, error) {
 	traceExporter, err := otlptracegrpc.New(ctx) // 向き先の設定などもこちらで行える。デフォルトはlocalhost:4317
 	if err != nil {
@@ -110,30 +110,30 @@ func newTraceProvider(ctx context.Context, res *resource.Resource) (*trace.Trace
 	)
 	return traceProvider, nil
 }
-````
+```
 
 OTLP trace exporter using gRPC をgo getで入れる
 
-````shell
+```shell
 go get go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc
-````
+```
 
-[Go](note/Go.md) のexporterの使い方はこちら
+[[Go]] のexporterの使い方はこちら
 https://opentelemetry.io/docs/instrumentation/go/exporters/
 
 ## 実行してみる
 
-````shell
+```shell
 ❯ go run ./
 
 ❯ curl 'http://localhost:1323/rolldice'
-````
+```
 
 Jaeger (http://localhost:16686) できちんと送信されているのが確認できた
 
-![](note/Pasted-image-20231220073520.png)
+![[note/Pasted-image-20231220073520.png|]]
 
 ## まとめ
 
 Collectorを挟むとアプリケーションは楽に実装できそう。
-[Prometheus](note/Prometheus.md) とJaeger両方に送信するってことも簡単なのでよさげ
+[[Prometheus]] とJaeger両方に送信するってことも簡単なのでよさげ

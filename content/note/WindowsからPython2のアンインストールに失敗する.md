@@ -1,8 +1,8 @@
 ---
 title: WindowsからPython2のアンインストールに失敗する
-date: 2021-05-09T15:30:00+09:00
+date: "2021-05-09T15:30:00+09:00"
 tags:
-- Windows
+  - 'Windows'
 ---
 
 https://www.python.org/downloads/

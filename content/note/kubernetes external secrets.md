@@ -1,12 +1,12 @@
 ---
 title: kubernetes external secrets
-date: 2022-09-13T12:37:00+09:00
+date: "2022-09-13T12:37:00+09:00"
 tags:
-- Kubernetes
-lastmod: 2022-09-13T12:37:00+09:00
+  - 'Kubernetes'
+lastmod: "2022-09-13T12:37:00+09:00"
 ---
 
-\#Kubernetes
+#Kubernetes
 
 [AWS Secrets Managerを使用したKubernetes Secret管理 | BTC Cloud](https://cloud.bigtreetc.com/column/eks-secrets/)
 

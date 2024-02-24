@@ -2,7 +2,7 @@
 title: zsh-abbr
 date: 2023-11-14T00:02:00+09:00
 tags:
-- zsh
+  - zsh
 lastmod: 2023-11-14T00:02:19+09:00
 ---
 

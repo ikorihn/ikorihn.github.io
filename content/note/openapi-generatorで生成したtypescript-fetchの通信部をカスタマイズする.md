@@ -2,23 +2,23 @@
 title: openapi-generatorで生成したtypescript-fetchの通信部をカスタマイズする
 date: 2024-01-06T15:15:00+09:00
 tags:
-- TypeScript
-- OpenAPI
+  - TypeScript
+  - OpenAPI
 ---
 
-[OpenAPI Generator](note/OpenAPI%20Generator.md) の `typescript-fetch` で生成されたAPIのクライアントコードには `Middleware` の仕組みや、`fetch` のラッパーをインジェクトする仕組みが備わっている
+[[OpenAPI Generator]] の `typescript-fetch` で生成されたAPIのクライアントコードには `Middleware` の仕組みや、`fetch` のラッパーをインジェクトする仕組みが備わっている
 
-Middlwareの設定はこちら -> [openapi-generatorで生成したtypescript-fetchのクライアントにmiddlewareを設定する](note/openapi-generatorで生成したtypescript-fetchのクライアントにmiddlewareを設定する.md)
+Middlwareの設定はこちら -> [[openapi-generatorで生成したtypescript-fetchのクライアントにmiddlewareを設定する]]
 
 ラッパーの型定義はこちらのようになっている
 
-````typescript
+```typescript
 export type FetchAPI = WindowOrWorkerGlobalScope['fetch']
-````
+```
 
 たとえば次のように、Unauthorizedのときに再認証してリトライするといった処理を書いたりできる。
 
-````typescript
+```typescript
 const fetchRetry = (): FetchAPI => {
   return async (input, init) => {
     let response: Response | undefined = undefined
@@ -72,4 +72,4 @@ const client = new MyApi(
     headers: { Authorization: `Bearer ${token}` },
   })
 )
-````
+```

@@ -1,29 +1,24 @@
 ---
 title: fzf.vimの使い方
-date: 2020-09-19T20:36:00+09:00
-tags:
-- vim
-- shell
+date: "2020-09-19T20:36:00+09:00"
+tags: ['vim', 'shell']
 ---
 
 ## fzf
-
 https://github.com/jethrokuan/fzf#usage
-
-* `FZF_DEFAULT_COMMAND` でfzf実行時に使用するコマンドを指定
-* ripgrep が高速なのでこんな風にするといい `FZF_DEFAULT_COMMAND=rg --hidden -g "!.git/*" -l ""`
-* `FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'` で、`ctrl-t` を押すとfzfが実行される
-* `FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'` プレビューオプション
+- `FZF_DEFAULT_COMMAND` でfzf実行時に使用するコマンドを指定
+- ripgrep が高速なのでこんな風にするといい `FZF_DEFAULT_COMMAND=rg --hidden -g "!.git/*" -l ""`
+- `FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'` で、`ctrl-t` を押すとfzfが実行される
+- `FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'` プレビューオプション
 
 ## fzf.vim
+- Rgの結果をquickfixに送る
+  - https://github.com/junegunn/fzf.vim/issues/586
+  - `shift` や `alt-a` `alt-d` で全選択・解除してEnter
+  - QuickFix の操作は `:cp` や `:cn`、ウィンドウを開くのは `:cwindow` `:cclose`
+- Filesの結果は `shift` でしか選択できない
 
-* Rgの結果をquickfixに送る
-  * https://github.com/junegunn/fzf.vim/issues/586
-  * `shift` や `alt-a` `alt-d` で全選択・解除してEnter
-  * QuickFix の操作は `:cp` や `:cn`、ウィンドウを開くのは `:cwindow` `:cclose`
-* Filesの結果は `shift` でしか選択できない
-
-````
+```
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = ['fzf']
@@ -59,4 +54,4 @@ hook_add = '''
     nnoremap <C-j><C-b> :Buffers<CR>
     nnoremap <C-j>. :<C-u>Files ~/.dotfiles<CR>
 '''
-````
+```

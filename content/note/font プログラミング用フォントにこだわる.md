@@ -1,20 +1,20 @@
 ---
 title: font プログラミング用フォントにこだわる
-date: 2021-05-31T10:36:00+09:00
+date: '2021-05-31T10:36:00+09:00'
 tags:
-- font
+  - 'font'
 ---
 
 ## 絶対条件
 
-* monospace
-* 0とO、1とlとIなどが見分けやすい
-* マルチバイト文字がくずれない
+- monospace
+- 0とO、1とlとIなどが見分けやすい
+- マルチバイト文字がくずれない
 
 ## おすすめフォント
 
-* Cica
-* HackGen
+- Cica
+- HackGen
 
 ## 各ソフトに設定する
 
@@ -24,7 +24,7 @@ tags:
 
 bitbucket
 
-````css
+```css
 body * {
     font-family: Cica;
 }
@@ -39,7 +39,7 @@ body * {
     font-size: 14px;
 }
 */
-````
+```
 
 ### Intellij IDEA
 

@@ -1,11 +1,11 @@
 ---
 title: vscode拡張
-date: 2021-07-08T11:17:00+09:00
+date: "2021-07-08T11:17:00+09:00"
 tags:
-- vscode
+  - 'vscode'
 ---
 
-[VisualStudio Code](note/VisualStudio%20Code.md) の拡張機能
+[[VisualStudio Code]] の拡張機能
 
 ## Settings Sync
 
@@ -18,15 +18,15 @@ tags:
 プロジェクト一覧にアクセスしやすくなる
 標準でもOpenやOpen Recentなどからフォルダを開けるが、これを使うとよく使うプロジェクトや、git管理のディレクトリをすぐ開くことができる
 
-* `Project Manager: Save Project` 現在のwindowをprojectに保存する
-* `Project Manager: Edit Project` プロジェクト一覧を手で編集する(`projects.json`)
-  * `"projectManager.projectsLocation": "~/vscode/"` setting.jsonで場所を変更することもできる
-* `Project Manager: List Projects to Open` プロジェクト一覧を表示して開く
-  * 入力で絞り込むことができるので、開くときはこちらが便利
-* `Project Manager: List Projects to Open in New Window` プロジェクト一覧を表示して新しいウィンドウで開く
-* `Project Manager: Refresh Projects` Refresh the cached projects
+-   `Project Manager: Save Project` 現在のwindowをprojectに保存する
+-   `Project Manager: Edit Project` プロジェクト一覧を手で編集する(`projects.json`)
+    -  `"projectManager.projectsLocation": "~/vscode/"` setting.jsonで場所を変更することもできる
+-   `Project Manager: List Projects to Open` プロジェクト一覧を表示して開く
+    -   入力で絞り込むことができるので、開くときはこちらが便利
+-   `Project Manager: List Projects to Open in New Window` プロジェクト一覧を表示して新しいウィンドウで開く
+-   `Project Manager: Refresh Projects` Refresh the cached projects
 
 ### Git管理のディレクトリ一覧を表示
 
 settings.jsonに、gitリポジトリ一覧のあるルートディレクトリを指定する
-`"projectManager.git.baseFolders": "~/repos"`
+`"projectManager.git.baseFolders": "~/repos"` 

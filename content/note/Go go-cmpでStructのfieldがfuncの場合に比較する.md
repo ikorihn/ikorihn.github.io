@@ -2,19 +2,19 @@
 title: Go go-cmpでStructのfieldがfuncの場合に比較する
 date: 2023-12-27T11:23:00+09:00
 tags:
-- Go
+  - Go
 ---
 
-[testify](note/go_testifyを使う.md) でfieldにfunc型を含むstructを `assert.Equal` で比較すると、Diffにはなにも表れないがテストは失敗する。
-https://github.com/stretchr/testify/issues/1146 によると、ライブラリの都合ではなく [Go](note/Go.md) の仕様としてfunc型の比較はお互いがnilかどうかしかチェックできず、それ以上の比較は行えないとなっている。
+[[go_testifyを使う|testify]] でfieldにfunc型を含むstructを `assert.Equal` で比較すると、Diffにはなにも表れないがテストは失敗する。
+https://github.com/stretchr/testify/issues/1146 によると、ライブラリの都合ではなく [[Go]] の仕様としてfunc型の比較はお互いがnilかどうかしかチェックできず、それ以上の比較は行えないとなっている。
 
 funcの名前だけでも比較できればとりあえず十分かなと思ったので、名前を比較する方法を調査する。
 
-testifyでは難しそうなので、 [go-cmp](note/go-cmp.md) を使うことにする。
+testifyでは難しそうなので、 [[go-cmp]] を使うことにする。
 
 ## 普通に比較すると失敗する
 
-````go
+```go
 import (
 	"testing"
 
@@ -44,9 +44,9 @@ func TestParam(t *testing.T) {
 		t.Errorf("Param is mismatch (-got +want):\n%s", diff)
 	}
 }
-````
+```
 
-````shell
+```shell
 $ go test ./
 
 === RUN   TestParam
@@ -58,26 +58,26 @@ $ go test ./
 --- FAIL: TestParam (0.00s)
 FAIL
 exit status 1
-````
+```
 
 このように、ポインタのアドレスは同じで見た目的には差分はないのだが、diff ありとして失敗する。
 
 `assert.Equal(t, want, got)` としても同じようになる。
 
-````
+```
 Error:          Not equal:
                 expected: &Param{Condition:(func(int) bool)(0x10091e1c0)}
                 actual  : &Param{Condition:(func(int) bool)(0x10091e1c0)}
                 Diff:
 Test:           TestParam
-````
+```
 
 ## go-cmpのカスタムの比較処理を書く
 
-[go-cmpでカスタムの比較処理](note/go-cmpでカスタムの比較処理を書く.md) を書いてあげれば良さそう。
-[Go reflectパッケージを使って関数名を取得する](note/Go%20reflectパッケージを使って関数名を取得する.md) を応用して、以下のようにした。
+[[go-cmpでカスタムの比較処理を書く|go-cmpでカスタムの比較処理]] を書いてあげれば良さそう。
+[[Go reflectパッケージを使って関数名を取得する]] を応用して、以下のようにした。
 
-````go
+```go
 import (
 	"reflect"
 	"runtime"
@@ -160,23 +160,23 @@ func TestParam(t *testing.T) {
 		t.Errorf("Param is mismatch (-got +want):\n%s", diff)
 	}
 }
-````
+```
 
 **これで go test を実行するとテストが通るようになった**
 
-````shell
+```shell
 $ go test ./
 === RUN   TestParam
 --- PASS: TestParam (0.00s)
 PASS
 ok
-````
+```
 
 ## 改良
 
 もう少し調べたら、sliceの中身はgo-cmpの方で展開してくれるので、`Kind() == reflect.Func` の場合のみTransformを行っても問題なかった。
 
-````go
+```go
 import (
 	"reflect"
 	"runtime"
@@ -239,11 +239,11 @@ func TestParam(t *testing.T) {
 		t.Errorf("Param is mismatch (-got +want):\n%s", diff)
 	}
 }
-````
+```
 
 一応、ちゃんと `FuncName` が実行されているか確認したところちゃんと通っていた。
 
-````go
+```go
 // ....
 			cmp.Transformer("FuncName", func(i any) string {
 				funcName := runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
@@ -251,9 +251,9 @@ func TestParam(t *testing.T) {
 				return funcName
 			}),
 // ....
-````
+```
 
-````shell
+```shell
 ❯ go test -v -run TestParam$
 
 === RUN   TestParam
@@ -270,4 +270,4 @@ funcName=TestParam.func2
 funcName=TestParam.func2
 --- PASS: TestParam (0.00s)
 PASS
-````
+```

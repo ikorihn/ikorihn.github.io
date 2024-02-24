@@ -1,12 +1,12 @@
 ---
 title: Kubernetes limitsを指定したPodで動かしているプロセスがメモリ超過してもevictされずプロセスがkillされる
-date: 2023-01-26T15:43:00+09:00
+date: "2023-01-26T15:43:00+09:00"
 tags:
-- 2023/01/26
-- Kubernetes
+  - '2023/01/26'
+  - 'Kubernetes'
 ---
 
-[kubernetes resourcesの設定値について Kubernetes](note/kubernetes%20resourcesの設定値について%20Kubernetes.md)
+[[kubernetes resourcesの設定値について Kubernetes]]
 
 `command: ['sleep', '3600']` とかで起動したpodにexecで入って `yes` コマンド等で負荷をかけても、`yes` のプロセスがkillされるだけでpodはevictされなかった。
 ドキュメント読む限りpodがevictされるのかと思ったがそうじゃない？
@@ -19,7 +19,7 @@ https://dunkshoot.hatenablog.com/entry/kubernetes_manage_resource#limits-%E3%82%
 killされた理由がどこかに出力されているのかはわからなかった。
 describe pod すると負荷かけたコンテナのほうにOOMKilledが出ているのはわかった
 
-````yaml
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -56,4 +56,4 @@ spec:
           limits:
             cpu: "200m"
             memory: "128M"
-````
+```

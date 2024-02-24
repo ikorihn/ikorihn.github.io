@@ -1,24 +1,24 @@
 ---
 title: Git fatal detected dubious ownership in repositoryエラー
-date: 2022-12-28T16:39:00+09:00
+date: "2022-12-28T16:39:00+09:00"
 tags:
-- git
-lastmod: 2022-12-28T16:39:00+09:00
+  - 'git'
+lastmod: "2022-12-28T16:39:00+09:00"
 ---
 
-\#git
+#git
 
 ## 事象
 
 gitの操作時に以下のメッセージが出て困った。
 
-````shell
+```shell
 $ git fetch
 fatal: detected dubious ownership in repository at '/path/to/repo'
 To add an exception for this directory, call:
 
     git config --global --add safe.directory /path/to/repo
-````
+```
 
 ## 原因
 
