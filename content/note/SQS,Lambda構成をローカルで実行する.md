@@ -61,7 +61,7 @@ Resources:
           Type: SQS
           Properties:
             Queue: arn:aws:sqs:ap-northeast-1:000000000000:my-queue
-    ```
+```
 
 デプロイしてみる
 ```shell
@@ -109,9 +109,22 @@ Lambda Functionを作成する
 ```shell
 $ zip app app.py
 $ awslocal lambda create-function --function-name my-app --runtime python3.9 --role arn:aws:iam::000000000000:role/my-app --handler app.lambda_handler --zip-file fileb://app.zip
+# 起動後に、作成済みの関数を更新したい場合はこちら
+$ awslocal lambda update-function-code --function-name my-app --zip-file fileb://app.zip
+
+# 作成or更新する関数を作っちゃうのもあり
+function create_or_update_lambda_function() {
+  FUNCTION_NAME=$1
+
+  if ! awslocal lambda create-function --function-name my-app --runtime python3.9 --role arn:aws:iam::000000000000:role/my-app --handler app.lambda_handler --zip-file fileb://app.zip; then
+    awslocal lambda update-function-code --function-name my-app --zip-file fileb://app.zip
+  fi
+}
 
 # SQSと紐付ける
-$ awslocal lambda create-event-source-mapping --function-name my-app --event-source-arn arn:aws:sqs:ap-northeast-1:000000000000:my-queue
+$ if [[ "$(awslocal lambda list-event-source-mappings --query "EventSourceMappings[?contains(EventSourceArn, 'my-queue')]")" == "[]" ]]; then
+    awslocal lambda create-event-source-mapping --function-name my-app --event-source-arn arn:aws:sqs:ap-northeast-1:000000000000:my-queue
+fi
 ```
 
 ## 動作確認
