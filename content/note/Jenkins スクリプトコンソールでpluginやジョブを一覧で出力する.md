@@ -8,20 +8,25 @@ tags:
 ## plugin一覧を出力する
 
 ```groovy
+// インストールされているプラグイン一覧を取得する
 def pluginList = new ArrayList(Jenkins.instance.pluginManager.plugins)
 pluginList.sort { it.getShortName() }.each{
   plugin -> 
     println ("${plugin.getShortName()}:${plugin.getVersion()}")
 }
 
-// アップデート一覧
+// アップデート一覧を出力する
 UpdateCenter uc = Jenkins.get().updateCenter
+// UpdateSitesのデータ更新
+uc.sites.each { site ->
+    site.updateDirectlyNow()
+}
 
 def plugins = Jenkins.get().pluginManager.plugins
 plugins.toSorted { l,r -> l.shortName < r.shortName ? -1 : 1 }.collect{ plugin -> 
   UpdateSite.Plugin updateSitePlugin = uc.getPlugin(plugin.shortName, plugin.versionNumber)
 
-  if (plugin.hasUpdate() && false) {
+  if (plugin.hasUpdate()) {
     return """-- ${plugin.shortName}:${plugin.version}
 +- ${plugin.shortName}:${updateSitePlugin.version}"""
   } else {

@@ -4,11 +4,16 @@ date: 2024-03-07T18:50:00+09:00
 tags:
   - AWS
   - sam
+  - Lambda
 ---
+
+[[SAM]] は [[CloudFormation]] の拡張であり、通常CloudFormationでは設定がややこしい項目を簡単に設定できるようになっている。
 
 https://github.com/aws/serverless-application-model/blob/master/versions/2016-10-31.md#s3
 にあるとおり、[[SAM]] では作成済みバケットに紐づくトリガーは設定することができず、template.yamlにバケットの定義も含める必要がある。
 これは [[CloudFormation]] の制約のようなのでどうすることもできなさそうだ。
+
+[Cannot reference existing bucket as event source · Issue #1061 · aws/aws-sam-cli · GitHub](https://github.com/aws/aws-sam-cli/issues/1061)
 
 ## workaround
 
@@ -45,7 +50,8 @@ aws s3api \
 
 ## 他の手段
 
-[CloudFormation 一撃で既存のS3バケットでAWS LambdaのS3のオブジェクト作成通知を追加作成してみた | DevelopersIO](https://dev.classmethod.jp/articles/cloudformation-add-s3-notification-lambda/)
+- [Create Amazon S3 notification configurations for Lambda on S3 buckets | AWS re:Post](https://repost.aws/knowledge-center/cloudformation-s3-notification-lambda)
+- [CloudFormation 一撃で既存のS3バケットでAWS LambdaのS3のオブジェクト作成通知を追加作成してみた | DevelopersIO](https://dev.classmethod.jp/articles/cloudformation-add-s3-notification-lambda/)
 
 S3通知設定を更新するLambdaを一緒にデプロイするということのようだ。パワープレイ💪感あるが公式ブログでも紹介されているし問題ないのかな
 
