@@ -5,9 +5,10 @@ import BodyConstructor from "../../components/Body"
 import { pageResources, renderPage } from "../../components/renderPage"
 import { ProcessedContent, defaultProcessedContent } from "../vfile"
 import { FullPageLayout } from "../../cfg"
-import { FilePath, FullSlug, _stripSlashes, joinSegments, pathToRoot } from "../../util/path"
+import { FilePath, FullSlug, joinSegments, pathToRoot } from "../../util/path"
 import { defaultListPageLayout, sharedPageComponents } from "../../../quartz.layout"
 import ArchiveContent from "../../components/pages/ArchiveContent"
+import { write } from "./helpers"
 
 export const ArchivePage: QuartzEmitterPlugin<FullPageLayout> = (userOpts) => {
   const opts: FullPageLayout = {
@@ -26,7 +27,7 @@ export const ArchivePage: QuartzEmitterPlugin<FullPageLayout> = (userOpts) => {
     getQuartzComponents() {
       return [Head, Header, Body, ...header, ...beforeBody, pageBody, ...left, ...right, Footer]
     },
-    async emit(ctx, content, resources, emit): Promise<FilePath[]> {
+    async emit(ctx, content, resources): Promise<FilePath[]> {
       const fps: FilePath[] = []
       const allFiles = content.map((c) => c[1].data)
       const cfg = ctx.cfg.configuration
@@ -48,8 +49,8 @@ export const ArchivePage: QuartzEmitterPlugin<FullPageLayout> = (userOpts) => {
       )
 
       for (const [tree, file] of content) {
-        const slug = file.data.slug!
-        if (slug.startsWith("archive/")) {
+        const slug = file.data.slug
+        if (slug?.startsWith("archive/")) {
           yearPages[slug] = [tree, file]
         }
       }
@@ -59,6 +60,7 @@ export const ArchivePage: QuartzEmitterPlugin<FullPageLayout> = (userOpts) => {
         const externalResources = pageResources(pathToRoot(slug), resources)
         const [tree, file] = yearPages[year]
         const componentData: QuartzComponentProps = {
+          ctx,
           fileData: file.data,
           externalResources,
           cfg,
@@ -67,8 +69,9 @@ export const ArchivePage: QuartzEmitterPlugin<FullPageLayout> = (userOpts) => {
           allFiles,
         }
 
-        const content = renderPage(slug, componentData, opts, externalResources)
-        const fp = await emit({
+        const content = renderPage(cfg, slug, componentData, opts, externalResources)
+        const fp = await write({
+          ctx,
           content,
           slug: file.data.slug!,
           ext: ".html",

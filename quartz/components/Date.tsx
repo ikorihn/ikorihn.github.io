@@ -20,11 +20,10 @@ export function getDate(cfg: GlobalConfiguration, data: QuartzPluginData): Date 
 }
 
 export function formatDate(d: Date, locale: ValidLocale = "en-US"): string {
-  const y = d.getFullYear()
-  const m = ("00" + (d.getMonth() + 1)).slice(-2)
-  const day = ("00" + d.getDate()).slice(-2)
-
-  return `${y}-${m}-${day}`
+  const year = d.getFullYear()
+  const month = `0${d.getMonth() + 1}`.slice(-2)
+  const day = `0${d.getDate()}`.slice(-2)
+  return `${year}-${month}-${day}`
 }
 
 export function Date({ date, locale, updated }: Props) {
