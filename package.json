@@ -114,7 +114,7 @@
     "esbuild": "^0.19.9",
     "prettier": "^3.2.4",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.5",
     "unist-util-inspect": "^8.0.0",
     "unist-util-is": "^6.0.0"
   }
