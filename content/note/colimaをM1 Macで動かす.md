@@ -13,14 +13,30 @@ VMはlimaを使っている。
 ## port mappingを有効にするには
 
 macOSではデフォルトで、VMに到達可能なIPアドレスが振られないようになっている。
-これを有効にしないと、`-p` をつけてdocker runしてもportがマッピングされない。
+このとき、 `docker run -p 80:80` などとしてもportがマッピングされないのでホストからコンテナ内のアプリケーションに接続できない。
 
-ただし有効にするにはルート権限が必要で、colimaの起動も遅くなる。
+この設定を有効にするとマッピングされるようになる。
+ただしルート権限が必要で、colimaの起動も遅くなる。
 
 https://github.com/abiosoft/colima/blob/main/docs/FAQ.md#enable-reachable-ip-address
 
-```diff title:~/.colima/default/colima.yaml
+設定ファイル `~/.colima/default/colima.yaml` に `network.address=true` を記載する。
+
+```diff
 network:
 -  address: false
 +  address: true
+```
+
+## コンテナ内からhostにアクセスするには
+
+Docker Desktopでは `host.docker.internal` のFQDNでコンテナ内部からホストにアクセスできる。
+colimaの場合、デフォルトではこのFQDNではなく `host.lima.internal` を使用する。
+
+`host.docker.internal` を使いたい場合は、設定ファイルでリゾルブ先を指定すればよい
+
+```yaml
+network:
+  dnsHosts:
+    host.docker.internal: host.lima.internal
 ```

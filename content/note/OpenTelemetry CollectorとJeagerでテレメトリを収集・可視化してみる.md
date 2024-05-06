@@ -6,10 +6,7 @@ tags:
   - OpenTelemetry
 ---
 
-[[OpenTelemetry]] ではアプリケーションから直接トレーシングサービスにexportする以外にもCollectorを挟むことができる。
-https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/examples/demo の図がわかりやすい。
-
-これによってアプリケーションのコードはexport先を意識しなくてすみ、データの変換やsamplingをしたり、複数のexport先を設定したりと言ったことが可能になる。
+[[OpenTelemetry Collector]] と [[Jeager]] をDocker Composeで立てて手軽に可視化してみる試み
 
 ## Docker compose
 
