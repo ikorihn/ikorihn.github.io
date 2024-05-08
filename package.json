@@ -48,7 +48,7 @@
     "github-slugger": "^2.0.0",
     "globby": "^14.0.1",
     "gray-matter": "^4.0.3",
-    "hast-util-to-html": "^9.0.0",
+    "hast-util-to-html": "^9.0.1",
     "hast-util-to-jsx-runtime": "^2.3.0",
     "hast-util-to-string": "^3.0.0",
     "he": "^1.2.0",
@@ -61,8 +61,8 @@
     "micromorph": "^0.4.5",
     "node-fetch": "^3.3.2",
     "open-graph-scraper": "^6.2.2",
-    "preact": "^10.20.1",
-    "preact-render-to-string": "^6.4.0",
+    "preact": "^10.21.0",
+    "preact-render-to-string": "^6.4.2",
     "pretty-bytes": "^6.1.1",
     "pretty-time": "^1.1.0",
     "reading-time": "^1.5.0",
@@ -94,7 +94,7 @@
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.1",
     "workerpool": "^9.1.0",
-    "ws": "^8.15.1",
+    "ws": "^8.17.0",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
@@ -114,7 +114,7 @@
     "esbuild": "^0.19.9",
     "prettier": "^3.2.4",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.5",
     "unist-util-inspect": "^8.0.0",
     "unist-util-is": "^6.0.0"
   }
