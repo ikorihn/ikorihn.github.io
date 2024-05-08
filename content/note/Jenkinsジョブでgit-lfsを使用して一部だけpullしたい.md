@@ -16,9 +16,9 @@ Jenkinsのgit pluginで一部だけgit lfs pullしたい
 
 ## わかっていること
 
-- `git lfs pull -I "$target"` で対象のディレクトリ・ファイルだけダウンロードできる
-- `git lfs install --skip-smudge` しておかないと、最初のcheckoutで全部`git lfs pull`しようとするっぽい
-- JenkinsのGit Pluginがcloneするより前に `git lfs install --skip-smudge`
+-   `git lfs pull -I "$target"` で対象のディレクトリ・ファイルだけダウンロードできる
+-   `git lfs install --skip-smudge` しておかないと、最初のcheckoutで全部`git lfs pull`しようとするっぽい
+-   JenkinsのGit Pluginがcloneするより前に `git lfs install --skip-smudge`
 
 ## 結果
 
