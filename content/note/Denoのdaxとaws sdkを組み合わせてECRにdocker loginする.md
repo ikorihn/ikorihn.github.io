@@ -32,3 +32,4 @@ export async function loginDocker(ecrClient: ecr.ECRClient) {
   await $`docker login --username AWS --password ${password} ${AWS_ACCOUNT}.dkr.ecr.ap-northeast-1.amazonaws.com`;
 }
 ```
+

@@ -3,6 +3,7 @@ title: 巨大なGitリポジトリを高速にcloneする技術
 date: 2024-04-09T18:16:00+09:00
 tags:
   - git
+lastmod: 2024-05-13T12:39:50+09:00
 ---
 
 Gitリポジトリを長年運用していると、徐々に容量が大きくなっていきがちです。
@@ -62,6 +63,48 @@ checkout scm: scmGit(
         refspec: "+refs/heads/${params.BRANCH}:refs/remotes/origin/${params.BRANCH}",
     ]],
 )
+```
+
+
+## Sparse checkoutの効果
+
+sparse checkoutは必要なファイルやディレクトリのみをチェックアウトする機能です。
+
+clone時に `--no-checkout` でclone後にファイルを展開されないようにする
+
+```shell
+❯ git clone --depth=1 --no-checkout git@github.com/org/bigrepo.git bigrepo_shallow_sparse
+```
+
+clone後にディレクトリに入って、 `sparse-checkout set` でチェックアウトする対象を指定して、`checkout` する
+
+```shell
+❯ cd bigrepo_shallow_sparse
+❯ git sparse-checkout set work_dir
+❯ git checkout .
+```
+
+サイズを比較するとチェックアウトしていない分容量を節約できています。
+しかしこれはあくまでワーキングツリーを展開していないことによる差分で、`Receiving objects` の行を見ればわかるようにダウンロードするサイズは変わっていないことに注意してください。
+つまり通信時間は変わりません。
+
+```shell
+❯ time git clone --depth=1 git@github.com/org/bigrepo.git bigrepo_shallow
+Cloning into 'bigrepo_shallow'...
+Receiving objects: 100% (3562/3562), 16.78 MiB | 3.63 MiB/s, done.
+Resolving deltas: 100% (1282/1282), done.
+Updating files: 100% (6048/6048), done.
+git clone --depth=1 git@github.com/org/bigrepo.git  1.20s user 0.94s system 22% cpu 9.448 total
+
+❯ time git clone --depth=1 --no-checkout git@github.com/org/bigrepo.git bigrepo_shallow_sparse
+Cloning into 'bigrepo_shallow_sparse'...
+Receiving objects: 100% (3562/3562), 16.78 MiB | 2.87 MiB/s, done.
+Resolving deltas: 100% (1282/1282), done.
+git clone --depth=1 --no-checkout    0.86s user 0.27s system 12% cpu 9.063 total
+
+❯ du -sh ./*
+173M    ./bigrepo_shallow
+18M     ./bigrepo_shallow_sparse
 ```
 
 
