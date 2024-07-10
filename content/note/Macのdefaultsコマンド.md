@@ -10,6 +10,9 @@ lastmod: '2021-08-11T11:27:05+09:00'
     -   <https://github.com/ulwlu/dotfiles/blob/master/system/macos.sh>
 -   <https://github.com/ryuichi1208/dotfiles/blob/master/mac/macos/.macos>
 
+非公式リスト&サンプル集
+- [macOS defaults list](https://macos-defaults.com)
+
 ## 現在の設定をすべて取得する
 
 ```shell

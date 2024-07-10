@@ -94,3 +94,14 @@ jq '.Reservations[].Instances[] | { IP: .PrivateIpAddress, Ambiente: ((.Tags[] |
 [jqを利用してエスケープ処理済みのJSON文字列を作成する方法 | DevelopersIO](https://dev.classmethod.jp/articles/how-to-create-an-escaped-json-string-using-jq/)
 
 `jq '@json'`
+
+## 変数を利用する
+
+[[jq 環境変数を使う]]
+
+## JSONをマージする
+
+```shell
+cat input.json | jq -c --arg newValue $NEW_VALUE '. + { new: $newValue }')
+```
+

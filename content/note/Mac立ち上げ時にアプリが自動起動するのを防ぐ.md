@@ -55,7 +55,7 @@ $ launchctl list | grep eaa
 
 plistファイルを `sudo vim /Library/LaunchAgents/net.eaacloop.eaaclient.plist` で開いて、 `RunAtLoad` をfalseにする。
 
-```plist
+```diff
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
@@ -66,7 +66,8 @@ plistファイルを `sudo vim /Library/LaunchAgents/net.eaacloop.eaaclient.plis
       <string>/Applications/EAAClient.app/Contents/MacOS/EAAClient</string>
     </array>
     <key>RunAtLoad</key>
-    <false/>
+-   <true/>
++   <false/>
     <key>KeepAlive</key>
     <false/>
     <key>version</key>

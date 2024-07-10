@@ -1,5 +1,5 @@
 ---
-title: Java OpenTelemetry agent
+title: Java OpenTelemetry agentによる自動計装
 date: 2024-04-10T11:57:00+09:00
 tags:
   - Java

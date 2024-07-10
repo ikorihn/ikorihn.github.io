@@ -93,3 +93,4 @@ func getUser(ctx context.Context, id string) string {
 ```
 
 [[OpenTelemetry CollectorとJeagerでテレメトリを収集・可視化してみる]] でcollector, jeagerを立てて可視化する
+

@@ -6,8 +6,6 @@ tags:
 lastmod: "2022-12-09T15:11:00+09:00"
 ---
 
-#git
-
 ## Shallow clone
 
 `depth` を指定すると、その数のコミットログだけを取得するので、コミット数の多いリポジトリでデータ量を削減できる。
@@ -20,6 +18,26 @@ $ git clone --depth=1 -b main git@github.com:git/git.git
 ```
 
 git log で過去のログを見ることはできない。CIなどでビルドするときによく使われる
+
+## Partial clone
+
+フルクローンに対し、ツリーやブロブなど一部の情報のみを取得する。
+
+### Blobless clone
+
+HEADのブロブと履歴のtreeを取得し、履歴上のブロブは必要になったときに取得する。
+
+```shell
+$  git clone --filter=blob:none git@github.com:git/git.git
+```
+
+### Treeless clone
+
+HEADのブロブと到達可能なコミットをダウンロードし、ツリーとブロブは必要になったときに取得する
+
+```shell
+$  git clone --filter=tree:0 git@github.com:git/git.git
+```
 
 ## Sparse checkout
 

@@ -65,8 +65,17 @@ $ ./main.ts
 # Hello
 ```
 
+
+ほかにもzxにはminimistなどのパッケージが組み込まれているので引数をパースすることもできる
+[API Reference | google/zx](https://google.github.io/zx/api#minimist)
+
 ## 参考
 
 - [zxの紹介 〜 さよならシェルスクリプト そして伝説へ｜Offers Tech Blog](https://zenn.dev/overflow_offers/articles/20220606-zx-introduction)
 - [Google発のJavaScriptで書けるシェル 「zx」 | DevelopersIO](https://dev.classmethod.jp/articles/shell-zx/)
 - [google/zx を使って辛みの少ないスクリプトを書きたい | t28.dev](https://t28.dev/blog/write-script-using-zx/)
+
+
+## 関連
+
+- [[minimistをラップしてkebab-caseのオプションをcamelCaseのフィールドに変換する処理を作った]] 
