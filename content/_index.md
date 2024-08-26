@@ -9,7 +9,7 @@ lastmod: 2024-01-08T10:00:00+09:00
 > 
 > 本サイトは [Quartz](https://github.com/jackyzha0/quartz) で作成した [digital garden](https://jzhao.xyz/posts/networked-thought) です。
 > 
-> [Obsidian で自分用に作成しているノートから一部を公開](blog/Quartzを使ってObsidianを無料で公開してみた.md) していて、書きかけのものや誤りを含む可能性がありますがご了承ください 🙏
+> [Obsidian で自分用に作成しているノートから一部を公開](blog/Quartz%20v4でObsidianを公開した.md) していて、書きかけのものや誤りを含む可能性がありますがご了承ください 🙏
 
 ## Contents
 
@@ -21,9 +21,22 @@ lastmod: 2024-01-08T10:00:00+09:00
 Obsidianで取っているメモ。最低限自分がわかればOKくらいのレベルで書かれています。
 
 ### [🏷️ Tags](/tags/) 
-タグ一覧
+
+タグ一覧。よく使いそうなタグはこちら
+
+- [Go](/tags/Go)
+- [TypeScript](/tags/TypeScript)
+- [Neovim](/tags/Neovim)
+- [Vim](/tags/Vim)
+- [Zsh](/tags/Zsh)
+- [obsidian](/tags/obsidian)
+- [Git](/tags/Git)
+- [Jenkins](/tags/Jenkins)
+- [Docker](/tags/Docker)
+- [Kubernetes](/tags/Kubernetes)
 
 ### [🪨 Archives](/archive/) 
+
 年ごとのノート一覧
 
 ## About me
