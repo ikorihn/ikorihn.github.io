@@ -44,7 +44,13 @@ export const defaultContentPageLayout: PageLayout = {
   left,
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Graph(),
+    Component.Graph({
+      localGraph: {
+        depth: 3, // how many hops of notes to display
+        linkDistance: 15, // how long should the links be by default?
+      },
+      globalGraph: {},
+    }),
     Component.Backlinks(),
     Component.Archive(),
   ],
