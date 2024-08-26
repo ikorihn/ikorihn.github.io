@@ -17,7 +17,7 @@ tags:
 -   Googleの各サービスと連携して、閲覧編集できる
     -   Gmail
     -   Googleカレンダー
-    -   Googleスプレッドシート
+    
     -   Googleドキュメント
     -   Googleフォーム
 -   インストール不要でブラウザ上で編集できる

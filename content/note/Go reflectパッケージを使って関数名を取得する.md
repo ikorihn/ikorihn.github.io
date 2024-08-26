@@ -5,7 +5,7 @@ tags:
   - Go
 ---
 
-[runtime.FuncForPC](https://pkg.go.dev/runtime#FuncForPC) を使う
+`reflect.ValueOf().Pointer()` と [runtime.FuncForPC](https://pkg.go.dev/runtime#FuncForPC) を組み合わせる
 
 ```go
 func FunctionName(i any) string {
